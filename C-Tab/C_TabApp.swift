@@ -11,7 +11,7 @@ import SwiftUI
 struct C_TabApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabListView()
         }
     }
 }

@@ -15,5 +15,5 @@ struct PortfolioView: View {
 }
 
 #Preview {
-    PortfolioView()
+    TabListView()
 }

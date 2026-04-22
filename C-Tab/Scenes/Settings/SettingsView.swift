@@ -20,5 +20,5 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
+    TabListView()
 }

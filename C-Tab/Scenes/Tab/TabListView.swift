@@ -7,9 +7,10 @@
 import SwiftUI
 
 struct TabListView: View {
+    @State var selected: Int = 0
     var body: some View {
-        TabView {
-            Text("Home")
+        TabView(selection: $selected) {
+            HomeView()
                 .tag(0)
                 .tabItem {
                     Image(systemName: "house")

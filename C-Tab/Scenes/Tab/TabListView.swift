@@ -26,7 +26,7 @@ struct TabListView: View {
                     Image(systemName: "star")
                 }
             Text("Settings")
-                .tag(2)
+                .tag(3)
                 .tabItem {
                     Image(systemName: "gear")
                 }

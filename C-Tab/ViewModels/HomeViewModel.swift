@@ -34,6 +34,12 @@ final class HomeViewModel: ObservableObject {
                 socialImage: "x",
                 topicTitle: "The Vovo protocol was hacked...",
                 topicHours: "17h"
+            ),
+            Topic(
+                id: "3",
+                socialImage: "bybit",
+                topicTitle: "bla-bla-bla-bla",
+                topicHours: "23h"
             )
         ]
         

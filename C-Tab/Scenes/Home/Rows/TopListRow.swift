@@ -10,21 +10,21 @@ import SwiftUI
 
 struct TopListRow: View {
 
-    let topicItems: TopList
+    let topListItems: TopList
 
     var body: some View {
         HStack {
-            Text(topicItems.id)
+            Text(topListItems.id)
                 .foregroundStyle(.gray)
             HStack {
-                Image(topicItems.tokenLogo)
+                Image(topListItems.tokenLogo)
                     .resizable()
                     .frame(width: 25, height: 25)
                 
                 VStack(alignment: .leading) {
-                    Text(topicItems.tokenName)
+                    Text(topListItems.tokenName)
                         .font(.headline)
-                    Text("$\(topicItems.tokenCapitalization) T")
+                    Text("$\(topListItems.tokenCapitalization) T")
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
@@ -33,8 +33,8 @@ struct TopListRow: View {
             Spacer()
 
             HStack(spacing: 10) {
-                Text("$\(topicItems.tokenPrice)")
-                Text("\(topicItems.diffPrice)%")
+                Text("$" + topListItems.tokenPrice)
+                Text(topListItems.diffPrice + "%")
                     .padding(.leading, 20)
                     .foregroundStyle(.green)
             }
@@ -44,7 +44,7 @@ struct TopListRow: View {
 
 #Preview {
     TopListRow(
-        topicItems: TopList(
+        topListItems: TopList(
             id: "1",
             tokenLogo: "btc",
             tokenName: "BTC",

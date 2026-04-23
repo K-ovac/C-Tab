@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-struct TopGainersView: View {
-//    var tokenImage: Image
-    var tokenName: String
-    var tokenPrice: String
-    var diffPrice: String
+struct TopGainersRow: View {
+    
+    let topGainersItems: Gainer
     
     var body: some View {
         HStack {
@@ -20,14 +18,14 @@ struct TopGainersView: View {
                     .resizable()
                     .frame(width: 20, height: 20)
                     .foregroundStyle(.green)
-                Text(tokenName)
+                Text(topGainersItems.tokenName)
             }
             Spacer()
             
             HStack(spacing: 50) {
-                Text(tokenPrice)
+                Text(topGainersItems.tokenPrice)
                     .font(.system(size: 17))
-                Text(diffPrice)
+                Text(topGainersItems.diffPrice)
                     .background(Color.green)
                     .cornerRadius(8)
             }
@@ -39,10 +37,12 @@ struct TopGainersView: View {
 }
 
 #Preview {
-    TopGainersView(
-//        tokenImage: Image(systemName: "tray.circle.fill"),
-        tokenName: "Edge",
-        tokenPrice: "$" + String(1.48),
-        diffPrice: String(11.84) + "%"
+    TopGainersRow(
+        topGainersItems: Gainer(
+            id: "1",
+            tokenName: "Edge",
+            tokenPrice: "$" + String(1.48),
+            diffPrice: String(11.84) + "%"
+        )
     )
 }

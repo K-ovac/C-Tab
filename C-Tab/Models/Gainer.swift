@@ -1,5 +1,5 @@
 //
-//  TopGainer.swift
+//  Gainer.swift
 //  C-Tab
 //
 //  Created by Максим Лозебной on 23.04.2026.

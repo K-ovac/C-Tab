@@ -8,125 +8,157 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @StateObject private var viewModel = HomeViewModel()
+    
     var body: some View {
-        VStack {
-            HStack(alignment: .center) {
+        NavigationStack {
+            VStack {
+                
+                
+                List {
+                    topicsSection
+                    topListSection
+                        .listRowSeparator(.hidden)
+                } .listStyle(.grouped)
+                
+            } .navigationTitle("List")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    leadingToolbar
+                    trailingToolbar
+                }
+                .navigationDestination(isPresented: $viewModel.showSearch) {
+                    SearchView()
+                }
+        }
+    }
+}
+
+extension HomeView {
+    
+    private var leadingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+                viewModel.showProfile.toggle()
+            } label: {
+                Image(systemName: "person.fill")
+            } .sheet(isPresented: $viewModel.showProfile) {
+                ProfileView()
+            }
+        }
+    }
+    
+    private var trailingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            HStack {
                 Button {
-                    //
+                    print("category tapped")
                 } label: {
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .foregroundStyle(Color.gray)
+                    Image(systemName: "square.grid.2x2")
                 }
-                
-                Spacer()
-                
-                HStack(alignment: .center) {
-                    Image(systemName: "house")
-                        .resizable()
-                        .frame(width: 35, height: 30)
-                        .foregroundStyle(Color.gray)
-                    Text("C-Tab")
-                        .font(Font.system(size: 20, weight: .black))
-                        .foregroundStyle(Color.gray)
+                Button {
+                    print("search tapped")
+                    viewModel.showSearch.toggle()
+                } label: {
+                    Image(systemName: "magnifyingglass")
                 }
-                
+            }
+        }
+    }
+    
+    private var topicsSection: some View {
+        Section {
+            ForEach(viewModel.topics) { topic in
+                TopicsRow(
+                    socialImage: topic.socialImage,
+                    topicTitle: topic.topicTitle,
+                    topicHours: topic.topicHours
+                )
+            }
+        } header: {
+            HStack {
+                Text("Topics")
                 Spacer()
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Text("See more")
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .frame(width: 10, height: 12)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var topListSection: some View {
+        Section {
+            ForEach(viewModel.topList) { item in
+                TopListRow(topicItems: item)
+            }
+        } header: {
+            VStack {
+                HStack {
+                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 6)
+                            .foregroundStyle(.gray)
+                        Button {
+                            //
+                        } label: {
+                            Text("Top 100")
+                                .foregroundStyle(.white)
+                                .font(.system(size: 14, weight: .regular))
+                            
+                        }
+                    }
+                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 6)
+                            .foregroundStyle(.gray)
+                        
+                        Button {
+                            //
+                        } label: {
+                            Text("24h %")
+                                .foregroundStyle(.white)
+                                .font(.system(size: 14, weight: .regular))
+                        }
+                    }
+                }
                 
                 HStack {
                     Button {
                         //
                     } label: {
-                        Image(systemName: "location.circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundStyle(Color.gray)
+                        Text("Asset/M.Cap")
+                            .foregroundStyle(.black)
+                            .font(.system(size: 11, weight: .regular))
                     }
+                    Spacer()
+                    
                     Button {
                         //
                     } label: {
-                        Image(systemName: "magnifyingglass.circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundStyle(Color.gray)
+                        Text("Price")
+                            .foregroundStyle(.black)
+                            .font(.system(size: 11, weight: .regular))
+                    }
+                    Spacer()
+                    
+                    Button {
+                        //
+                    } label: {
+                        Text("24h %")
+                            .foregroundStyle(.black)
+                            .font(.system(size: 11, weight: .regular))
                     }
                 }
-            }
-            .frame(maxWidth: .infinity, maxHeight: 40)
-            
-            List {
-                Section("Topics") {
-                    TopicsView(
-                        socialImage: "x",
-                        topicTitle: "Justin Sun has field a lawsuit against World Liberty Financial (WLFI).",
-                        topicHours: "13h"
-                    )
-                    TopicsView(
-                        socialImage: "x",
-                        topicTitle: "The Vovo protocol on Sui was hacked for $3.5 million.",
-                        topicHours: "17h"
-                    )
-                    TopicsView(
-                        socialImage: "bybit",
-                        topicTitle: "Tether has minted 1 billion USDT on the ETH network.",
-                        topicHours: "20h"
-                    )
-                }
-                
-                Section("Top Gainers") {
-                    TopGainersView(
-                        tokenName: "Edge",
-                        tokenPrice: "$" + String(1.48),
-                        diffPrice: String(11.84) + "%"
-                    )
-                    TopGainersView(
-                        tokenName: "PENGU",
-                        tokenPrice: "$" + String(0.008369),
-                        diffPrice: String(10.33) + "%"
-                    )
-                    TopGainersView(
-                        tokenName: "PENGU",
-                        tokenPrice: "$" + String(0.008369),
-                        diffPrice: String(10.33) + "%"
-                    )
-                }
-                
-                Section("Top 100") {
-                    TopListView(id: "1",
-                                tokenLogo: "btc",
-                                tokenName: "BTC",
-                                tokenCapitalization: 1.57,
-                                tokenPrice: 78_536.23,
-                                diffPrice: 4.88
-                    )
-                    TopListView(id: "2",
-                                tokenLogo: "eth",
-                                tokenName: "ETH",
-                                tokenCapitalization: 290.09,
-                                tokenPrice: 2_402.48,
-                                diffPrice: 3.27
-                    )
-                    TopListView(id: "3",
-                                tokenLogo: "usdt",
-                                tokenName: "USDT",
-                                tokenCapitalization: 188.49,
-                                tokenPrice: 1.00,
-                                diffPrice: 0
-                    )
-                }
-            }
-            .padding(.horizontal, -16)
-            .frame(maxWidth: .infinity)
-            .onTapGesture {
-                print("tapped")
-            }
-            .background(Color.clear)
-            
+            } .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, 16)
-        .frame(maxWidth: .infinity)
-        
     }
 }
 

@@ -58,25 +58,26 @@ struct TopListHeader: View {
                 }
                 Spacer()
                 
-                Button {
-                    actionSortByPrice()
-                } label: {
-                    Text("Price")
-                        .font(.system(size: 11, weight: .regular))
-                    Image(systemName: "chevron.down")
-                        .resizable()
-                        .frame(width: 8, height: 6)
-                }
-                Spacer()
-                
-                Button {
-                    actionSortByDiffPrice()
-                } label: {
-                    Text("24h %")
-                        .font(.system(size: 11, weight: .regular))
-                    Image(systemName: "chevron.down")
-                        .resizable()
-                        .frame(width: 8, height: 6)
+                HStack(spacing: 10) {
+                    Button {
+                        actionSortByPrice()
+                    } label: {
+                        Text("Price")
+                            .font(.system(size: 11, weight: .regular))
+                        Image(systemName: "chevron.down")
+                            .resizable()
+                            .frame(width: 8, height: 6)
+                    }
+                    
+                    Button {
+                        actionSortByDiffPrice()
+                    } label: {
+                        Text("24h %")
+                            .font(.system(size: 11, weight: .regular))
+                        Image(systemName: "chevron.down")
+                            .resizable()
+                            .frame(width: 8, height: 6)
+                    } .padding(.leading, 20)
                 }
             }.foregroundStyle(.foreground)
         }
@@ -84,5 +85,5 @@ struct TopListHeader: View {
 }
 
 #Preview {
-//    TopListHeader()
+    //    TopListHeader()
 }

@@ -59,7 +59,7 @@ final class HomeViewModel: ObservableObject {
                 id: "1",
                 tokenLogo: "btc",
                 tokenName: "BTC",
-                tokenCapitalization: "1_57",
+                tokenCapitalization: "1.57",
                 tokenPrice: "78536.23",
                 diffPrice: "4.88"
             ),
@@ -87,7 +87,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     func sortByCapitalization() {
-        topList.sort { $0.tokenName > $1.tokenName }
+        topList.sort { $0.tokenCapitalization > $1.tokenCapitalization }
     }
     
     func sortByTokenPrice() {

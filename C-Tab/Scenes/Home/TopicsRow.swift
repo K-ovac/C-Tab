@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TopicsView: View {
+struct TopicsRow: View {
     var socialImage: String
     var topicTitle: String
     var topicHours: String
@@ -25,11 +25,12 @@ struct TopicsView: View {
                 .font(.system(size: 13))
         }
         .frame(maxWidth: .infinity)
+        .background(.clear)
     }
 }
 
 #Preview {
-    TopicsView(
+    TopicsRow(
         socialImage: "x",
         topicTitle: "Justin Sun has field a lawsuit against World Liberty Financial (WLFI).",
         topicHours: "12h"

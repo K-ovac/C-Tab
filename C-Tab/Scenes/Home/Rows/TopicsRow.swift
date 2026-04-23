@@ -8,31 +8,41 @@
 import SwiftUI
 
 struct TopicsRow: View {
-    var socialImage: String
-    var topicTitle: String
-    var topicHours: String
+    
+    let topicsItems: Topic
     
     var body: some View {
-        HStack {
-            Image(socialImage)
-                .resizable()
-                .frame(width: 30, height: 30)
-                .cornerRadius(8)
-            Text(topicTitle)
-            Spacer()
-            Text(topicHours)
+        ZStack {
+            Rectangle()
                 .foregroundStyle(.gray)
-                .font(.system(size: 13))
-        }
-        .frame(maxWidth: .infinity)
-        .background(.clear)
+                .opacity(0.3)
+            HStack {
+                Image(topicsItems.socialImage)
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .cornerRadius(8)
+                Text(topicsItems.topicTitle)
+                    .font(.system(size: 16, weight: .regular))
+                Spacer()
+                Text(topicsItems.topicHours)
+                    .foregroundStyle(.white)
+                    .opacity(0.9)
+                    .font(.system(size: 13))
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 5)
+        } .frame(maxHeight: .infinity)
+            .cornerRadius(8)
     }
 }
 
 #Preview {
     TopicsRow(
-        socialImage: "x",
-        topicTitle: "Justin Sun has field a lawsuit against World Liberty Financial (WLFI).",
-        topicHours: "12h"
+        topicsItems: Topic(
+            id: "1",
+            socialImage: "x",
+            topicTitle: "Justin Sun has filed a lawsuit...",
+            topicHours: "13h"
+        )
     )
 }

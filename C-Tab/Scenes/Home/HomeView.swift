@@ -14,13 +14,19 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
-                
                 List {
                     topicsSection
+                        .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 0, trailing: 16))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    topGainersSection
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                     topListSection
                         .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                 } .listStyle(.grouped)
+                    .scrollContentBackground(.hidden)
                 
             } .navigationTitle("List")
                 .navigationBarTitleDisplayMode(.inline)
@@ -30,6 +36,9 @@ struct HomeView: View {
                 }
                 .navigationDestination(isPresented: $viewModel.showSearch) {
                     SearchView()
+                }
+                .navigationDestination(isPresented: $viewModel.showMoreTopics) {
+                    MoreTopicsView()
                 }
         }
     }
@@ -70,14 +79,20 @@ extension HomeView {
     private var topicsSection: some View {
         Section {
             ForEach(viewModel.topics) { topic in
-                TopicsRow(
-                    socialImage: topic.socialImage,
-                    topicTitle: topic.topicTitle,
-                    topicHours: topic.topicHours
-                )
+                TopicsRow(topicsItems: topic)
             }
         } header: {
-            TopicsHeader()
+            TopicsHeader(action: viewModel.openMoreTopics)
+        }
+    }
+    
+    private var topGainersSection: some View {
+        Section {
+            ForEach(viewModel.gainers) { gainer in
+                TopGainersRow(topGainersItems: gainer)
+            }
+        } header: {
+            TopGainerHeader()
         }
     }
     

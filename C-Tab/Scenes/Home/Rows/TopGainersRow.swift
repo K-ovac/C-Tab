@@ -14,7 +14,7 @@ struct TopGainersRow: View {
     var body: some View {
         HStack {
             HStack {
-                Image(systemName: "tray.circle.fill")
+                Image(systemName: topGainersItems.tokenImage)
                     .resizable()
                     .frame(width: 20, height: 20)
                     .foregroundStyle(.green)
@@ -40,6 +40,7 @@ struct TopGainersRow: View {
     TopGainersRow(
         topGainersItems: Gainer(
             id: "1",
+            tokenImage: "tray.circle.fill",
             tokenName: "Edge",
             tokenPrice: "$" + String(1.48),
             diffPrice: String(11.84) + "%"

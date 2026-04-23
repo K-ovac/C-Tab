@@ -15,6 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var topList: [TopList] = []
     @Published var showProfile = false
     @Published var showSearch = false
+    @Published var showMoreTopics = false
     
     init() {
         loadData()
@@ -25,20 +26,20 @@ final class HomeViewModel: ObservableObject {
             Topic(
                 id: "1",
                 socialImage: "x",
-                topicTitle: "Justin Sun has filed a lawsuit...",
+                topicTitle: "MegaETH announced the TGE for April 30.",
                 topicHours: "13h"
             ),
             
             Topic(
                 id: "2",
                 socialImage: "x",
-                topicTitle: "The Vovo protocol was hacked...",
+                topicTitle: "Tether has frozen 344 million USDT on the Tron network.",
                 topicHours: "17h"
             ),
             Topic(
                 id: "3",
                 socialImage: "bybit",
-                topicTitle: "bla-bla-bla-bla",
+                topicTitle: "Blockchain Capital plans to raise $700 million for two new funds.",
                 topicHours: "23h"
             )
         ]
@@ -46,6 +47,7 @@ final class HomeViewModel: ObservableObject {
         gainers = [
             Gainer(
                 id: "1",
+                tokenImage: "tray.circle.fill",
                 tokenName: "Edge",
                 tokenPrice: "1.54",
                 diffPrice: "10.83"
@@ -78,5 +80,9 @@ final class HomeViewModel: ObservableObject {
                 diffPrice: "--"
             )
         ]
+    }
+    
+    func openMoreTopics() {
+        showMoreTopics = true
     }
 }

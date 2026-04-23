@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct TopicsHeader: View {
+    let action: () -> Void
+    
     var body: some View {
         HStack {
             Text("Topics")
             Spacer()
             Button {
-                
+                action()
             } label: {
                 HStack {
                     Text("See more")
@@ -27,5 +29,5 @@ struct TopicsHeader: View {
 }
 
 #Preview {
-    TopicsHeader()
+//    TopicsHeader()
 }

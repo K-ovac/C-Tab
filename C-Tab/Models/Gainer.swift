@@ -9,6 +9,7 @@ import Foundation
 
 struct Gainer: Identifiable {
     let id: String
+    let tokenImage: String
     let tokenName: String
     let tokenPrice: String
     let diffPrice: String

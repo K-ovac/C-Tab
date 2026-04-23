@@ -15,6 +15,7 @@ struct TopListHeader: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundStyle(.gray)
+                        .opacity(0.3)
                     Button {
                         //
                     } label: {
@@ -28,6 +29,7 @@ struct TopListHeader: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundStyle(.gray)
+                        .opacity(0.3)
                     
                     Button {
                         //
@@ -37,7 +39,7 @@ struct TopListHeader: View {
                             .font(.system(size: 14, weight: .regular))
                     }
                 }
-            }
+            } .frame(height: 35)
             
             HStack {
                 Button {
@@ -71,7 +73,7 @@ struct TopListHeader: View {
                         .resizable()
                         .frame(width: 8, height: 6)
                 }
-            } .foregroundStyle(.black)
+            }.foregroundStyle(.foreground)
         }
     }
 }

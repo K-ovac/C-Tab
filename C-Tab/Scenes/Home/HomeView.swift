@@ -102,7 +102,11 @@ extension HomeView {
                 TopListRow(topListItems: item)
             }
         } header: {
-            TopListHeader()
+            TopListHeader(
+                actionSortByCapitalization: viewModel.sortByCapitalization,
+                actionSortByPrice: viewModel.sortByTokenPrice,
+                actionSortByDiffPrice: viewModel.sortByDiffPrice
+            )
         } .frame(maxWidth: .infinity)
     }
 }

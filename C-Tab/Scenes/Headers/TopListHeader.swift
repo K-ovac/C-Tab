@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct TopListHeader: View {
+    
+    let actionSortByCapitalization: () -> Void
+    let actionSortByPrice: () -> Void
+    let actionSortByDiffPrice: () -> Void
+    
     var body: some View {
         VStack(spacing: 10) {
             HStack {
@@ -43,7 +48,7 @@ struct TopListHeader: View {
             
             HStack {
                 Button {
-                    //
+                    actionSortByCapitalization()
                 } label: {
                     Text("Asset/M.Cap")
                         .font(.system(size: 11, weight: .regular))
@@ -54,7 +59,7 @@ struct TopListHeader: View {
                 Spacer()
                 
                 Button {
-                    //
+                    actionSortByPrice()
                 } label: {
                     Text("Price")
                         .font(.system(size: 11, weight: .regular))
@@ -65,7 +70,7 @@ struct TopListHeader: View {
                 Spacer()
                 
                 Button {
-                    //
+                    actionSortByDiffPrice()
                 } label: {
                     Text("24h %")
                         .font(.system(size: 11, weight: .regular))
@@ -79,5 +84,5 @@ struct TopListHeader: View {
 }
 
 #Preview {
-    TopListHeader()
+//    TopListHeader()
 }

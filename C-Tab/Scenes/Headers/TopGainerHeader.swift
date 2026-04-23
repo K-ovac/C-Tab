@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TopGainerHeader: View {
     var body: some View {
-        Text("Top Gainer")
+        Text("Top Gainers")
     }
 }
 

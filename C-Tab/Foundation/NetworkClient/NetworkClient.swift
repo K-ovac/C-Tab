@@ -13,7 +13,7 @@ enum NetworkError: Error {
     case httpStatusCode(Int)
     case urlRequestError(Error)
     case urlSessionError
-    case decodingError(Error)
+    case decodeError(Error)
 }
 
 protocol NetworkRouting {
@@ -26,6 +26,8 @@ struct NetworkClient: NetworkRouting {
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
     
+    private static let codeRange = 200..<300
+    
     init(
         session: URLSession = URLSession.shared,
         decoder: JSONDecoder = JSONDecoder(),
@@ -34,6 +36,15 @@ struct NetworkClient: NetworkRouting {
         self.session = session
         self.decoder = decoder
         self.encoder = encoder
+    }
+    
+    private func parse<T: Decodable>(_ data: Data, type _: T.Type) -> Result<T, Error> {
+        do {
+            let decoded = try decoder.decode(T.self, from: data)
+            return .success(decoded)
+        } catch {
+            return .failure(NetworkError.decodeError(error))
+        }
     }
     
     func fetchData(url: URL, handler: @escaping NetworkCopmletion) {
@@ -45,7 +56,7 @@ struct NetworkClient: NetworkRouting {
                 return
             }
             
-            guard 200..<300 ~= response.statusCode else {
+            guard NetworkClient.codeRange ~= response.statusCode else {
                 handler(.failure(NetworkError.httpStatusCode(response.statusCode)))
                 return
             }
@@ -63,5 +74,17 @@ struct NetworkClient: NetworkRouting {
         }
         
         task.resume()
+    }
+    
+    func parse<T: Decodable>(url: URL, type: T.Type, handler: @escaping (Result<T, Error>) -> Void) {
+        fetchData(url: url) { result in
+            switch result {
+            case .success(let data):
+                let parsed = parse(data, type: T.self)
+                handler(parsed)
+            case .failure(let error):
+                handler(.failure(error))
+            }
+        }
     }
 }

@@ -99,7 +99,7 @@ extension HomeView {
     private var topListSection: some View {
         Section {
             ForEach(viewModel.topList) { item in
-                TopListRow(topListItems: item)
+                TopListRow(token: item)
             }
         } header: {
             TopListHeader(
@@ -107,7 +107,7 @@ extension HomeView {
                 actionSortByPrice: viewModel.sortByTokenPrice,
                 actionSortByDiffPrice: viewModel.sortByDiffPrice
             )
-        } .frame(maxWidth: .infinity)
+        }
     }
 }
 

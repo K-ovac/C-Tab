@@ -46,6 +46,7 @@ struct NetworkClient: NetworkRouting {
         encoder: JSONEncoder = JSONEncoder()
     ) {
         self.session = session
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         self.decoder = decoder
         self.encoder = encoder
     }

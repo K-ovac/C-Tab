@@ -12,7 +12,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published var topics: [Topic] = []
     @Published var gainers: [Gainer] = []
-    @Published var topList: [TopList] = []
+    @Published var topList: [Token] = []
     @Published var showProfile = false
     @Published var showSearch = false
     @Published var showMoreTopics = false
@@ -55,30 +55,54 @@ final class HomeViewModel: ObservableObject {
         ]
         
         topList = [
-            TopList(
-                id: "1",
-                tokenLogo: "btc",
-                tokenName: "BTC",
-                tokenCapitalization: "1.57",
-                tokenPrice: "78536.23",
-                diffPrice: "4.88"
+            Token(
+                id: 1,
+                name: "Bitcoin",
+                symbol: "BTC",
+                slug: "bitcoin",
+                dateAdded: "2010-07-13",
+                lastUpdated: "2026-04-25",
+                cmcRank: 1,
+                quote: Quote(usd: UsdValues(
+                    price: 77687.66266199,
+                    volume24h: 234234.546,
+                    cexVolume24h: 34654667567,
+                    dexVolume24h: 435346.546,
+                    volumeChange24h: -26.234,
+                    percentChange1h: 0.324,
+                    percentChange24h: -0.2534,
+                    percentChange7d: 1.33545,
+                    percentChange30d: 11.3425,
+                    percentChange60d: 22.34532,
+                    percentChange90d: -12.4312,
+                    marketCap: 1_553.1242345,
+                    marketCapDominance: 59.9617
+                ))
             ),
-            TopList(
-                id: "2",
-                tokenLogo: "eth",
-                tokenName: "ETH",
-                tokenCapitalization: "290.09",
-                tokenPrice: "2402.48",
-                diffPrice: "3.27"
+            Token(
+                id: 2,
+                name: "Ethereum",
+                symbol: "ETH",
+                slug: "ethereum",
+                dateAdded: "2010-07-13",
+                lastUpdated: "2026-04-25",
+                cmcRank: 1,
+                quote: Quote(usd: UsdValues(
+                    price: 2687.66266199,
+                    volume24h: 234234.546,
+                    cexVolume24h: 34654667567,
+                    dexVolume24h: 435346.546,
+                    volumeChange24h: -26.234,
+                    percentChange1h: 0.324,
+                    percentChange24h: 1.2534,
+                    percentChange7d: 1.33545,
+                    percentChange30d: 11.3425,
+                    percentChange60d: 22.34532,
+                    percentChange90d: -12.4312,
+                    marketCap: 534.1242345,
+                    marketCapDominance: 59.9617
+                ))
             ),
-            TopList(
-                id: "3",
-                tokenLogo: "usdt",
-                tokenName: "USDT",
-                tokenCapitalization: "188.99",
-                tokenPrice: "1.00",
-                diffPrice: "--"
-            )
         ]
     }
     
@@ -87,14 +111,14 @@ final class HomeViewModel: ObservableObject {
     }
     
     func sortByCapitalization() {
-        topList.sort { $0.tokenCapitalization > $1.tokenCapitalization }
+        topList.sort { $0.quote.usd.marketCap > $1.quote.usd.marketCap }
     }
     
     func sortByTokenPrice() {
-        topList.sort { $0.tokenPrice > $1.tokenPrice }
+        topList.sort { $0.quote.usd.price > $1.quote.usd.price }
     }
     
     func sortByDiffPrice() {
-        topList.sort { $0.diffPrice > $1.diffPrice }
+        topList.sort { $0.quote.usd.percentChange24h > $1.quote.usd.percentChange24h }
     }
 }

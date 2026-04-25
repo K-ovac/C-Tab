@@ -9,32 +9,32 @@ import SwiftUI
 
 
 struct TopListRow: View {
-
-    let topListItems: TopList
-
+    
+    let token: Token
+    
     var body: some View {
         HStack {
-            Text(topListItems.id)
+            Text(String(token.id))
                 .foregroundStyle(.gray)
             HStack {
-                Image(topListItems.tokenLogo)
+                Image("btc")
                     .resizable()
                     .frame(width: 25, height: 25)
                 
                 VStack(alignment: .leading) {
-                    Text(topListItems.tokenName)
+                    Text(token.symbol)
                         .font(.headline)
-                    Text("$\(topListItems.tokenCapitalization) T")
+                    Text("$" + String(format: "%.2f", token.quote.usd.marketCap) + "T")
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
             }
-
+            
             Spacer()
-
+            
             HStack(spacing: 10) {
-                Text("$" + topListItems.tokenPrice)
-                Text(topListItems.diffPrice + "%")
+                Text("$" + String(format: "%.2f", token.quote.usd.price))
+                Text(String(format: "%.2f", token.quote.usd.percentChange24h) + "%")
                     .padding(.leading, 20)
                     .foregroundStyle(.green)
             }
@@ -44,13 +44,29 @@ struct TopListRow: View {
 
 #Preview {
     TopListRow(
-        topListItems: TopList(
-            id: "1",
-            tokenLogo: "btc",
-            tokenName: "BTC",
-            tokenCapitalization: "1.57",
-            tokenPrice: "78536.23",
-            diffPrice: "4.95"
+        token: Token(
+            id: 1,
+            name: "Bitcoin",
+            symbol: "BTC",
+            slug: "bitcoin",
+            dateAdded: "2010-07-13",
+            lastUpdated: "2026-04-25",
+            cmcRank: 1,
+            quote: Quote(usd: UsdValues(
+                price: 77.68766266199,
+                volume24h: 234234.546,
+                cexVolume24h: 34654667567,
+                dexVolume24h: 435346.546,
+                volumeChange24h: -26.234,
+                percentChange1h: 0.324,
+                percentChange24h: -0.2534,
+                percentChange7d: 1.33545,
+                percentChange30d: 11.3425,
+                percentChange60d: 22.34532,
+                percentChange90d: -12.4312,
+                marketCap: 155346456457.1242345,
+                marketCapDominance: 59.9617)
+            )
         )
     )
 }

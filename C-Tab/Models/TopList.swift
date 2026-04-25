@@ -5,11 +5,41 @@
 //  Created by Максим Лозебной on 23.04.2026.
 //
 
-struct TopList: Identifiable {
-    let id: String
-    let tokenLogo: String
-    let tokenName: String
-    let tokenCapitalization: String
-    let tokenPrice: String
-    let diffPrice: String
+struct Token: Codable, Identifiable {
+    let id: Int
+    let name: String
+    let symbol: String
+    let slug: String
+    let dateAdded: String
+    let lastUpdated: String
+    let cmcRank: Int
+    let quote: Quote
+}
+
+struct UsdValues: Codable {
+    let price: Double
+    let volume24h: Double
+    let cexVolume24h: Double
+    let dexVolume24h: Double
+    let volumeChange24h: Double
+    let percentChange1h: Double
+    let percentChange24h: Double
+    let percentChange7d: Double
+    let percentChange30d: Double
+    let percentChange60d: Double
+    let percentChange90d: Double
+    let marketCap: Double
+    let marketCapDominance: Float
+}
+
+struct Quote: Codable {
+    let usd: UsdValues
+    
+    enum CodingKeys: String, CodingKey {
+        case usd = "USD"
+    }
+}
+
+struct TopList: Codable {
+    let data: [Token]
 }

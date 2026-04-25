@@ -9,9 +9,9 @@ import SwiftUI
 
 struct TopListHeader: View {
     
-    let actionSortByCapitalization: () -> Void
+    let actionSortByMarketCap: () -> Void
     let actionSortByPrice: () -> Void
-    let actionSortByDiffPrice: () -> Void
+    let actionSortByPercent24h: () -> Void
     
     var body: some View {
         VStack(spacing: 10) {
@@ -48,7 +48,7 @@ struct TopListHeader: View {
             
             HStack {
                 Button {
-                    actionSortByCapitalization()
+                    actionSortByMarketCap()
                 } label: {
                     Text("Asset/M.Cap")
                         .font(.system(size: 11, weight: .regular))
@@ -70,7 +70,7 @@ struct TopListHeader: View {
                     }
                     
                     Button {
-                        actionSortByDiffPrice()
+                        actionSortByPercent24h()
                     } label: {
                         Text("24h %")
                             .font(.system(size: 11, weight: .regular))

@@ -18,18 +18,18 @@ struct Token: Codable, Identifiable {
 
 struct UsdValues: Codable {
     let price: Double
-    let volume24h: Double
-    let cexVolume24h: Double
-    let dexVolume24h: Double
-    let volumeChange24h: Double
-    let percentChange1h: Double
-    let percentChange24h: Double
-    let percentChange7d: Double
-    let percentChange30d: Double
-    let percentChange60d: Double
-    let percentChange90d: Double
-    let marketCap: Double
-    let marketCapDominance: Float
+    let volume24h: Double?
+    let cexVolume24h: Double?
+    let dexVolume24h: Double?
+    let volumeChange24h: Double?
+    let percentChange1h: Double?
+    let percentChange24h: Double?
+    let percentChange7d: Double?
+    let percentChange30d: Double?
+    let percentChange60d: Double?
+    let percentChange90d: Double?
+    let marketCap: Double?
+    let marketCapDominance: Double?
 }
 
 struct Quote: Codable {

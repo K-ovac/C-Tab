@@ -14,7 +14,7 @@ struct TopListRow: View {
     
     var body: some View {
         HStack {
-            Text(String(token.id))
+            Text(String(token.cmcRank))
                 .foregroundStyle(.gray)
             HStack {
                 Image("btc")
@@ -24,7 +24,7 @@ struct TopListRow: View {
                 VStack(alignment: .leading) {
                     Text(token.symbol)
                         .font(.headline)
-                    Text("$" + String(format: "%.2f", token.quote.usd.marketCap) + "T")
+                    Text("$" + (token.quote.usd.marketCap ?? 0).formatted(.number.notation(.compactName)))
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
@@ -34,9 +34,9 @@ struct TopListRow: View {
             
             HStack(spacing: 10) {
                 Text("$" + String(format: "%.2f", token.quote.usd.price))
-                Text(String(format: "%.2f", token.quote.usd.percentChange24h) + "%")
+                Text(String(format: "%.2f", (token.quote.usd.percentChange24h ?? 0)) + "%")
                     .padding(.leading, 20)
-                    .foregroundStyle(.green)
+                    .foregroundStyle((token.quote.usd.percentChange24h ?? 0).percentChangeColor)
             }
         }.background(.clear)
     }
@@ -53,7 +53,7 @@ struct TopListRow: View {
             lastUpdated: "2026-04-25",
             cmcRank: 1,
             quote: Quote(usd: UsdValues(
-                price: 77.68766266199,
+                price: 77687.66266199,
                 volume24h: 234234.546,
                 cexVolume24h: 34654667567,
                 dexVolume24h: 435346.546,
@@ -65,7 +65,8 @@ struct TopListRow: View {
                 percentChange60d: 22.34532,
                 percentChange90d: -12.4312,
                 marketCap: 155346456457.1242345,
-                marketCapDominance: 59.9617)
+                marketCapDominance: 59.9617
+            )
             )
         )
     )

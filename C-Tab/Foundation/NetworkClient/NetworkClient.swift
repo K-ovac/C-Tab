@@ -89,6 +89,10 @@ struct NetworkClient: NetworkRouting {
         let request = request(url: url, headers: headers)
         
         let task = session.dataTask(with: request) { data, response, error in
+            print("ERROR:", error as Any)
+            print("RESPONSE:", response as Any)
+            print("DATA:", data as Any)
+            print(url.absoluteString)
             guard let response = response as? HTTPURLResponse else {
                 completion(.failure(NetworkError.urlSessionError))
                 return
@@ -108,6 +112,7 @@ struct NetworkClient: NetworkRouting {
                 completion(.failure(NetworkError.urlSessionError))
                 return
             }
+            completion(.success(data))
         }
         
         task.resume()

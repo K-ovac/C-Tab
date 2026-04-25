@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var viewModel = HomeViewModel(homeService: HomeService(networkClient: NetworkClient()))
     
     var body: some View {
         NavigationStack {
@@ -103,9 +103,9 @@ extension HomeView {
             }
         } header: {
             TopListHeader(
-                actionSortByCapitalization: viewModel.sortByCapitalization,
+                actionSortByMarketCap: viewModel.sortByCapitalization,
                 actionSortByPrice: viewModel.sortByTokenPrice,
-                actionSortByDiffPrice: viewModel.sortByDiffPrice
+                actionSortByPercent24h: viewModel.sortByDiffPrice
             )
         }
     }

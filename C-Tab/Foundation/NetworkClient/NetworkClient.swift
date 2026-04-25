@@ -7,7 +7,11 @@
 
 import Foundation
 
-typealias NetworkCopmletion = (Result<Data, Error>) -> Void
+// MARK: - Aliases
+
+typealias NetworkCompletion = (Result<Data, Error>) -> Void
+
+// MARK: - NetworkError
 
 enum NetworkError: Error {
     case httpStatusCode(Int)
@@ -16,17 +20,25 @@ enum NetworkError: Error {
     case decodeError(Error)
 }
 
+// MARK: - NetworkRouting
+
 protocol NetworkRouting {
-    func fetchData(url: URL, handler: @escaping NetworkCopmletion)
+    func fetchData(url: URL, headers: [String: String], completion: @escaping NetworkCompletion)
 }
 
+// MARK: - NetworkClient
+
 struct NetworkClient: NetworkRouting {
+    
+    // MARK: - Properties
     
     private let session: URLSession
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
     
     private static let codeRange = 200..<300
+    
+    // MARK: - Init
     
     init(
         session: URLSession = URLSession.shared,
@@ -38,7 +50,11 @@ struct NetworkClient: NetworkRouting {
         self.encoder = encoder
     }
     
-    private func parse<T: Decodable>(_ data: Data, type _: T.Type) -> Result<T, Error> {
+    // MARK: - Private Methods
+    
+    private func parse<T: Decodable>(_ data: Data,
+                                     type _: T.Type
+    ) -> Result<T, Error> {
         do {
             let decoded = try decoder.decode(T.self, from: data)
             return .success(decoded)
@@ -47,28 +63,48 @@ struct NetworkClient: NetworkRouting {
         }
     }
     
-    func fetchData(url: URL, handler: @escaping NetworkCopmletion) {
-        let request = URLRequest(url: url)
+    private func request(url: URL,
+                         method: String = HttpMethod.get.value,
+                         headers: [String: String] = [:]
+    ) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        
+        let allHeaders = headers.merging([RequestConstants.apiHeader: RequestConstants.apiKey]) { _, new in new }
+        
+        allHeaders.forEach { key, value in
+            request.addValue(value, forHTTPHeaderField: key)
+        }
+        
+        return request
+    }
+    
+    // MARK: - Factory Methods
+    
+    func fetchData(url: URL,
+                   headers: [String: String] = [:],
+                   completion: @escaping NetworkCompletion
+    ) {
+        let request = request(url: url, headers: headers)
         
         let task = session.dataTask(with: request) { data, response, error in
             guard let response = response as? HTTPURLResponse else {
-                handler(.failure(NetworkError.urlSessionError))
+                completion(.failure(NetworkError.urlSessionError))
                 return
             }
             
             guard NetworkClient.codeRange ~= response.statusCode else {
-                handler(.failure(NetworkError.httpStatusCode(response.statusCode)))
+                completion(.failure(NetworkError.httpStatusCode(response.statusCode)))
                 return
             }
             
-            if let data = data {
-                handler(.success(data))
+            if let error = error {
+                completion(.failure(NetworkError.urlRequestError(error)))
                 return
-            } else if let error = error {
-                handler(.failure(error))
-                return
-            } else {
-                assertionFailure("Unexpected condition!")
+            }
+            
+            guard let data = data else {
+                completion(.failure(NetworkError.urlSessionError))
                 return
             }
         }
@@ -76,14 +112,17 @@ struct NetworkClient: NetworkRouting {
         task.resume()
     }
     
-    func parse<T: Decodable>(url: URL, type: T.Type, handler: @escaping (Result<T, Error>) -> Void) {
+    func parse<T: Decodable>(url: URL,
+                             type: T.Type,
+                             completion: @escaping (Result<T, Error>) -> Void
+    ) {
         fetchData(url: url) { result in
             switch result {
             case .success(let data):
                 let parsed = parse(data, type: T.self)
-                handler(parsed)
+                completion(parsed)
             case .failure(let error):
-                handler(.failure(error))
+                completion(.failure(error))
             }
         }
     }

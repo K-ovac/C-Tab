@@ -14,3 +14,11 @@ struct HomeRequest: NetworkRequest {
     
     var httpMethod: HttpMethod { .get }
 }
+
+struct TopGainersRequest: NetworkRequest {
+    var endpoint: URL? {
+        URL(string: RequestConstants.baseURL + "/v1/cryptocurrency/trending/gainers-losers")
+    }
+    
+    var httpMethod: HttpMethod { .get }
+}

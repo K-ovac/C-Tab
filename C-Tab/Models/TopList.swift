@@ -5,7 +5,9 @@
 //  Created by Максим Лозебной on 23.04.2026.
 //
 
-struct Token: Codable, Identifiable {
+// MARK: - Token List
+
+struct TokenList: Codable, Identifiable {
     let id: Int
     let name: String
     let symbol: String
@@ -16,7 +18,9 @@ struct Token: Codable, Identifiable {
     let quote: Quote
 }
 
-struct UsdValues: Codable {
+// MARK: - Usd Values
+
+struct TokenListUSD: Codable {
     let price: Double
     let volume24h: Double?
     let cexVolume24h: Double?
@@ -32,14 +36,18 @@ struct UsdValues: Codable {
     let marketCapDominance: Double?
 }
 
+// MARK: - Quote
+
 struct Quote: Codable {
-    let usd: UsdValues
+    let usd: TokenListUSD
     
     enum CodingKeys: String, CodingKey {
         case usd = "USD"
     }
 }
 
+// MARK: - Top List
+
 struct TopList: Codable {
-    let data: [Token]
+    let data: [TokenList]
 }

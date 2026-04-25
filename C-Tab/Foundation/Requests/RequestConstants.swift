@@ -8,6 +8,6 @@
 enum RequestConstants {
     static let baseURL = "https://pro-api.coinmarketcap.com"
     #warning("enter your api key")
-    static let apiKey = ""
+    static let apiKey = "f82b67058eb94a57928705de2347c2cf"
     static let apiHeader = "X-CMC_PRO_API_KEY"
 }

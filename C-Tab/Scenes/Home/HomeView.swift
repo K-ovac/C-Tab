@@ -7,9 +7,15 @@
 
 import SwiftUI
 
+// MARK: - HomeView
+
 struct HomeView: View {
     
+    // MARK: - Properties
+    
     @StateObject private var viewModel = HomeViewModel(homeService: HomeService(networkClient: NetworkClient()))
+    
+    // MARK: - Body
     
     var body: some View {
         NavigationStack {
@@ -28,8 +34,8 @@ struct HomeView: View {
                 } .listStyle(.grouped)
                     .scrollContentBackground(.hidden)
                 
-            } .navigationTitle("List")
-                .navigationBarTitleDisplayMode(.inline)
+            } .navigationTitle("Markets")
+                .navigationBarTitleDisplayMode(.large)
                 .toolbar {
                     leadingToolbar
                     trailingToolbar
@@ -44,7 +50,11 @@ struct HomeView: View {
     }
 }
 
+// MARK: - Extension Home View
+
 extension HomeView {
+    
+    // MARK: - Toolbar
     
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
@@ -64,7 +74,7 @@ extension HomeView {
                 Button {
                     print("category tapped")
                 } label: {
-                    Image(systemName: "square.grid.2x2")
+                    Image(systemName: "square.grid.3x3")
                 }
                 Button {
                     print("search tapped")
@@ -75,6 +85,8 @@ extension HomeView {
             }
         }
     }
+    
+    // MARK: - Tokens List
     
     private var topicsSection: some View {
         Section {
@@ -88,8 +100,8 @@ extension HomeView {
     
     private var topGainersSection: some View {
         Section {
-            ForEach(viewModel.gainers) { gainer in
-                TopGainersRow(topGainersItems: gainer)
+            ForEach(viewModel.gainers.prefix(5)) { gainer in
+                TopGainersRow(gainer: gainer)
             }
         } header: {
             TopGainerHeader()

@@ -7,14 +7,35 @@
 
 import Foundation
 
-typealias TopListCompletion = (Result<[Token], Error>) -> Void
+// MARK: - Aliases
 
-final class HomeService {
+typealias TopListCompletion = (Result<[TokenList], Error>) -> Void
+typealias TopGainerCompletion = (Result<[Gainer], Error>) -> Void
+typealias TokenMetadataCompletion = (Result<TokenInfo, Error>) -> Void
+
+// MARK: - Protocol HomeServiceData
+
+protocol HomeServiceData {
+    func fetchTopList(completion: @escaping TopListCompletion)
+    func fetchTopGainers(completion: @escaping TopGainerCompletion)
+    func fetchTokenMetadata(id: [Int], completion: @escaping TokenMetadataCompletion)
+}
+
+// MARK: - HomeService
+
+final class HomeService: HomeServiceData {
+    
+    // MARK: - Properties
+    
     private let networkClient: NetworkClient
+    
+    // MARK: - Init
     
     init(networkClient: NetworkClient) {
         self.networkClient = networkClient
     }
+    
+    // MARK: - Fetch Top List
     
     func fetchTopList(completion: @escaping TopListCompletion) {
         let request = HomeRequest()
@@ -32,5 +53,49 @@ final class HomeService {
                 completion(.failure(error))
             }
         }
+    }
+    
+    // MARK: - Fetch Top Gainers
+    
+    func fetchTopGainers(completion: @escaping TopGainerCompletion) {
+        let request = TopGainersRequest()
+        
+        guard let url = request.endpoint else {
+            completion(.failure(NetworkError.urlSessionError))
+            return
+        }
+        
+        networkClient.parse(url: url, type: TopGainerList.self) { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    // MARK: - Fetch Token Metadata
+    
+    func fetchTokenMetadata(id: [Int], completion: @escaping TokenMetadataCompletion) {
+//        let request = TokenMetadataRequest(id: id)
+//        
+//        guard let url = request.endpoint else {
+//            completion(.failure(NetworkError.urlSessionError))
+//            return
+//        }
+//        
+//        networkClient.parse(url: url, type: TokenMetadata.self) { result in
+//            switch result {
+//            case .success(let response):
+//                if let metadata = response.data[String(id)] {
+//                    completion(.success(metadata))
+//                } else {
+//                    completion(.failure(NetworkError.decodeError(NSError())))
+//                }
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
     }
 }

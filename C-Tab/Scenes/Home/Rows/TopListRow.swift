@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TopListRow: View {
     
-    let token: Token
+    let token: TokenList
     
     var body: some View {
         HStack {
@@ -44,7 +44,7 @@ struct TopListRow: View {
 
 #Preview {
     TopListRow(
-        token: Token(
+        token: TokenList(
             id: 1,
             name: "Bitcoin",
             symbol: "BTC",
@@ -52,7 +52,7 @@ struct TopListRow: View {
             dateAdded: "2010-07-13",
             lastUpdated: "2026-04-25",
             cmcRank: 1,
-            quote: Quote(usd: UsdValues(
+            quote: Quote(usd: TokenListUSD(
                 price: 77687.66266199,
                 volume24h: 234234.546,
                 cexVolume24h: 34654667567,
@@ -64,7 +64,7 @@ struct TopListRow: View {
                 percentChange30d: 11.3425,
                 percentChange60d: 22.34532,
                 percentChange90d: -12.4312,
-                marketCap: 155346456457.1242345,
+                marketCap: 1553464564578.1242345,
                 marketCapDominance: 59.9617
             )
             )

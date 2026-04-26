@@ -13,22 +13,63 @@ struct HomeView: View {
     
     // MARK: - Properties
     
-    @StateObject private var viewModel = HomeViewModel(homeService: HomeService(networkClient: NetworkClient()))
-    
+    @StateObject private var viewModel = HomeViewModel(
+        homeService: HomeService(
+            networkClient: NetworkClient()
+        )
+    )
+        
     // MARK: - Body
     
     var body: some View {
         NavigationStack {
             VStack {
                 List {
+                    ZStack {
+                        Rectangle()
+                            .frame(maxHeight: 60)
+                            .cornerRadius(12)
+                            .foregroundStyle(Color.gray)
+                            .opacity(0.3)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Market Cap")
+                                    .font(.system(size: 12))
+                                Text("$2.60T")
+                                    .bold()
+                            }
+                            VStack(alignment: .leading) {
+                                Text("24h Vol")
+                                    .font(.system(size: 12))
+                                Text("$77.58B")
+                                    .bold()
+                            }
+                            VStack(alignment: .leading) {
+                                Text("BTC Dominance")
+                                    .font(.system(size: 12))
+                                Text("57.62%")
+                                    .bold()
+                            }
+                            VStack(alignment: .leading) {
+                                Text("ETH Dominance")
+                                    .font(.system(size: 12))
+                                Text("9.56%")
+                                    .bold()
+                            }
+                        }.frame(maxWidth: .infinity)
+                    } .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                     topicsSection
-                        .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 0, trailing: 16))
+                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
                     topGainersSection
+                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
                     topListSection
+                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
                 } .listStyle(.grouped)
@@ -64,6 +105,7 @@ extension HomeView {
                 Image(systemName: "person.fill")
             } .sheet(isPresented: $viewModel.showProfile) {
                 ProfileView()
+                    .presentationDetents([.medium])
             }
         }
     }
@@ -74,7 +116,7 @@ extension HomeView {
                 Button {
                     print("category tapped")
                 } label: {
-                    Image(systemName: "square.grid.3x3")
+                    Image(systemName: "square.grid.2x2")
                 }
                 Button {
                     print("search tapped")

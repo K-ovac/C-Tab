@@ -8,8 +8,27 @@
 import SwiftUI
 
 struct SearchView: View {
+    @State private var searchText: String = ""
+    let topics = ["BTC", "ergrt", "урыга"]
     var body: some View {
-        Text("Search")
+        NavigationStack {
+            List(filteredTopics, id: \.self) { topic in
+                Text(topic)
+            }.listStyle(.grouped)
+            .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText)
+        }
+    }
+}
+
+extension SearchView {
+    var filteredTopics: [String] {
+        if searchText.isEmpty {
+            return topics
+        } else {
+            return topics.filter { $0.localizedCaseInsensitiveContains(searchText) }
+        }
     }
 }
 

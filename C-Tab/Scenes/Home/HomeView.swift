@@ -105,7 +105,7 @@ extension HomeView {
                 Image(systemName: "person.fill")
             } .sheet(isPresented: $viewModel.showProfile) {
                 ProfileView()
-                    .presentationDetents([.medium])
+                    .presentationDetents([.large])
             }
         }
     }

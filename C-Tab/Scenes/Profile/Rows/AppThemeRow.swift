@@ -9,7 +9,17 @@ import SwiftUI
 
 struct AppThemeRow: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 5) {
+            Image(systemName: "lightbulb.min")
+                .font(.title3)
+                .frame(width: 30, alignment: .center)
+            Text("App Theme")
+                .font(.body)
+            Spacer()
+            Text("Dark")
+                .foregroundStyle(.gray)
+                .font(.subheadline)
+        }
     }
 }
 

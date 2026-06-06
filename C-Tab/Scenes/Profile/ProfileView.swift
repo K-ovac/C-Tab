@@ -12,7 +12,7 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @State private var isDarkMode: Bool = false
     
-    private var appStoreID = "1600000000"
+    private let appStoreID = "1600000000"
     
     var body: some View {
         NavigationStack {
@@ -20,23 +20,19 @@ struct ProfileView: View {
                 Section {
                     ProfileRow()
                 }
-                Section {
-                    ForEach(viewModel.profileSetting) { setting in
-                        NavigationLink(destination: DetailView(itemTitle: setting.title)) {
-                            HStack(spacing: 5) {
-                                Image(systemName: setting.iconName)
-                                    .foregroundStyle(setting.iconColor)
-                                    .font(.title3)
-                                    .frame(width: 30, alignment: .center)
-                                Text(setting.title)
-                                    .font(.body)
-                            }
-                        }
+                Section("Settings") {
+                    NavigationLink(destination: LanguageView()) {
+                        LanguageRow()
+                    }
+                    NavigationLink(destination: AppThemeView()) {
+                        AppThemeRow()
+                    }
+                    NavigationLink(destination: CurrencyView()) {
+                        CurrencyRow()
                     }
                     Link(destination: URL(string: "https://apps.apple.com/app/id\(appStoreID)?action=write-review")!) {
                         HStack {
                             Image(systemName: "hand.thumbsup")
-                                .foregroundStyle(.green)
                                 .font(.title3)
                                 .frame(width: 30, alignment: .center)
                             Text("Rate Our App")
@@ -56,15 +52,7 @@ struct ProfileView: View {
                     }
                 }
             }
-            Button {
-                
-            } label: {
-                HStack {
-                    Text("Sign Out")
-                    Image(systemName: "rectangle.portrait.and.arrow.forward")
-                }
-                .foregroundStyle(.red)
-            }
+            Text("App Version 1.0.0")
         }
     }
 }

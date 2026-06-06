@@ -20,6 +20,18 @@ struct ProfileRow: View {
                 Text("email@mail.com")
                     .font(.subheadline)
             }
+            Spacer()
+            HStack {
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Text("Sign Out")
+                        Image(systemName: "rectangle.portrait.and.arrow.forward")
+                    }
+                    .foregroundStyle(.red)
+                }
+            }
         }
     }
 }

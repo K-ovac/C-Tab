@@ -1,22 +1,22 @@
 //
-//  LanguageRow.swift
+//  CurrencyRow.swift
 //  C-Tab
 //
-//  Created by Максим Лозебной on 04.06.2026.
+//  Created by Максим Лозебной on 06.06.2026.
 //
 
 import SwiftUI
 
-struct LanguageRow: View {
+struct CurrencyRow: View {
     var body: some View {
         HStack(spacing: 5) {
-            Image(systemName: "globe.badge.chevron.backward")
+            Image(systemName: "dollarsign.circle")
                 .font(.title3)
                 .frame(width: 30, alignment: .center)
-            Text("Language")
+            Text("Currency")
                 .font(.body)
             Spacer()
-            Text("Русский")
+            Text("RUB")
                 .foregroundStyle(.gray)
                 .font(.subheadline)
         }
@@ -24,5 +24,5 @@ struct LanguageRow: View {
 }
 
 #Preview {
-    LanguageRow()
+    CurrencyRow()
 }

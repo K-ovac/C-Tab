@@ -12,35 +12,51 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @State private var isDarkMode: Bool = false
     
-    private let appStoreID = "1600000000"
-    
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    ProfileRow()
-                }
-                Section("Settings") {
-                    NavigationLink(destination: LanguageView()) {
-                        LanguageRow()
+            VStack {
+                List {
+                    Section {
+                        ProfileRow()
                     }
-                    NavigationLink(destination: AppThemeView()) {
-                        AppThemeRow()
+                    Section {
+                        NavigationLink(destination: AppThemeView()) {
+                            AppThemeRow()
+                        }
+                        NavigationLink(destination: CurrencyView()) {
+                            CurrencyRow()
+                        }
                     }
-                    NavigationLink(destination: CurrencyView()) {
-                        CurrencyRow()
-                    }
-                    Link(destination: URL(string: "https://apps.apple.com/app/id\(appStoreID)?action=write-review")!) {
-                        HStack {
-                            Image(systemName: "hand.thumbsup")
-                                .font(.title3)
-                                .frame(width: 30, alignment: .center)
-                            Text("Rate Our App")
-                                .font(.body)
+                    Section {
+                        Button {
+                            viewModel.openSystemSettings()
+                        } label: {
+                            LanguageRow()
+                        }
+                        Link(destination: viewModel.openPrivacyPolicy()) {
+                            HStack {
+                                Image(systemName: "document")
+                                    .font(.title3)
+                                    .frame(width: 30, alignment: .center)
+                                Text("Privacy Policy")
+                                    .font(.body)
+                                
+                            }
+                        }
+                        Link(destination: viewModel.rateApp()) {
+                            HStack {
+                                Image(systemName: "hand.thumbsup")
+                                    .font(.title3)
+                                    .frame(width: 30, alignment: .center)
+                                Text("Rate Our App")
+                                    .font(.body)
+                            }
                         }
                     }
                 }
+                Text("App Version 1.0.0")
             }
+            .foregroundStyle(.primary)
             .scrollDisabled(false)
             .navigationTitle("Profile")
             .toolbar {
@@ -52,16 +68,7 @@ struct ProfileView: View {
                     }
                 }
             }
-            Text("App Version 1.0.0")
         }
-    }
-}
-
-struct DetailView: View {
-    let itemTitle: String
-    var body: some View {
-        Text("Вы открыли: \(itemTitle)")
-            .navigationTitle(itemTitle)
     }
 }
 

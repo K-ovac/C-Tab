@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CurrencyRow: View {
+    
     var body: some View {
         HStack(spacing: 5) {
             Image(systemName: "dollarsign.circle")
@@ -16,7 +17,7 @@ struct CurrencyRow: View {
             Text("Currency")
                 .font(.body)
             Spacer()
-            Text("RUB")
+            Text("USD")
                 .foregroundStyle(.gray)
                 .font(.subheadline)
         }

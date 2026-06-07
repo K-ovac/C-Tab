@@ -15,11 +15,8 @@ struct LanguageRow: View {
                 .frame(width: 30, alignment: .center)
             Text("Language")
                 .font(.body)
-            Spacer()
-            Text("Русский")
-                .foregroundStyle(.gray)
-                .font(.subheadline)
         }
+        .foregroundStyle(.primary)
     }
 }
 

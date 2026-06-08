@@ -1,13 +1,13 @@
 //
-//  CurrencyView.swift
+//  LanguageView.swift
 //  C-Tab
 //
-//  Created by Максим Лозебной on 06.06.2026.
+//  Created by Максим Лозебной on 08.06.2026.
 //
 
 import SwiftUI
 
-struct CurrencyView: View {
+struct LanguageView: View {
     let title: String
     
     var body: some View {
@@ -17,5 +17,5 @@ struct CurrencyView: View {
 }
 
 #Preview {
-    CurrencyView(title: "Currency")
+    LanguageView(title: "Language")
 }

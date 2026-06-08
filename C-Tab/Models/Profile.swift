@@ -17,5 +17,16 @@ struct ProfileSetting: Identifiable {
     let id = UUID()
     let title: String
     let iconName: String
-    let iconColor: Color
+    let destination: SettingsDestination
+}
+
+enum SettingsDestination {
+    case language, appTheme, currency
+}
+
+struct ProfileLink: Identifiable {
+    let id = UUID()
+    let title: String
+    let iconName: String
+    let link: URL
 }

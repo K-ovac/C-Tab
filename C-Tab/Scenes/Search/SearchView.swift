@@ -12,12 +12,15 @@ struct SearchView: View {
     let topics = ["BTC", "ergrt", "урыга"]
     var body: some View {
         NavigationStack {
-            List(filteredTopics, id: \.self) { topic in
-                Text(topic)
-            }.listStyle(.grouped)
-            .navigationTitle("Search")
-            .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText)
+            ZStack {
+                List(filteredTopics, id: \.self) { topic in
+                    Text(topic)
+                }.listStyle(.grouped)
+                    .navigationTitle("Search")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+            }
+            .toolbar(.hidden, for: .tabBar)
         }
     }
 }

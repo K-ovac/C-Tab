@@ -10,6 +10,8 @@ import Combine
 
 final class ProfileViewModel: ObservableObject {
     @Published var profile: Profile?
+    @Published var profileSettings: [ProfileSetting] = []
+    @Published var profileLinks: [ProfileLink] = []
     
     private let appStoreID = "1600000000"
     
@@ -22,19 +24,16 @@ final class ProfileViewModel: ObservableObject {
             avatar: "person.circle.fill", username: "@username",
             email: "email@mail.com"
         )
-    }
-    
-    func openSystemSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    func openPrivacyPolicy() -> URL {
-        URL(string: "https://docs.google.com/document/d/1qp_I6geNaF6RIcooakt0kTp4taXJwX1cM_Va01qy9EY/edit?usp=sharing")!
-    }
-    
-    func rateApp() -> URL {
-        URL(string: "https://apps.apple.com/app/id\(appStoreID)?action=write-review")!
+        
+        profileSettings = [
+            ProfileSetting(title: "Currency", iconName: "dollarsign.circle", destination: .currency),
+            ProfileSetting(title: "App Theme", iconName: "lightbulb.min", destination: .appTheme),
+        ]
+        
+        profileLinks = [
+            ProfileLink(title: "Language", iconName: "globe.badge.chevron.backward", link: URL(string: UIApplication.openSettingsURLString)!),
+            ProfileLink(title: "Privacy Policy", iconName: "document", link: URL(string: "https://docs.google.com/document/d/1qp_I6geNaF6RIcooakt0kTp4taXJwX1cM_Va01qy9EY/edit?usp=sharing")!),
+            ProfileLink(title: "Rate Our App", iconName: "hand.thumbsup", link: URL(string: "https://apps.apple.com/app/id\(appStoreID)?action=write-review")!)
+        ]
     }
 }

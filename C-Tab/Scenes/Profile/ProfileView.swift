@@ -10,7 +10,6 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel = ProfileViewModel()
-    @State private var isDarkMode: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -19,45 +18,12 @@ struct ProfileView: View {
                     Section {
                         ProfileRow()
                     }
-                    Section {
-                        NavigationLink(destination: AppThemeView()) {
-                            AppThemeRow()
-                        }
-                        NavigationLink(destination: CurrencyView()) {
-                            CurrencyRow()
-                        }
-                    }
-                    Section {
-                        Button {
-                            viewModel.openSystemSettings()
-                        } label: {
-                            LanguageRow()
-                        }
-                        Link(destination: viewModel.openPrivacyPolicy()) {
-                            HStack {
-                                Image(systemName: "document")
-                                    .font(.title3)
-                                    .frame(width: 30, alignment: .center)
-                                Text("Privacy Policy")
-                                    .font(.body)
-                                
-                            }
-                        }
-                        Link(destination: viewModel.rateApp()) {
-                            HStack {
-                                Image(systemName: "hand.thumbsup")
-                                    .font(.title3)
-                                    .frame(width: 30, alignment: .center)
-                                Text("Rate Our App")
-                                    .font(.body)
-                            }
-                        }
-                    }
+                    settingsSection
+                    linksSection
                 }
                 Text("App Version 1.0.0")
             }
             .foregroundStyle(.primary)
-            .scrollDisabled(false)
             .navigationTitle("Profile")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -66,6 +32,45 @@ struct ProfileView: View {
                     } label: {
                         Image(systemName: "xmark")
                     }
+                }
+            }
+        }
+    }
+}
+
+extension ProfileView {
+    @ViewBuilder
+    private func destinationView(for destination: SettingsDestination, title: String) -> some View{
+        switch destination {
+        case .language:
+            LanguageView(title: title)
+        case .appTheme:
+            AppThemeView(title: title)
+        case .currency:
+            CurrencyView(title: title)
+        }
+    }
+    
+    private var settingsSection: some View {
+        Section {
+            ForEach(viewModel.profileSettings) { setting in
+                NavigationLink {
+                    destinationView(
+                        for: setting.destination,
+                        title: setting.title
+                    )
+                } label: {
+                    SettingRow(iconName: setting.iconName, title: setting.title)
+                }
+            }
+        }
+    }
+    
+    private var linksSection: some View {
+        Section {
+            ForEach(viewModel.profileLinks) { link in
+                Link(destination: link.link) {
+                    SettingRow(iconName: link.iconName, title: link.title)
                 }
             }
         }

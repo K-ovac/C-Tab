@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AppThemeView: View {
+    let title: String
+    
     var body: some View {
         VStack {
             List {
@@ -15,11 +17,11 @@ struct AppThemeView: View {
                 Text("Dark")
                 Text("Follow device setting")
             }
-            .navigationTitle("Theme")
+            .navigationTitle(title)
         }
     }
 }
 
 #Preview {
-    AppThemeView()
+    AppThemeView(title: "App Theme")
 }

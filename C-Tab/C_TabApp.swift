@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct C_TabApp: App {
+    @AppStorage("selectedTheme") private var selectedTheme: AppTheme = .light
+    
     var body: some Scene {
         WindowGroup {
             TabListView()
+                .preferredColorScheme(selectedTheme.colorScheme)
         }
     }
 }

@@ -8,17 +8,37 @@
 import SwiftUI
 
 struct AppThemeView: View {
+    @AppStorage("selectedTheme") private var selectedTheme: AppTheme = .light
+    
     let title: String
     
     var body: some View {
         VStack {
             List {
-                Text("Light")
-                Text("Dark")
-                Text("Follow device setting")
+                ForEach(AppTheme.allCases) { theme in
+                    Button(action: {
+                        withAnimation {
+                            selectedTheme = theme
+                        }
+                    }) {
+                        HStack {
+                            HStack {
+                                Image(systemName: theme.iconName)
+                                    .font(.title3)
+                                    .frame(width: 30, alignment: .center)
+                                Text(theme.rawValue)
+                                    .font(.body)
+                            }
+                            .foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: selectedTheme == theme ? "checkmark" : "")
+                        }
+                    }
+                }
             }
             .navigationTitle(title)
         }
+        .preferredColorScheme(selectedTheme.colorScheme)
     }
 }
 

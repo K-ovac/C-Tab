@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingRow: View {
     let iconName: String
     let title: String
+    let value: String?
     
     var body: some View {
         HStack {
@@ -18,10 +19,18 @@ struct SettingRow: View {
                 .frame(width: 30, alignment: .center)
             Text(title)
                 .font(.body)
+            
+            Spacer()
+            
+            if let value {
+                Text(value)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 }
 
 #Preview {
-    SettingRow(iconName: "globe", title: "Currency")
+    SettingRow(iconName: "globe", title: "Currency", value: "Rub")
 }

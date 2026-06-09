@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AppThemeView: View {
-    @AppStorage("selectedTheme") private var selectedTheme: AppTheme = .light
+    @AppStorage("selectedTheme")
+    private var selectedTheme: AppTheme = .dark
     
     let title: String
     
@@ -22,18 +23,21 @@ struct AppThemeView: View {
                         }
                     }) {
                         HStack {
-                            HStack {
-                                Image(systemName: theme.iconName)
-                                    .font(.title3)
-                                    .frame(width: 30, alignment: .center)
-                                Text(theme.rawValue)
-                                    .font(.body)
-                            }
-                            .foregroundStyle(.primary)
+                            Image(systemName: theme.iconName)
+                                .font(.title3)
+                                .frame(width: 30, alignment: .center)
+                            Text(theme.rawValue)
+                                .font(.body)
+                            
                             Spacer()
-                            Image(systemName: selectedTheme == theme ? "checkmark" : "")
+                            
+                            if selectedTheme == theme {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.blue)
+                            }
                         }
                     }
+                    .foregroundStyle(.primary)
                 }
             }
             .navigationTitle(title)

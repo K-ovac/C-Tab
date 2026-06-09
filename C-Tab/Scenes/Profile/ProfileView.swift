@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel = ProfileViewModel()
+    @AppStorage("selectedTheme")
+    private var selectedTheme: AppTheme = .dark
     
     var body: some View {
         NavigationStack {
@@ -42,12 +44,10 @@ extension ProfileView {
     @ViewBuilder
     private func destinationView(for destination: SettingsDestination, title: String) -> some View{
         switch destination {
-        case .language:
-            LanguageView(title: title)
-        case .appTheme:
-            AppThemeView(title: title)
         case .currency:
             CurrencyView(title: title)
+        case .appTheme:
+            AppThemeView(title: title)
         }
     }
     
@@ -60,7 +60,10 @@ extension ProfileView {
                         title: setting.title
                     )
                 } label: {
-                    SettingRow(iconName: setting.iconName, title: setting.title)
+                    SettingRow(iconName: setting.iconName, title: setting.title, value: setting.destination == .appTheme
+                               ? selectedTheme.rawValue
+                               : nil
+                    )
                 }
             }
         }
@@ -70,7 +73,7 @@ extension ProfileView {
         Section {
             ForEach(viewModel.profileLinks) { link in
                 Link(destination: link.link) {
-                    SettingRow(iconName: link.iconName, title: link.title)
+                    SettingRow(iconName: link.iconName, title: link.title, value: nil)
                 }
             }
         }

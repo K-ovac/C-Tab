@@ -26,8 +26,8 @@ final class ProfileViewModel: ObservableObject {
         )
         
         profileSettings = [
-            ProfileSetting(title: "Currency", iconName: "dollarsign.circle", destination: .currency),
-            ProfileSetting(title: "App Theme", iconName: "lightbulb.min", destination: .appTheme),
+            ProfileSetting(title: "Currency", iconName: "dollarsign.circle", value: "RUB", destination: .currency),
+            ProfileSetting(title: "App Theme", iconName: "lightbulb.min", value: nil, destination: .appTheme),
         ]
         
         profileLinks = [

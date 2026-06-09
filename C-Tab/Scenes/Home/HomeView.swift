@@ -43,6 +43,10 @@ struct HomeView: View {
                         .listRowBackground(Color.clear)
                 } .listStyle(.grouped)
                     .scrollContentBackground(.hidden)
+                    .refreshable() {
+                        viewModel.fetchTopList()
+                        viewModel.fetchTopGainers()
+                    }
                 
             } .navigationTitle("Markets")
                 .navigationBarTitleDisplayMode(.large)

@@ -30,6 +30,7 @@ final class HomeViewModel: ObservableObject {
         self.homeService = homeService
         fetchTopList()
         fetchTopGainers()
+        fetchTopics()
     }
     
     // MARK: - Factory Methods
@@ -64,20 +65,25 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func fetchTokenMetadata(for tokens: [TokenList]) {
-//        let ids = tokens.map { $0.id }
-//        
-//        homeService.fetchTokenMetadata(id: ids) { [weak self] result in
-//            guard let self else { return }
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let data):
-//                    self.tokenMetadata = data
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
+    func fetchTopics() {
+        topics = [
+            Topic(
+                socialImage: "x",
+                topicTitle: "Justin Sun has filed a lawsuit...",
+                topicHours: "13h"
+            ),
+            
+            Topic(
+                socialImage: "x",
+                topicTitle: "The Vovo protocol was hacked...",
+                topicHours: "17h"
+            ),
+            Topic(
+                socialImage: "bybit",
+                topicTitle: "rtbtynyumyunb",
+                topicHours: "21h"
+            )
+        ]
     }
     
     // MARK: - Factory Methods

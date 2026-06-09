@@ -17,7 +17,7 @@ struct HomeRequest: NetworkRequest {
 
 struct TopGainersRequest: NetworkRequest {
     var endpoint: URL? {
-        URL(string: RequestConstants.baseURL + "/v1/cryptocurrency/trending/gainers-losers")
+        URL(string: RequestConstants.baseURL + "/v1/cryptocurrency/listings/latest")
     }
     
     var httpMethod: HttpMethod { .get }

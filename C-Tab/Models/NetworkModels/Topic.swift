@@ -8,7 +8,7 @@
 import Foundation
 
 struct Topic: Identifiable {
-    let id: String
+    let id: UUID = UUID()
     let socialImage: String
     let topicTitle: String
     let topicHours: String

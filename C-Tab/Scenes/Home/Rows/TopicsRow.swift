@@ -9,7 +9,9 @@ import SwiftUI
 
 struct TopicsRow: View {
     
-    let topicsItems: Topic
+    let iconTopic: String
+    let title: String
+    let hours: String
     
     var body: some View {
         ZStack {
@@ -17,15 +19,15 @@ struct TopicsRow: View {
                 .foregroundStyle(.gray)
                 .opacity(0.3)
             HStack {
-                Image(topicsItems.socialImage)
+                Image(iconTopic)
                     .resizable()
                     .frame(width: 30, height: 30)
                     .cornerRadius(8)
-                Text(topicsItems.topicTitle)
+                Text(title)
                     .font(.system(size: 16, weight: .regular))
                 Spacer()
-                Text(topicsItems.topicHours)
-                    .foregroundStyle(.white)
+                Text(hours)
+                    .foregroundStyle(.secondary)
                     .opacity(0.9)
                     .font(.system(size: 13))
             }
@@ -37,12 +39,5 @@ struct TopicsRow: View {
 }
 
 #Preview {
-    TopicsRow(
-        topicsItems: Topic(
-            id: "1",
-            socialImage: "x",
-            topicTitle: "Justin Sun has filed a lawsuit...",
-            topicHours: "13h"
-        )
-    )
+    TopicsRow(iconTopic: "x", title: "Justin Sun has filed a lawsuit...", hours: "13h")
 }

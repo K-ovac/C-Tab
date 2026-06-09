@@ -108,7 +108,7 @@ extension HomeView {
     private var topicsSection: some View {
         Section {
             ForEach(viewModel.topics) { topic in
-                TopicsRow(topicsItems: topic)
+                TopicsRow(iconTopic: topic.socialImage, title: topic.topicTitle, hours: topic.topicHours)
             }
         } header: {
             TopicsHeader(action: viewModel.openMoreTopics)

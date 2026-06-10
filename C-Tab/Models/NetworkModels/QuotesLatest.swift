@@ -6,14 +6,14 @@
 //
 
 struct QuotesLatest: Codable {
-    let btcDominance: Float
-    let ethDominance: Float
-    let quote: QuoteLatest
-}
-
-struct QuoteLatest: Codable {
+    let btcDominance: Double?
+    let ethDominance: Double?
     let quote: UsdQuoteLatest
 }
+
+//struct QuoteLatest: Codable {
+//    let quote: UsdQuoteLatest
+//}
 
 struct UsdQuoteLatest: Codable {
     let usd: QuotesLatestUSD
@@ -24,10 +24,18 @@ struct UsdQuoteLatest: Codable {
 }
 
 struct QuotesLatestUSD: Codable {
-    let totalMarketCap: Float
-    let totalVolume24h: Float
-    let altcoinMarketCap: Float
-    let altcoinVolume24h: Float
+    let totalMarketCap: Double?
+    let totalVolume24h: Double?
+    let altcoinMarketCap: Double?
+    let altcoinVolume24h: Double?
+    
+//    enum CodingKeys: String, CodingKey {
+//        case totalMarketCap = "total_market_cap"
+//        case totalVolume24h = "total_volume_24h"
+//        case altcoinMarketCap = "altcoin_market_cap"
+//        case altcoinVolume24h = "altcoin_volume_24h"
+//        
+//    }
 }
 
 struct QuotesLatestData: Codable {

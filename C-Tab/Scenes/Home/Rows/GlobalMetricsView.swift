@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct MarketInfoView: View {
+struct GlobalMetricsView: View {
+    let globalMetrics: QuotesLatest
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -19,25 +21,25 @@ struct MarketInfoView: View {
                 VStack(alignment: .leading) {
                     Text("Market Cap")
                         .font(.system(size: 12))
-                    Text("$2.60T")
+                    Text(String.makeCompact(for: globalMetrics.quote.usd.totalMarketCap ?? 0))
                         .bold()
                 }
                 VStack(alignment: .leading) {
                     Text("24h Vol")
                         .font(.system(size: 12))
-                    Text("$77.58B")
+                    Text(String.makeCompact(for: globalMetrics.quote.usd.totalVolume24h ?? 0))
                         .bold()
                 }
                 VStack(alignment: .leading) {
                     Text("BTC Dominance")
                         .font(.system(size: 12))
-                    Text("57.62%")
+                    Text(String.make(for: globalMetrics.btcDominance ?? 0, isPrice: false))
                         .bold()
                 }
                 VStack(alignment: .leading) {
                     Text("ETH Dominance")
                         .font(.system(size: 12))
-                    Text("9.56%")
+                    Text(String.make(for: globalMetrics.ethDominance ?? 0, isPrice: false))
                         .bold()
                 }
             }.frame(maxWidth: .infinity)
@@ -46,5 +48,17 @@ struct MarketInfoView: View {
 }
 
 #Preview {
-    MarketInfoView()
+    GlobalMetricsView(
+        globalMetrics: QuotesLatest(
+            btcDominance: 60.1234,
+            ethDominance: 1.4356,
+            quote: UsdQuoteLatest(
+                usd: QuotesLatestUSD(
+                    totalMarketCap: 2105247258542.7324000,
+                    totalVolume24h: 83611066726.940000,
+                    altcoinMarketCap: 883291575791.1072000,
+                    altcoinVolume24h: 47208449145.790960)
+            )
+        )
+    )
 }

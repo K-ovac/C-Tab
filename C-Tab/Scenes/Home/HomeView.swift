@@ -46,6 +46,7 @@ struct HomeView: View {
                     .refreshable() {
                         viewModel.fetchTopList()
                         viewModel.fetchTopGainers()
+                        viewModel.fetchGlobalMetrics()
                     }
                 
             } .navigationTitle("Markets")
@@ -105,7 +106,9 @@ extension HomeView {
     
     private var marketInfoSection: some View {
         Section {
-            MarketInfoView()
+            if let metrics = viewModel.globalMetrics {
+                GlobalMetricsView(globalMetrics: metrics)
+            }
         }
     }
     

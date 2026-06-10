@@ -15,6 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var topics: [Topic] = []
     @Published var gainers: [Gainer] = []
     @Published var topList: [TokenList] = []
+    @Published var globalMetrics: QuotesLatest?
     @Published var tokenMetadata: [Int: TokenMetadata] = [:]
     @Published var showProfile = false
     @Published var showSearch = false
@@ -31,9 +32,24 @@ final class HomeViewModel: ObservableObject {
         fetchTopList()
         fetchTopGainers()
         fetchTopics()
+        fetchGlobalMetrics()
     }
     
     // MARK: - Factory Methods
+    
+    func fetchGlobalMetrics() {
+        homeService.fetchGlobalMetrics { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    self.globalMetrics = data
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
     
     func fetchTopList() {
         homeService.fetchTopList { [weak self] result in
@@ -42,7 +58,6 @@ final class HomeViewModel: ObservableObject {
                 switch result {
                 case .success(let data):
                     self.topList = data
-                    print(data)
                 case .failure(let error):
                     print(error)
                 }
@@ -57,7 +72,6 @@ final class HomeViewModel: ObservableObject {
                 switch result {
                 case .success(let data):
                     self.gainers = data
-                    print(data)
                 case .failure(let error):
                     print(error)
                 }

@@ -15,6 +15,14 @@ struct HomeRequest: NetworkRequest {
     var httpMethod: HttpMethod { .get }
 }
 
+struct GlobalMetricsRequest: NetworkRequest {
+    var endpoint: URL? {
+        URL(string: RequestConstants.baseURL + "/v1/global-metrics/quotes/latest")
+    }
+    
+    var httpMethod: HttpMethod { .get }
+}
+
 struct TopGainersRequest: NetworkRequest {
     var endpoint: URL? {
         URL(string: RequestConstants.baseURL + "/v1/cryptocurrency/listings/latest")

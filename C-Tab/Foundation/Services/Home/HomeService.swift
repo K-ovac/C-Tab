@@ -11,14 +11,14 @@ import Foundation
 
 typealias TopListCompletion = (Result<[TokenList], Error>) -> Void
 typealias TopGainerCompletion = (Result<[Gainer], Error>) -> Void
-typealias TokenMetadataCompletion = (Result<TokenInfo, Error>) -> Void
+typealias GlobalMetricsCompletion = (Result<QuotesLatest, Error>) -> Void
 
 // MARK: - Protocol HomeServiceData
 
 protocol HomeServiceData {
     func fetchTopList(completion: @escaping TopListCompletion)
     func fetchTopGainers(completion: @escaping TopGainerCompletion)
-    func fetchTokenMetadata(id: [Int], completion: @escaping TokenMetadataCompletion)
+    func fetchGlobalMetrics(completion: @escaping GlobalMetricsCompletion)
 }
 
 // MARK: - HomeService
@@ -77,25 +77,21 @@ final class HomeService: HomeServiceData {
     
     // MARK: - Fetch Token Metadata
     
-    func fetchTokenMetadata(id: [Int], completion: @escaping TokenMetadataCompletion) {
-//        let request = TokenMetadataRequest(id: id)
-//        
-//        guard let url = request.endpoint else {
-//            completion(.failure(NetworkError.urlSessionError))
-//            return
-//        }
-//        
-//        networkClient.parse(url: url, type: TokenMetadata.self) { result in
-//            switch result {
-//            case .success(let response):
-//                if let metadata = response.data[String(id)] {
-//                    completion(.success(metadata))
-//                } else {
-//                    completion(.failure(NetworkError.decodeError(NSError())))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
+    func fetchGlobalMetrics(completion: @escaping GlobalMetricsCompletion) {
+        let request = GlobalMetricsRequest()
+        
+        guard let url = request.endpoint else {
+            completion(.failure(NetworkError.urlSessionError))
+            return
+        }
+        
+        networkClient.parse(url: url, type: QuotesLatestData.self) { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

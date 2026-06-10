@@ -29,13 +29,17 @@ final class HomeViewModel: ObservableObject {
     
     init(homeService: HomeService) {
         self.homeService = homeService
+        fetchData()
+    }
+    
+    // MARK: - Factory Methods
+    
+    func fetchData() {
         fetchTopList()
         fetchTopGainers()
         fetchTopics()
         fetchGlobalMetrics()
     }
-    
-    // MARK: - Factory Methods
     
     func fetchGlobalMetrics() {
         homeService.fetchGlobalMetrics { [weak self] result in

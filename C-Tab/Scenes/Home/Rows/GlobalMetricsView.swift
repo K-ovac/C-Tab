@@ -33,13 +33,13 @@ struct GlobalMetricsView: View {
                 VStack(alignment: .leading) {
                     Text("BTC Dominance")
                         .font(.system(size: 12))
-                    Text(String.make(for: globalMetrics.btcDominance ?? 0, isPrice: false))
+                    Text(String.make(for: globalMetrics.btcDominance ?? 0, isPrice: !Constants.isPrice))
                         .bold()
                 }
                 VStack(alignment: .leading) {
                     Text("ETH Dominance")
                         .font(.system(size: 12))
-                    Text(String.make(for: globalMetrics.ethDominance ?? 0, isPrice: false))
+                    Text(String.make(for: globalMetrics.ethDominance ?? 0, isPrice: !Constants.isPrice))
                         .bold()
                 }
             }.frame(maxWidth: .infinity)

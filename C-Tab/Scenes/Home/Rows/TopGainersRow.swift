@@ -23,9 +23,9 @@ struct TopGainersRow: View {
             Spacer()
             
             HStack(spacing: 50) {
-                Text(String(format: "%.2f", gainer.quote.usd.price))
+                Text(String.make(for: gainer.quote.usd.price, isPrice: Constants.isPrice))
                     .font(.system(size: 17))
-                Text(String(format: "%.2f", gainer.quote.usd.percentChange24h ?? 0))
+                Text(String.make(for: gainer.quote.usd.percentChange24h ?? 0, isPrice: !Constants.isPrice))
                     .background(Color.green)
                     .cornerRadius(8)
             }

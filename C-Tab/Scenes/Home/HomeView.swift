@@ -44,9 +44,7 @@ struct HomeView: View {
                 } .listStyle(.grouped)
                     .scrollContentBackground(.hidden)
                     .refreshable() {
-                        viewModel.fetchTopList()
-                        viewModel.fetchTopGainers()
-                        viewModel.fetchGlobalMetrics()
+                        viewModel.fetchData()
                     }
                 
             } .navigationTitle("Markets")

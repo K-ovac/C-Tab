@@ -22,9 +22,9 @@ struct TopListRow: View {
                     .frame(width: 25, height: 25)
                 
                 VStack(alignment: .leading) {
-                    Text(token.symbol)
+                    Text(token.symbol)  //token name
                         .font(.headline)
-                    Text("$" + (token.quote.usd.marketCap ?? 0).formatted(.number.notation(.compactName)))
+                    Text(String.makeCompact(for: (token.quote.usd.marketCap ?? 0))) //token market cap
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
@@ -33,8 +33,8 @@ struct TopListRow: View {
             Spacer()
             
             HStack(spacing: 10) {
-                Text("$" + String(format: "%.2f", token.quote.usd.price))
-                Text(String(format: "%.2f", (token.quote.usd.percentChange24h ?? 0)) + "%")
+                Text(String.make(for: token.quote.usd.price, isPrice: Constants.isPrice))
+                Text(String.make(for: token.quote.usd.percentChange24h ?? 0, isPrice: !Constants.isPrice) + "%")
                     .padding(.leading, 20)
                     .foregroundStyle((token.quote.usd.percentChange24h ?? 0).percentChangeColor)
             }

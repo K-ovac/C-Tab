@@ -23,7 +23,7 @@ struct ProfileView: View {
                     settingsSection
                     linksSection
                 }
-                Text("App Version 1.0.0")
+                Text("App Version " + Constants.appVersion)
             }
             .foregroundStyle(.primary)
             .navigationTitle("Profile")

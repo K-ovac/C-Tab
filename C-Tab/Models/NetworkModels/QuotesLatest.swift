@@ -28,14 +28,6 @@ struct QuotesLatestUSD: Codable {
     let totalVolume24h: Double?
     let altcoinMarketCap: Double?
     let altcoinVolume24h: Double?
-    
-//    enum CodingKeys: String, CodingKey {
-//        case totalMarketCap = "total_market_cap"
-//        case totalVolume24h = "total_volume_24h"
-//        case altcoinMarketCap = "altcoin_market_cap"
-//        case altcoinVolume24h = "altcoin_volume_24h"
-//        
-//    }
 }
 
 struct QuotesLatestData: Codable {

@@ -13,7 +13,7 @@ struct TopListRow: View {
     let token: TokenList
     
     var body: some View {
-        HStack {
+        HStack(spacing: 10) {
             Text(String(token.cmcRank))
                 .foregroundStyle(.gray)
             HStack {

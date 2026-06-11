@@ -17,7 +17,7 @@ struct GlobalMetricsView: View {
                 .cornerRadius(12)
                 .foregroundStyle(Color.gray)
                 .opacity(0.3)
-            HStack {
+            HStack(spacing: 10) {
                 VStack(alignment: .leading) {
                     Text("Market Cap")
                         .font(.system(size: 12))
@@ -25,9 +25,9 @@ struct GlobalMetricsView: View {
                         .bold()
                 }
                 VStack(alignment: .leading) {
-                    Text("24h Vol")
+                    Text("Altcoin M.Cap.")
                         .font(.system(size: 12))
-                    Text(String.makeCompact(for: globalMetrics.quote.usd.totalVolume24h ?? 0))
+                    Text(String.makeCompact(for: globalMetrics.quote.usd.altcoinMarketCap ?? 1))
                         .bold()
                 }
                 VStack(alignment: .leading) {

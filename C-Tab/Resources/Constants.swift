@@ -8,5 +8,6 @@
 import Foundation
 
 enum Constants {
+    static let appVersion: String = "1.0.0"
     static let isPrice: Bool = true
 }

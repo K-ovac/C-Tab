@@ -18,36 +18,36 @@ struct HomeView: View {
             networkClient: NetworkClient()
         )
     )
-        
+    
     // MARK: - Body
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List {
-                    marketInfoSection
+            
+            List {
+                marketInfoSection
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                    topicsSection
-                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                    topGainersSection
-                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                    topListSection
-                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                } .listStyle(.grouped)
-                    .scrollContentBackground(.hidden)
-                    .refreshable() {
-                        viewModel.fetchData()
-                    }
-                
-            } .navigationTitle("Markets")
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                topicsSection
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                topGainersSection
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                topListSection
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+            } .listStyle(.grouped)
+                .scrollContentBackground(.hidden)
+                .refreshable() {
+                    viewModel.fetchData()
+                }
+            
+                .navigationTitle("Markets")
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
                     leadingToolbar
@@ -91,7 +91,6 @@ extension HomeView {
                     Image(systemName: "square.grid.2x2")
                 }
                 Button {
-                    print("search tapped")
                     viewModel.showSearch.toggle()
                 } label: {
                     Image(systemName: "magnifyingglass")
@@ -121,12 +120,12 @@ extension HomeView {
     }
     
     private var topGainersSection: some View {
-        Section {
-            ForEach(viewModel.gainers.prefix(5)) { gainer in
+        Section(
+            header: Text("Top Gainers")
+        ) {
+            ForEach(viewModel.gainers.prefix(viewModel.gairensRows())) { gainer in
                 TopGainersRow(gainer: gainer)
             }
-        } header: {
-            TopGainerHeader()
         }
     }
     
@@ -137,9 +136,9 @@ extension HomeView {
             }
         } header: {
             TopListHeader(
-                actionSortByMarketCap: viewModel.sortByCapitalization,
-                actionSortByPrice: viewModel.sortByTokenPrice,
-                actionSortByPercent24h: viewModel.sortByDiffPrice
+                actionSort: viewModel.toggleSort(by:),
+                currentSort: viewModel.currentSortType,
+                sortDirection: viewModel.sortDirection
             )
         }
     }

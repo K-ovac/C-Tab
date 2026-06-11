@@ -21,7 +21,7 @@ struct TopicsHeader: View {
                     Text("See more")
                     Image(systemName: "chevron.right")
                         .resizable()
-                        .frame(width: 10, height: 12)
+                        .frame(width: 10, height: 10)
                 }
             }
         }

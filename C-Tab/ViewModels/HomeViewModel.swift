@@ -20,10 +20,13 @@ final class HomeViewModel: ObservableObject {
     @Published var showProfile = false
     @Published var showSearch = false
     @Published var showMoreTopics = false
+    @Published var sortDirection: SortDirection = .descending
+    @Published var currentSortType: SortTypes? = nil
     
     // MARK: - Properties
     
     private var homeService: HomeService
+    
     
     // MARK: - Init
     
@@ -110,17 +113,39 @@ final class HomeViewModel: ObservableObject {
         showMoreTopics = true
     }
     
+    func gairensRows() -> Int {
+        5
+    }
+    
     // MARK: - Sort Methods
     
-    func sortByCapitalization() {
-        topList.sort { ($0.quote.usd.marketCap) ?? 0 > ($1.quote.usd.marketCap) ?? 0 }
-    }
-    
-    func sortByTokenPrice() {
-        topList.sort { $0.quote.usd.price > $1.quote.usd.price }
-    }
-    
-    func sortByDiffPrice() {
-        topList.sort { ($0.quote.usd.percentChange24h) ?? 0 > ($1.quote.usd.percentChange24h) ?? 0 }
+    func toggleSort(by type: SortTypes) {
+        if currentSortType == type {
+            sortDirection.toggle()
+        } else {
+            currentSortType = type
+            sortDirection = .descending
+        }
+        
+        switch type {
+        case .marketCap:
+            topList.sort {
+                sortDirection == .descending ?
+                ($0.quote.usd.marketCap ?? 0) > ($1.quote.usd.marketCap ?? 0)
+                : ($0.quote.usd.marketCap ?? 0) < ($1.quote.usd.marketCap ?? 0)
+            }
+        case .price:
+            topList.sort {
+                sortDirection == .descending ?
+                ($0.quote.usd.price) > ($1.quote.usd.price)
+                : ($0.quote.usd.price) < ($1.quote.usd.price)
+            }
+        case .percentChange:
+            topList.sort {
+                sortDirection == .descending ?
+                ($0.quote.usd.percentChange24h ?? 0) > ($1.quote.usd.percentChange24h ?? 0)
+                : ($0.quote.usd.percentChange24h ?? 0) < ($1.quote.usd.percentChange24h ?? 0)
+            }
+        }
     }
 }

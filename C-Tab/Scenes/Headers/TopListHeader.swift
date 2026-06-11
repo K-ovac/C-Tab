@@ -9,9 +9,9 @@ import SwiftUI
 
 struct TopListHeader: View {
     
-    let actionSortByMarketCap: () -> Void
-    let actionSortByPrice: () -> Void
-    let actionSortByPercent24h: () -> Void
+    let actionSort: (SortTypes) -> Void
+    let currentSort: SortTypes?
+    let sortDirection: SortDirection
     
     var body: some View {
         VStack(spacing: 10) {
@@ -25,7 +25,7 @@ struct TopListHeader: View {
                         //
                     } label: {
                         Text("Top 100")
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.primary)
                             .font(.system(size: 14, weight: .regular))
                         
                     }
@@ -40,7 +40,7 @@ struct TopListHeader: View {
                         //
                     } label: {
                         Text("24h %")
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.primary)
                             .font(.system(size: 14, weight: .regular))
                     }
                 }
@@ -48,39 +48,46 @@ struct TopListHeader: View {
             
             HStack {
                 Button {
-                    actionSortByMarketCap()
+                    actionSort(.marketCap)
                 } label: {
                     Text("Asset/M.Cap")
                         .font(.system(size: 11, weight: .regular))
-                    Image(systemName: "chevron.down")
-                        .resizable()
-                        .frame(width: 8, height: 6)
+                    sortImage(for: .marketCap)
                 }
                 Spacer()
                 
                 HStack(spacing: 10) {
                     Button {
-                        actionSortByPrice()
+                        actionSort(.price)
                     } label: {
                         Text("Price")
                             .font(.system(size: 11, weight: .regular))
-                        Image(systemName: "chevron.down")
-                            .resizable()
-                            .frame(width: 8, height: 6)
+                        sortImage(for: .price)
                     }
                     
                     Button {
-                        actionSortByPercent24h()
+                        actionSort(.percentChange)
                     } label: {
                         Text("24h %")
                             .font(.system(size: 11, weight: .regular))
-                        Image(systemName: "chevron.down")
-                            .resizable()
-                            .frame(width: 8, height: 6)
+                        sortImage(for: .percentChange)
                     } .padding(.leading, 20)
                 }
-            }.foregroundStyle(.foreground)
+            }.foregroundStyle(.primary)
         }
+    }
+}
+
+extension TopListHeader {
+    private func sortImage(for type: SortTypes) -> some View {
+        Image(
+            systemName: currentSort == type
+            ? (sortDirection == .descending ? "chevron.down" : "chevron.up") 
+            : "chevron.down"
+        )
+        .resizable()
+        .frame(width: 8, height: 6)
+        .foregroundStyle(currentSort == type ? .blue : .secondary)
     }
 }
 

@@ -12,6 +12,7 @@ struct TopListHeader: View {
     let actionSort: (SortTypes) -> Void
     let currentSort: SortTypes?
     let sortDirection: SortDirection
+    @State var rankCtrypto: RankCrypto
     
     var body: some View {
         VStack(spacing: 10) {
@@ -21,13 +22,10 @@ struct TopListHeader: View {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundStyle(.gray)
                         .opacity(0.3)
-                    Button {
-                        //
-                    } label: {
-                        Text("Top 100")
-                            .foregroundStyle(.primary)
-                            .font(.system(size: 14, weight: .regular))
-                        
+                    Picker("By Rank", selection: $rankCtrypto) {
+                        ForEach(RankCrypto.allCases) { rank in
+                            Text(rank.id).tag(rank)
+                        }
                     }
                 }
                 

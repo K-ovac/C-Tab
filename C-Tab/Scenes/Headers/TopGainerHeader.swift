@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct TopGainerHeader: View {
+    
+    @State var rankCtrypto: RankCrypto
+    
     var body: some View {
-        Text("Top Gainers")
+        Picker("By Rank", selection: $rankCtrypto) {
+            ForEach(RankCrypto.allCases) { rank in
+                Text(rank.id).tag(rank)
+            }
+        }
     }
 }
 
 #Preview {
-    TopGainerHeader()
+    TopGainerHeader(rankCtrypto: .top100)
 }

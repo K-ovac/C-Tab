@@ -138,7 +138,8 @@ extension HomeView {
             TopListHeader(
                 actionSort: viewModel.toggleSort(by:),
                 currentSort: viewModel.currentSortType,
-                sortDirection: viewModel.sortDirection
+                sortDirection: viewModel.sortDirection,
+                rankCtrypto: .top100
             )
         }
     }

@@ -12,7 +12,8 @@ struct TopListHeader: View {
     let actionSort: (SortTypes) -> Void
     let currentSort: SortTypes?
     let sortDirection: SortDirection
-    @State var rankCtrypto: RankCrypto
+    @Binding var rankCtrypto: RankCrypto
+    @Binding var priceChange: PriceChange
     
     var body: some View {
         VStack(spacing: 10) {
@@ -34,15 +35,14 @@ struct TopListHeader: View {
                         .foregroundStyle(.gray)
                         .opacity(0.3)
                     
-                    Button {
-                        //
-                    } label: {
-                        Text("24h %")
-                            .foregroundStyle(.primary)
-                            .font(.system(size: 14, weight: .regular))
+                    Picker("Price change", selection: $priceChange) {
+                        ForEach(PriceChange.allCases) { change in
+                            Text(change.id).tag(change)
+                        }
                     }
                 }
             } .frame(height: 35)
+                .foregroundStyle(.primary)
             
             HStack {
                 Button {

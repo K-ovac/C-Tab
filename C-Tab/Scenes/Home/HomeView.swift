@@ -131,7 +131,7 @@ extension HomeView {
     
     private var topListSection: some View {
         Section {
-            ForEach(viewModel.topList) { item in
+            ForEach(viewModel.topList.prefix(viewModel.topListRows())) { item in
                 TopListRow(token: item)
             }
         } header: {
@@ -139,7 +139,8 @@ extension HomeView {
                 actionSort: viewModel.toggleSort(by:),
                 currentSort: viewModel.currentSortType,
                 sortDirection: viewModel.sortDirection,
-                rankCtrypto: .top100
+                rankCtrypto: $viewModel.rankCrypto,
+                priceChange: $viewModel.priceChange
             )
         }
     }

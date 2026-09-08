@@ -22,6 +22,8 @@ final class HomeViewModel: ObservableObject {
     @Published var showMoreTopics = false
     @Published var sortDirection: SortDirection = .descending
     @Published var currentSortType: SortTypes? = nil
+    @Published var rankCrypto: RankCrypto = .top100
+    @Published var priceChange: PriceChange = .day
     
     // MARK: - Properties
     
@@ -115,6 +117,19 @@ final class HomeViewModel: ObservableObject {
     
     func gairensRows() -> Int {
         5
+    }
+    
+    func topListRows() -> Int {
+        switch rankCrypto {
+        case .top10:
+            return 10
+        case .top100:
+            return 100
+        case .top300:
+            return 300
+        case .allTokens:
+            return topList.count
+        }
     }
     
     // MARK: - Sort Methods

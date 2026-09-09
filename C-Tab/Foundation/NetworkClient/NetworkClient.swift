@@ -89,10 +89,15 @@ struct NetworkClient: NetworkRouting {
         let request = request(url: url, headers: headers)
         
         let task = session.dataTask(with: request) { data, response, error in
-            print("ERROR:", error as Any)
-            print("RESPONSE:", response as Any)
-            print("DATA:", data as Any)
-            print(url.absoluteString)
+//            print("ERROR:", error as Any)
+//            print("RESPONSE:", response as Any)
+//            print("DATA:", data as Any)
+//            print(url.absoluteString)
+            if let data = data,
+               let json = String(data: data, encoding: .utf8) {
+                print(json)
+            }
+            
             guard let response = response as? HTTPURLResponse else {
                 completion(.failure(NetworkError.urlSessionError))
                 return

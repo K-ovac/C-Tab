@@ -26,12 +26,38 @@ struct TokenMetricsView: View {
                     Text("Bitcoin")
                         .font(.title2)
                         .foregroundStyle(.secondary)
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Image("rankingStar")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(.secondary)
+                        Text("No." + "1")
+                            .foregroundStyle(.green)
+                            .font(.callout.bold())
+                    }
                 }
                 Spacer()
                 
-                Text("$78131.45")
-                    .foregroundStyle(.primary)
+                VStack(alignment: .leading) {
+                    Text("Last price")
+                        .font(.callout)
+                    
+                    HStack{
+                        Text("$78131.45")
+                            
+                        Spacer()
+                        
+                        Text(String(format: "%.2f%%", 1.6800))
+                            .foregroundStyle(.green)
+                    }
                     .font(.title)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(.primary)
+                
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()

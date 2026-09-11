@@ -15,7 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var topics: [Topic] = []
     @Published var gainers: [Gainer] = []
     @Published var topList: [TokenList] = []
-    @Published var globalMetrics: QuotesLatest?
+    @Published var globalMetrics: GlobalMetrics?
     @Published var tokenMetadata: [Int: TokenMetadata] = [:]
     @Published var showProfile = false
     @Published var showSearch = false
@@ -122,11 +122,11 @@ final class HomeViewModel: ObservableObject {
     
     func topListRows() -> Int {
         switch rankCrypto {
-        case .top10:
+        case .top20:
             return 20
         case .top100:
             return 100
-        case .top300:
+        case .top200:
             return 200
         case .allTokens:
             return topList.count

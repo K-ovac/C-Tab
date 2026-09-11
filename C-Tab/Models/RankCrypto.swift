@@ -6,9 +6,9 @@
 //
 
 enum RankCrypto: String, CaseIterable, Identifiable {
-    case top10 = "Top 20"
+    case top20 = "Top 20"
     case top100 = "Top 100"
-    case top300 = "Top 200"
+    case top200 = "Top 200"
     case allTokens = "All Tokens"
     
     var id: String { self.rawValue }

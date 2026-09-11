@@ -11,7 +11,7 @@ import Foundation
 
 typealias TopListCompletion = (Result<[TokenList], Error>) -> Void
 typealias TopGainerCompletion = (Result<[Gainer], Error>) -> Void
-typealias GlobalMetricsCompletion = (Result<QuotesLatest, Error>) -> Void
+typealias GlobalMetricsCompletion = (Result<GlobalMetrics, Error>) -> Void
 
 // MARK: - Protocol HomeServiceData
 
@@ -85,7 +85,7 @@ final class HomeService: HomeServiceData {
             return
         }
         
-        networkClient.parse(url: url, type: QuotesLatestData.self) { result in
+        networkClient.parse(url: url, type: GlobalMetricsData.self) { result in
             switch result {
             case .success(let response):
                 completion(.success(response.data))

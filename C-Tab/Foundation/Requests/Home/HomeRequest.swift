@@ -17,7 +17,7 @@ struct HomeRequest: NetworkRequest {
 
 struct GlobalMetricsRequest: NetworkRequest {
     var endpoint: URL? {
-        URL(string: RequestConstants.baseURL + "/v1/global-metrics/quotes/latest")
+        URL(string: RequestConstants.baseURL + "global")
     }
     
     var httpMethod: HttpMethod { .get }

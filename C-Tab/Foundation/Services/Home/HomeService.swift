@@ -45,10 +45,10 @@ final class HomeService: HomeServiceData {
             return
         }
         
-        networkClient.parse(url: url, type: TopList.self) { result in
+        networkClient.parse(url: url, type: [TokenList].self) { result in
             switch result {
             case .success(let response):
-                completion(.success(response.data))
+                completion(.success(response))
             case .failure(let error):
                 completion(.failure(error))
             }

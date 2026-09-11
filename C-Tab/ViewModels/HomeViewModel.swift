@@ -67,6 +67,7 @@ final class HomeViewModel: ObservableObject {
                 switch result {
                 case .success(let data):
                     self.topList = data
+                    print("fetched")
                 case .failure(let error):
                     print(error)
                 }
@@ -122,11 +123,11 @@ final class HomeViewModel: ObservableObject {
     func topListRows() -> Int {
         switch rankCrypto {
         case .top10:
-            return 10
+            return 20
         case .top100:
             return 100
         case .top300:
-            return 300
+            return 200
         case .allTokens:
             return topList.count
         }
@@ -146,20 +147,20 @@ final class HomeViewModel: ObservableObject {
         case .marketCap:
             topList.sort {
                 sortDirection == .descending ?
-                ($0.quote.usd.marketCap ?? 0) > ($1.quote.usd.marketCap ?? 0)
-                : ($0.quote.usd.marketCap ?? 0) < ($1.quote.usd.marketCap ?? 0)
+                ($0.marketCap) > ($1.marketCap)
+                : ($0.marketCap) < ($1.marketCap)
             }
         case .price:
             topList.sort {
                 sortDirection == .descending ?
-                ($0.quote.usd.price) > ($1.quote.usd.price)
-                : ($0.quote.usd.price) < ($1.quote.usd.price)
+                ($0.currentPrice) > ($1.currentPrice)
+                : ($0.currentPrice) < ($1.currentPrice)
             }
         case .percentChange:
             topList.sort {
                 sortDirection == .descending ?
-                ($0.quote.usd.percentChange24h ?? 0) > ($1.quote.usd.percentChange24h ?? 0)
-                : ($0.quote.usd.percentChange24h ?? 0) < ($1.quote.usd.percentChange24h ?? 0)
+                ($0.priceChangePercentage24h ?? 0) > ($1.priceChangePercentage24h ?? 0)
+                : ($0.priceChangePercentage24h ?? 0) < ($1.priceChangePercentage24h ?? 0)
             }
         }
     }

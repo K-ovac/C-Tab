@@ -9,7 +9,7 @@ import Foundation
 
 struct HomeRequest: NetworkRequest {
     var endpoint: URL? {
-        URL(string: RequestConstants.baseURL + "/v1/cryptocurrency/listings/latest")
+        URL(string: RequestConstants.baseURL + "coins/markets?vs_currency=usd")
     }
     
     var httpMethod: HttpMethod { .get }

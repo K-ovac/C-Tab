@@ -41,7 +41,7 @@ extension CoinDetailsView {
     
     private var tokenMetricsView: some View {
         Section() {
-            CoinMetricsView()
+//            CoinMetricsView()
         }
     }
     

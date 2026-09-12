@@ -5,7 +5,7 @@
 //  Created by Максим Лозебной on 25.04.2026.
 //
 
-struct CoinMetadata: Codable {
+struct CoinMetadata: Codable, Identifiable {
     let id: String
     let name: String
     let symbol: String
@@ -13,6 +13,7 @@ struct CoinMetadata: Codable {
     let image: CoinImage
     let marketCapRank: Int
     let marketData: CoinMarketData
+    let priceChangePercentage24h: Double?
 }
 
 struct CoinDescription: Codable {

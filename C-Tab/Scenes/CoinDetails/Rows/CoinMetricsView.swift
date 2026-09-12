@@ -41,10 +41,10 @@ struct CoinMetricsView: View {
                             .foregroundStyle(.secondary)
                         Text(                                               //coin m cap rank
                             "No." +
-                            String(coinMetadata.marketCapRank)
+                            String(coinMetadata.marketData.marketCapRank)
                         )
-                            .foregroundStyle(.green)
-                            .font(.callout.bold())
+                        .foregroundStyle(.green)
+                        .font(.callout.bold())
                     }
                 }
                 Spacer()
@@ -68,11 +68,11 @@ struct CoinMetricsView: View {
                         Text(
                             String(
                                 format: "%.2f%%",
-                                coinMetadata.priceChangePercentage24h ?? 0
+                                coinMetadata.marketData.priceChangePercentage24h ?? 0
                             )
                         )
                         .foregroundStyle(
-                            (coinMetadata.priceChangePercentage24h ?? 0)
+                            (coinMetadata.marketData.priceChangePercentage24h ?? 0)
                                 .percentChangeColor
                         )
                     }
@@ -94,23 +94,22 @@ struct CoinMetricsView: View {
             id: "ethereum",
             name: "Ethereum",
             symbol: "ETH",
-            desctiption: CoinDescription(
-                description: CoinDescriptionLanguage(
-                    en: "bla bla bla",
-                    ru: "",
-                    zh: ""
-                )
+            description: CoinDescription(
+                en: "bla bla bla",
+                ru: "",
+                zh: ""
             ),
             image: CoinImage(
                 small: "https://coin-images.coingecko.com/coins/images/279/small/ethereum.png?1696501628"
             ),
-        marketCapRank: 2,
-        marketData: CoinMarketData(
-            currentPrice: CoinCurrentPrice(
-                usd: 2562.45
-            )
-        ),
-            priceChangePercentage24h: -1.87623
-    )
+            marketData: CoinMarketData(
+                currentPrice: CoinCurrentPrice(
+                    usd: 2562.45
+                ),
+                marketCapRank: 2,
+                priceChangePercentage24h: -1.87623
+            ),
+            
+        )
     )
 }

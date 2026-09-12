@@ -10,6 +10,8 @@ import SwiftUI
 struct CoinDetailsView: View {
     @State private var isExpanded: Bool = false
     
+    let coinMetadata: CoinMetadata
+    
     var body: some View {
         NavigationStack {
             List {
@@ -36,24 +38,20 @@ extension CoinDetailsView {
             """
         )
         .foregroundStyle(.secondary)
-        .font(.caption)
+        .font(.footnote)
     }
     
     private var tokenMetricsView: some View {
         Section() {
-//            CoinMetricsView()
+            CoinMetricsView(coinMetadata: coinMetadata)
         }
     }
     
     private var aboutToken: some View {
         Section {
             VStack(alignment: .leading) {
-                Text(
-                    """
-                    Bitcoin (BTC) is a cryptocurrency launched in 2010. Users are able to generate BTC through the process of mining. Bitcoin has a current supply of 20,082,421. The last known price of Bitcoin is 77,335.98832106 USD and is down -1.77 over the last 24 hours. It is currently trading on 12736 active market(s) with $30,757,481,184.37 traded over the last 24 hours.
-                    """
-                )
-                .lineLimit(isExpanded ? nil : 3)
+                Text(coinMetadata.description.en)
+                    .lineLimit(isExpanded ? nil : 3)
                 
                 Button(
                     isExpanded ? "Hide" : "Show More"
@@ -64,12 +62,34 @@ extension CoinDetailsView {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         } header: {
-            Text("What is Bitcoin?")
+            Text("What is \(coinMetadata.name)?")
         }
         
     }
 }
 
 #Preview {
-    CoinDetailsView()
+    CoinDetailsView(
+        coinMetadata: CoinMetadata(
+            id: "ethereum",
+            name: "Ethereum",
+            symbol: "ETH",
+            description: CoinDescription(
+                en: "bla bla bla",
+                ru: "",
+                zh: ""
+            ),
+            image: CoinImage(
+                small: "https://coin-images.coingecko.com/coins/images/279/small/ethereum.png?1696501628"
+            ),
+            marketData: CoinMarketData(
+                currentPrice: CoinCurrentPrice(
+                    usd: 2562.45
+                ),
+                marketCapRank: 2,
+                priceChangePercentage24h: -1.87623
+            ),
+            
+        )
+    )
 }

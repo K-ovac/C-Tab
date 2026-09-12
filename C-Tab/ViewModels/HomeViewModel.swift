@@ -16,7 +16,6 @@ final class HomeViewModel: ObservableObject {
     @Published var gainers: [Gainer] = []
     @Published var topList: [TokenList] = []
     @Published var globalMetrics: GlobalMetrics?
-    @Published var tokenMetadata: [Int: TokenMetadata] = [:]
     @Published var showProfile = false
     @Published var showSearch = false
     @Published var showMoreTopics = false

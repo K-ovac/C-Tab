@@ -5,18 +5,34 @@
 //  Created by Максим Лозебной on 25.04.2026.
 //
 
-struct TokenInfo: Codable {
-    let id: Int
+struct CoinMetadata: Codable {
+    let id: String
     let name: String
     let symbol: String
-    let desctiption: String
-    let logo: String
+    let desctiption: CoinDescription
+    let image: CoinImage
+    let marketCapRank: Int
+    let marketData: CoinMarketData
 }
 
-struct TokenId: Codable {
-    let id: TokenInfo
+struct CoinDescription: Codable {
+    let description: CoinDescriptionLanguage
 }
 
-struct TokenMetadata: Codable {
-    let data: [String: TokenInfo]
+struct CoinDescriptionLanguage: Codable {
+    let en: String
+    let ru: String
+    let zh: String
+}
+
+struct CoinImage: Codable {
+    let small: String
+}
+
+struct CoinMarketData: Codable {
+    let currentPrice: CoinCurrentPrice
+}
+
+struct CoinCurrentPrice: Codable {
+    let usd: Double
 }

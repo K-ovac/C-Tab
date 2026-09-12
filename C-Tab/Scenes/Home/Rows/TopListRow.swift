@@ -15,29 +15,54 @@ struct TopListRow: View {
     var body: some View {
         HStack(spacing: 10) {
             Text(String(token.marketCapRank))
-                .foregroundStyle(.gray)
+                .foregroundStyle(.secondary)
+                .font(.body.bold())
             HStack {
                 KFImage(URL(string: token.image)!)
                     .resizable()
-                    .frame(width: 25, height: 25)
+                    .frame(width: 30, height: 30)
+                    .clipShape(.circle)
                 
                 VStack(alignment: .leading) {
                     Text(token.symbol.uppercased())  //token name
-                        .font(.headline)
-                    Text(String(token.marketCap)) //token market cap
-                        .font(.caption)
-                        .foregroundStyle(.gray)
+                        .font(.body.bold())
+                        .foregroundStyle(.primary)
+                    Text(
+                        String(
+                            token.marketCap.formatted(
+                                .number.notation(.compactName)
+                            )
+                        )
+                    ) //token market cap
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
             }
             
             Spacer()
             
             HStack(spacing: 10) {
-                Text(String(token.currentPrice.formatted(.currency(code: "USD"))))   //coin price
-                Text(String((token.priceChangePercentage24h ?? 111))) //coin price change percentage
-                    .foregroundStyle(.primary)
+                Text(
+                    String(
+                        token.currentPrice.formatted(
+                            .currency(code: "USD")
+                        )
+                    )
+                )   //coin price
+                .font(.body.bold())
+                .foregroundStyle(.primary)
+                    
+                Text(
+                    String(
+                        format: "%.2f%%", (token.priceChangePercentage24h ?? 0)
+                    )
+                ) //coin price change percentage
+                    .font(.body.bold())
+                    .foregroundStyle(
+                        (token.priceChangePercentage24h ?? 0).percentChangeColor
+                    )
             }
-        }.background(.clear)
+        }
     }
 }
 
@@ -50,7 +75,7 @@ struct TopListRow: View {
             image: "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
             currentPrice: 77171,
             marketCap: 1549652231921,
-            marketCapRank: 1,
+            marketCapRank: 100,
             priceChangePercentage24h: 0.6099
         )
     )

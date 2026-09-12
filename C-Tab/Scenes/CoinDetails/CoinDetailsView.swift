@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TokenInfoView: View {
+struct CoinDetailsView: View {
     @State private var isExpanded: Bool = false
     
     var body: some View {
@@ -28,11 +28,11 @@ struct TokenInfoView: View {
     }
 }
 
-extension TokenInfoView {
+extension CoinDetailsView {
     private var warningTitle: some View {
         Text(
             """
-            *The token information and pricing data on this page are sourced from third parties (e.g, CoinMarketCap) and are for reference only. This app makes no warranties and does not constitute investment advice.
+            *The token information and pricing data on this page are sourced from third parties (e.g, CoinGecko) and are for reference only. This app makes no warranties and does not constitute investment advice.
             """
         )
         .foregroundStyle(.secondary)
@@ -41,7 +41,7 @@ extension TokenInfoView {
     
     private var tokenMetricsView: some View {
         Section() {
-            TokenMetricsView()
+//            CoinMetricsView()
         }
     }
     
@@ -71,5 +71,5 @@ extension TokenInfoView {
 }
 
 #Preview {
-    TokenInfoView()
+    CoinDetailsView()
 }

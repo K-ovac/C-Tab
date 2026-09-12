@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TokenMetricsView: View {
+struct CoinMetricsView: View {
     
     var body: some View {
         ZStack {
@@ -66,5 +66,5 @@ struct TokenMetricsView: View {
 }
 
 #Preview {
-    TokenMetricsView()
+    CoinMetricsView()
 }

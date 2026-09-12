@@ -33,8 +33,8 @@ struct TopListRow: View {
             Spacer()
             
             HStack(spacing: 10) {
-                Text(String(token.currentPrice))   //coin price
-                Text(String(format: "%.2f%%", token.priceChangePercentage24h ?? "-")) //coin price change percentage
+                Text(String(token.currentPrice.formatted(.currency(code: "USD"))))   //coin price
+                Text(String((token.priceChangePercentage24h ?? 111))) //coin price change percentage
                     .foregroundStyle(.primary)
             }
         }.background(.clear)

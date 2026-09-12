@@ -9,6 +9,12 @@ struct GlobalMetrics: Codable {
     let activeCryptocurrencies: Int
     let marketCapPercentage: MarketCapPercentage
     let marketCapChangePercentage24hUsd: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case activeCryptocurrencies = "active_cryptocurrencies"
+        case marketCapPercentage = "market_cap_percentage"
+        case marketCapChangePercentage24hUsd = "market_cap_change_percentage_24h_usd"
+    }
 }
 
 struct MarketCapPercentage: Codable {

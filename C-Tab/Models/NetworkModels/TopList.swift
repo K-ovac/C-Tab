@@ -16,4 +16,15 @@ struct TokenList: Codable, Identifiable {
     let marketCap: Double
     let marketCapRank: Int
     let priceChangePercentage24h: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case symbol
+        case name
+        case image
+        case currentPrice = "current_price"
+        case marketCap = "market_cap"
+        case marketCapRank = "market_cap_rank"
+        case priceChangePercentage24h = "price_change_percentage_24h"
+    }
 }

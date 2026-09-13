@@ -18,6 +18,7 @@ struct HomeView: View {
             networkClient: NetworkClient()
         )
     )
+    @State private var selectedCoinId: String?
     
     // MARK: - Body
     
@@ -58,6 +59,9 @@ struct HomeView: View {
                 }
                 .navigationDestination(isPresented: $viewModel.showMoreTopics) {
                     MoreTopicsView()
+                }
+                .navigationDestination(item: $selectedCoinId) { coinId in
+                    CoinDetailsView(coinId: coinId)
                 }
         }
     }
@@ -133,6 +137,10 @@ extension HomeView {
         Section {
             ForEach(viewModel.topList.prefix(viewModel.topListRows())) { item in
                 TopListRow(token: item)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedCoinId = item.id
+                    }
             }
         } header: {
             TopListHeader(

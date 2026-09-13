@@ -9,23 +9,42 @@ import SwiftUI
 
 struct CoinDetailsView: View {
     @State private var isExpanded: Bool = false
+    @StateObject private var viewModel: CoinDetailsViewModel
     
-    let coinMetadata: CoinMetadata
+    let coinId: String
+    
+    init(coinId: String) {
+        self.coinId = coinId
+        _viewModel = StateObject(
+            wrappedValue: CoinDetailsViewModel(
+                coinDetailsServise: CoinDetailsService(
+                    networkClient: NetworkClient()
+                ),
+                coinId: coinId
+            )
+        )
+    }
     
     var body: some View {
-        NavigationStack {
-            List {
-                warningTitle
-                    .listRowSeparator(.hidden)
-                tokenMetricsView
-                    .listRowSeparator(.hidden)
-                aboutToken
-                    .listRowSeparator(.hidden)
-            }
-            .navigationTitle("Coin Info")
-            .navigationBarTitleDisplayMode(.inline)
-            
-            .listStyle(.inset)
+        
+        List {
+            warningTitle
+                .listRowSeparator(.hidden)
+            tokenMetricsView
+                .listRowSeparator(.hidden)
+            aboutToken
+                .listRowSeparator(.hidden)
+        }
+        .navigationTitle((viewModel.coinDetails?.symbol.uppercased() ?? "Coin Details") + " Details")
+        .navigationBarTitleDisplayMode(.inline)
+        
+        .listStyle(.inset)
+        
+        .task {
+            viewModel.fetchCoinDetails()
+        }
+        .refreshable {
+            viewModel.fetchCoinDetails()
         }
     }
 }
@@ -43,53 +62,38 @@ extension CoinDetailsView {
     
     private var tokenMetricsView: some View {
         Section() {
-            CoinMetricsView(coinMetadata: coinMetadata)
+            if let metrics = viewModel.coinDetails {
+                CoinMetricsView(coinMetadata: metrics)
+            }
+            
         }
     }
     
     private var aboutToken: some View {
         Section {
-            VStack(alignment: .leading) {
-                Text(coinMetadata.description.en)
-                    .lineLimit(isExpanded ? nil : 3)
-                
-                Button(
-                    isExpanded ? "Hide" : "Show More"
-                ) {
-                    isExpanded.toggle()
+            if let coinMetadata = viewModel.coinDetails {
+                VStack(alignment: .leading) {
+                    Text(coinMetadata.description.en)
+                        .lineLimit(isExpanded ? nil : 3)
+                    
+                    Button(
+                        isExpanded ? "Hide" : "Show More"
+                    ) {
+                        isExpanded.toggle()
+                    }
+                    .foregroundStyle(.secondary)
                 }
-                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
         } header: {
-            Text("What is \(coinMetadata.name)?")
+            if let coinMetadata = viewModel.coinDetails {
+                Text("What is \(coinMetadata.name)?")
+            }
         }
         
     }
 }
 
 #Preview {
-    CoinDetailsView(
-        coinMetadata: CoinMetadata(
-            id: "ethereum",
-            name: "Ethereum",
-            symbol: "ETH",
-            description: CoinDescription(
-                en: "bla bla bla",
-                ru: "",
-                zh: ""
-            ),
-            image: CoinImage(
-                small: "https://coin-images.coingecko.com/coins/images/279/small/ethereum.png?1696501628"
-            ),
-            marketData: CoinMarketData(
-                currentPrice: CoinCurrentPrice(
-                    usd: 2562.45
-                ),
-                marketCapRank: 2,
-                priceChangePercentage24h: -1.87623
-            ),
-            
-        )
-    )
+    TabListView()
 }

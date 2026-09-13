@@ -35,7 +35,9 @@ struct CoinDetailsView: View {
             aboutToken
                 .listRowSeparator(.hidden)
         }
-        .navigationTitle((viewModel.coinDetails?.symbol.uppercased() ?? "Coin Details") + " Details")
+        .navigationTitle(
+            (viewModel.coinDetails?.symbol.uppercased() ?? "Coin") + " Details"
+        )
         .navigationBarTitleDisplayMode(.inline)
         
         .listStyle(.inset)

@@ -39,18 +39,40 @@ struct CoinMarketData: Codable {
     let currentPrice: CoinCurrentPrice
     let marketCapRank: Int
     let priceChangePercentage24h: Double?
+    let fullyDilutedValuation: CoinCurrentValue
+    let marketCap: CoinCurrentValue
+    let totalVolume: CoinCurrentValue
+    let circulatingSupply: Int
+    let totalSupply: Int
+    let maxSupply: Int?
+    let high24h: CoinCurrentPrice
+    let low24h: CoinCurrentPrice
     
     enum CodingKeys: String, CodingKey {
         case currentPrice = "current_price"
         case marketCapRank = "market_cap_rank"
         case priceChangePercentage24h = "price_change_percentage_24h"
+        case fullyDilutedValuation = "fully_diluted_valuation"
+        case marketCap = "market_cap"
+        case totalVolume = "total_volume"
+        case circulatingSupply = "circulating_supply"
+        case totalSupply = "total_supply"
+        case maxSupply = "max_supply"
+        case high24h = "high_24h"
+        case low24h = "low_24h"
     }
 }
 
 struct CoinCurrentPrice: Codable {
+    let btc: Double
     let usd: Double
 }
 
 struct CoinLinks: Codable {
     let homepage: [String]
+}
+
+struct CoinCurrentValue: Codable {
+    let btc: Int
+    let usd: Int
 }

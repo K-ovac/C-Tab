@@ -21,10 +21,14 @@ struct CoinMetricsView: View {
                 .opacity(0.3)
             VStack(alignment: .leading) {
                 HStack {
-                    KFImage(URL(string: coinMetadata.image.small))
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                    Text(coinMetadata.symbol)                                             //coin symbol
+                    if let url = URL(string: coinMetadata.image.small) {
+                        KFImage(url)
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .clipShape(.circle)
+                    }
+                    
+                    Text(coinMetadata.symbol.uppercased())                                             //coin symbol
                         .font(.title.bold())
                         .foregroundStyle(.primary)
                     Text(coinMetadata.name)                                         //coin name
@@ -49,12 +53,11 @@ struct CoinMetricsView: View {
                 }
                 Spacer()
                 
-                VStack(alignment: .leading) {
-                    Text("Last price")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    
-                    HStack{
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Last price")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
                         Text(
                             String(
                                 coinMetadata.marketData.currentPrice.usd.formatted(
@@ -62,9 +65,14 @@ struct CoinMetricsView: View {
                                 )
                             )
                         )
-                        
-                        Spacer()
-                        
+                        .font(.title.bold())
+                    }
+                    Spacer()
+                    
+                    VStack(alignment: .trailing) {
+                        Text("24h %")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
                         Text(
                             String(
                                 format: "%.2f%%",
@@ -73,10 +81,9 @@ struct CoinMetricsView: View {
                         )
                         .foregroundStyle(
                             (coinMetadata.marketData.priceChangePercentage24h ?? 0)
-                                .percentChangeColor
-                        )
+                                .percentChangeColor)
+                        .font(.title.bold())
                     }
-                    .font(.title.bold())
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(.primary)
@@ -93,7 +100,7 @@ struct CoinMetricsView: View {
         coinMetadata: CoinMetadata(
             id: "ethereum",
             name: "Ethereum",
-            symbol: "ETH",
+            symbol: "eth",
             description: CoinDescription(
                 en: "bla bla bla",
                 ru: "",

@@ -18,10 +18,12 @@ struct TopListRow: View {
                 .foregroundStyle(.secondary)
                 .font(.body.bold())
             HStack {
-                KFImage(URL(string: token.image)!)
-                    .resizable()
-                    .frame(width: 30, height: 30)
-                    .clipShape(.circle)
+                if let url = URL(string: token.image) {
+                    KFImage(url)
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .clipShape(.circle)
+                }
                 
                 VStack(alignment: .leading) {
                     Text(token.symbol.uppercased())  //token name

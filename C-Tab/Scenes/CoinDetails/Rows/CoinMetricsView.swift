@@ -116,6 +116,9 @@ struct CoinMetricsView: View {
                 marketCapRank: 2,
                 priceChangePercentage24h: -1.87623
             ),
+            links: CoinLinks(
+                homepage: ["https://www.ethereum.org/"]
+            ),
             
         )
     )

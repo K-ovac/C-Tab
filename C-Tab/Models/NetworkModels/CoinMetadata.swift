@@ -12,6 +12,7 @@ struct CoinMetadata: Codable, Identifiable {
     let description: CoinDescription
     let image: CoinImage
     let marketData: CoinMarketData
+    let links: CoinLinks
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -20,6 +21,7 @@ struct CoinMetadata: Codable, Identifiable {
         case description
         case image
         case marketData = "market_data"
+        case links
     }
 }
 
@@ -47,4 +49,8 @@ struct CoinMarketData: Codable {
 
 struct CoinCurrentPrice: Codable {
     let usd: Double
+}
+
+struct CoinLinks: Codable {
+    let homepage: [String]
 }

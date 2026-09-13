@@ -32,6 +32,8 @@ struct CoinDetailsView: View {
                 .listRowSeparator(.hidden)
             tokenMetricsView
                 .listRowSeparator(.hidden)
+            statistics
+                .listRowSeparator(.hidden)
             aboutToken
                 .listRowSeparator(.hidden)
         }
@@ -92,7 +94,14 @@ extension CoinDetailsView {
                 Text("What is \(coinMetadata.name)?")
             }
         }
-        
+    }
+    
+    private var statistics: some View {
+        Section {
+            if let coinMetadata = viewModel.coinDetails {
+                CoinStatisticsView(coinMetadata: coinMetadata)
+            }
+        }
     }
 }
 

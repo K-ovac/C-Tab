@@ -6,6 +6,8 @@
 //
 
 enum CoinStatistics: String, CaseIterable, Identifiable {
+    case high24h = "High 24h"
+    case low24h = "Low 24h"
     case marketCap = "Market Cap"
     case circulatingSupply = "Circulating Supply"
     case fullyDilutedValuation = "Fully Diluted Valuation"
@@ -18,8 +20,8 @@ enum CoinStatistics: String, CaseIterable, Identifiable {
 }
 
 enum CoinHistoricalData: String, CaseIterable, Identifiable {
-    case high24h = "high_24h"
-    case low24h = "low_24h"
+    case high24h = "High 24h"
+    case low24h = "Low 24h"
     
     var id: String { self.rawValue }
 }

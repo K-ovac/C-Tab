@@ -18,7 +18,7 @@ struct CoinMetricsView: View {
                 .frame(maxHeight: .infinity)
                 .cornerRadius(12)
                 .foregroundStyle(Color.gray)
-                .opacity(0.3)
+                .opacity(0.1)
             VStack(alignment: .leading) {
                 HStack {
                     if let url = URL(string: coinMetadata.image.small) {
@@ -96,30 +96,30 @@ struct CoinMetricsView: View {
 }
 
 #Preview {
-    CoinMetricsView(
-        coinMetadata: CoinMetadata(
-            id: "ethereum",
-            name: "Ethereum",
-            symbol: "eth",
-            description: CoinDescription(
-                en: "bla bla bla",
-                ru: "",
-                zh: ""
-            ),
-            image: CoinImage(
-                small: "https://coin-images.coingecko.com/coins/images/279/small/ethereum.png?1696501628"
-            ),
-            marketData: CoinMarketData(
-                currentPrice: CoinCurrentPrice(
-                    usd: 2562.45
-                ),
-                marketCapRank: 2,
-                priceChangePercentage24h: -1.87623
-            ),
-            links: CoinLinks(
-                homepage: ["https://www.ethereum.org/"]
-            ),
-            
-        )
-    )
+//    CoinMetricsView(
+//        coinMetadata: CoinMetadata(
+//            id: "ethereum",
+//            name: "Ethereum",
+//            symbol: "eth",
+//            description: CoinDescription(
+//                en: "bla bla bla",
+//                ru: "",
+//                zh: ""
+//            ),
+//            image: CoinImage(
+//                small: "https://coin-images.coingecko.com/coins/images/279/small/ethereum.png?1696501628"
+//            ),
+//            marketData: CoinMarketData(
+//                currentPrice: CoinCurrentPrice(
+//                    usd: 2562.45
+//                ),
+//                marketCapRank: 2,
+//                priceChangePercentage24h: -1.87623
+//            ),
+//            links: CoinLinks(
+//                homepage: ["https://www.ethereum.org/"]
+//            ),
+//            
+//        )
+//    )
 }

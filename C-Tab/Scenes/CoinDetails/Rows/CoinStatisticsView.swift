@@ -16,12 +16,12 @@ struct CoinStatisticsView: View {
     let coinMetadata: CoinMetadata
     
     var body: some View {
-        LazyVGrid(columns: colums, alignment: .leading) {
+        LazyVGrid(columns: colums, alignment: .leading, spacing: 16) {
             ForEach(CoinStatistics.allCases) { stat in
                 VStack(alignment: .leading) {
                     Text(stat.rawValue)
                         .foregroundStyle(.secondary)
-                        .font(.body)
+                        .font(.footnote)
                     
                     switch stat {
                     case .high24h:

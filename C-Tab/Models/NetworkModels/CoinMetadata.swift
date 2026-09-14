@@ -42,8 +42,8 @@ struct CoinMarketData: Codable {
     let fullyDilutedValuation: CoinCurrentValue
     let marketCap: CoinCurrentValue
     let totalVolume: CoinCurrentValue
-    let circulatingSupply: Int
-    let totalSupply: Int
+    let circulatingSupply: Double
+    let totalSupply: Double
     let maxSupply: Int?
     let high24h: CoinCurrentPrice
     let low24h: CoinCurrentPrice

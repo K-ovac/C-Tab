@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CoinDetailsView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var isExpanded: Bool = false
     @StateObject private var viewModel: CoinDetailsViewModel
     
@@ -37,12 +39,11 @@ struct CoinDetailsView: View {
             aboutToken
                 .listRowSeparator(.hidden)
         }
-        .navigationTitle(
-            (viewModel.coinDetails?.symbol.uppercased() ?? "Coin") + " Details"
-        )
-        .navigationBarTitleDisplayMode(.inline)
-        
         .listStyle(.inset)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            leadingToolBar
+        }
         
         .task {
             viewModel.fetchCoinDetails()
@@ -54,6 +55,22 @@ struct CoinDetailsView: View {
 }
 
 extension CoinDetailsView {
+    private var leadingToolBar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                dismiss()
+            } label: {
+                
+                HStack(spacing: 4) {
+                    Image(systemName: "chevron.left")
+                    
+                    Text("\(viewModel.coinDetails?.symbol ?? "Coin")/USD".uppercased())
+                }
+                
+            }
+        }
+    }
+    
     private var warningTitle: some View {
         Text(
             """
@@ -106,5 +123,5 @@ extension CoinDetailsView {
 }
 
 #Preview {
-    TabListView()
+//    TabListView()
 }

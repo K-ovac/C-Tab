@@ -26,6 +26,8 @@ struct SettingRow: View {
                 Text(value)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+            } else {
+                Image(systemName: "arrow.up.right.square")
             }
         }
     }

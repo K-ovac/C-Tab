@@ -68,11 +68,26 @@ struct CoinCurrentPrice: Codable {
     let usd: Double
 }
 
-struct CoinLinks: Codable {
-    let homepage: [String]
-}
-
 struct CoinCurrentValue: Codable {
     let btc: Int
     let usd: Int
 }
+
+struct CoinLinks: Codable {
+    let homepage: [String]
+    let whitepaper: String
+    let reposUrl: CoinReposUrl
+    let twitterScreenName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case homepage
+        case whitepaper
+        case reposUrl = "repos_url"
+        case twitterScreenName = "twitter_screen_name"
+    }
+}
+
+struct CoinReposUrl: Codable {
+    let github: [String]
+}
+

@@ -10,7 +10,9 @@ import SwiftUI
 struct CoinDetailsView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @State private var showWebsite: Bool = false
     @State private var isExpanded: Bool = false
+    @State private var selectedStat: CoinStatistics?
     @StateObject private var viewModel: CoinDetailsViewModel
     
     let coinId: String
@@ -28,18 +30,39 @@ struct CoinDetailsView: View {
     }
     
     var body: some View {
-        
-        List {
-            warningTitle
-                .listRowSeparator(.hidden)
-            tokenMetricsView
-                .listRowSeparator(.hidden)
-            statistics
-                .listRowSeparator(.hidden)
-            aboutToken
-                .listRowSeparator(.hidden)
+        ZStack(alignment: .bottom) {
+            List {
+                warningTitle
+                    .listRowSeparator(.hidden)
+                tokenMetricsView
+                    .listRowSeparator(.hidden)
+                statistics
+                    .listRowSeparator(.hidden)
+                aboutToken
+                    .listRowSeparator(.hidden)
+                links
+                    .listRowSeparator(.hidden)
+            }
+            .listStyle(.inset)
+            
+            if let stat = selectedStat {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        selectedStat = nil
+                    }
+
+                DescriptionView(
+                    title: stat.rawValue,
+                    text: stat.description,
+                    onClose: { selectedStat = nil }
+                )
+                .background(.background)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding()
+                
+            }
         }
-        .listStyle(.inset)
         .navigationBarBackButtonHidden()
         .toolbar {
             leadingToolBar
@@ -63,7 +86,8 @@ extension CoinDetailsView {
                 
                 HStack(spacing: 4) {
                     Image(systemName: "chevron.left")
-                    
+                        .padding(.trailing, 10)
+                    Image(systemName: "line.horizontal.3")
                     Text("\(viewModel.coinDetails?.symbol ?? "Coin")/USD".uppercased())
                 }
                 
@@ -116,12 +140,44 @@ extension CoinDetailsView {
     private var statistics: some View {
         Section {
             if let coinMetadata = viewModel.coinDetails {
-                CoinStatisticsView(coinMetadata: coinMetadata)
+                CoinStatisticsView(
+                    coinMetadata: coinMetadata,
+                    onSelect: { stat in
+                        selectedStat = stat
+                    }
+                )
+            }
+        }
+    }
+    
+    private var links: some View {
+        Section {
+            if let coinMetadata = viewModel.coinDetails {
+                Button {
+                    showWebsite = true
+                } label: {
+                    HStack() {
+                        Image(systemName: "globe")
+                            .foregroundStyle(.white)
+                        Text("Website")
+                            .foregroundStyle(.white)
+                            .font(.body)
+                    }
+                    .padding(4)
+                }
+                .background(.secondary.opacity(0.6))
+                .clipShape(.capsule)
+                .sheet(isPresented: $showWebsite) {
+                    if let url = URL(string: coinMetadata.links.homepage[0]) {
+                        SafariView(url: url)
+                    }
+                }
             }
         }
     }
 }
 
 #Preview {
-//    TabListView()
+    TabListView()
 }
+

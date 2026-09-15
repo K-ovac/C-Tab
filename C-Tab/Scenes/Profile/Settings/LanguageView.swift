@@ -1,35 +1,35 @@
 //
-//  CurrencyView.swift
+//  LanguageView.swift
 //  C-Tab
 //
-//  Created by Максим Лозебной on 06.06.2026.
+//  Created by Максим Лозебной on 15.09.2026.
 //
 
 import SwiftUI
 
-struct CurrencyView: View {
-    @AppStorage(Keys.currency.value)
-    private var selectedCurrency: CurrencyPrice = .usd
+struct LanguageView: View {
+    @AppStorage(Keys.language.value)
+    private var selectedLanguage: Language = .en
     
     let title: String
     
     var body: some View {
         List {
-            ForEach(CurrencyPrice.allCases) { currency in
+            ForEach(Language.allCases) { lang in
                 HStack {
-                    Image(systemName: currency.icon)
-                    Text(currency.id)
+                    Image(systemName: "cube.fill")
+                    Text(lang.id)
                     
                     Spacer()
                     
-                    if selectedCurrency == currency {
+                    if selectedLanguage == lang {
                         Image(systemName: "checkmark")
                             .foregroundStyle(.blue)
                     }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedCurrency = currency
+                    selectedLanguage = lang
                 }
                 
             }
@@ -38,5 +38,5 @@ struct CurrencyView: View {
 }
 
 #Preview {
-    CurrencyView(title: "Currency")
+    LanguageView(title: "Language")
 }

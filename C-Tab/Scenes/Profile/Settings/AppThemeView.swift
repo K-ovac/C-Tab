@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppThemeView: View {
-    @AppStorage("selectedTheme")
+    @AppStorage(Keys.appTheme.value)
     private var selectedTheme: AppTheme = .dark
     
     let title: String

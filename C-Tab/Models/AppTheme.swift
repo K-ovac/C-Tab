@@ -23,7 +23,7 @@ extension AppTheme {
         }
     }
     
-    var iconName: String {
+    var icon: String {
         switch self {
         case .light: return "sun.max.fill"
         case .dark: return "moon.fill"

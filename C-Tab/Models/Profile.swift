@@ -22,12 +22,13 @@ struct ProfileSetting: Identifiable {
 }
 
 enum SettingsDestination {
-    case appTheme, currency
+    case appTheme, currency, language
+    
 }
 
 struct ProfileLink: Identifiable {
     let id = UUID()
     let title: String
     let iconName: String
-    let link: URL
+    let link: String
 }

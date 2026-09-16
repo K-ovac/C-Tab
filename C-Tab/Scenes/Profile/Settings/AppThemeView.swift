@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppThemeView: View {
-    @AppStorage("selectedTheme")
+    @AppStorage(Keys.appTheme.value)
     private var selectedTheme: AppTheme = .dark
     
     let title: String
@@ -23,9 +23,8 @@ struct AppThemeView: View {
                         }
                     }) {
                         HStack {
-                            Image(systemName: theme.iconName)
+                            Image(systemName: theme.icon)
                                 .font(.title3)
-                                .frame(width: 30, alignment: .center)
                             Text(theme.rawValue)
                                 .font(.body)
                             
@@ -41,6 +40,7 @@ struct AppThemeView: View {
                 }
             }
             .navigationTitle(title)
+            .scrollDisabled(true)
         }
         .preferredColorScheme(selectedTheme.colorScheme)
     }

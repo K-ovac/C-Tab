@@ -17,8 +17,12 @@ struct LanguageView: View {
         List {
             ForEach(Language.allCases) { lang in
                 HStack {
-                    Image(systemName: "cube.fill")
+                    Image(lang.icon)
+                        .resizable()
+                        .frame(width: 25, height: 25)
                     Text(lang.id)
+                        .foregroundStyle(.primary)
+                        .font(.body)
                     
                     Spacer()
                     
@@ -29,11 +33,14 @@ struct LanguageView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
+                    
                     selectedLanguage = lang
+                    
                 }
-                
             }
         }
+        .navigationTitle(title)
+        .scrollDisabled(true)
     }
 }
 

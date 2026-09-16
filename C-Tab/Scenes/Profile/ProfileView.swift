@@ -75,11 +75,15 @@ extension ProfileView {
     private var linksSection: some View {
         Section {
             ForEach(viewModel.profileLinks) { link in
-                SettingRow(iconName: link.iconName, title: link.title, value: nil)
+                SettingRow(
+                    iconName: link.iconName,
+                    title: link.title,
+                    value: nil
+                )
+                    .clipShape(Rectangle())
                     .onTapGesture {
                         selectedLink = link
                     }
-                    .clipShape(Rectangle())
                     .sheet(item: $selectedLink) { link in 
                         if let url = URL(string: link.link) {
                             SafariView(url: url)

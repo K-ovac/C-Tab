@@ -24,10 +24,10 @@ enum CurrencyPrice: String, CaseIterable, Identifiable {
     
     var icon: String {
         switch self {
-        case .usd: return "dollarsign.circle"
-        case .rub: return "rublesign.circle"
-        case .eur: return "eurosign.circle"
-        case .cyn: return "chineseyuanrenminbisign.circle"
+        case .usd: return "dollarsign"
+        case .rub: return "rublesign"
+        case .eur: return "eurosign"
+        case .cyn: return "chineseyuanrenminbisign"
         }
     }
 }

@@ -31,9 +31,10 @@ struct CurrencyView: View {
                 .onTapGesture {
                     selectedCurrency = currency
                 }
-                
             }
         }
+        .navigationTitle(title)
+        .scrollDisabled(true)
     }
 }
 

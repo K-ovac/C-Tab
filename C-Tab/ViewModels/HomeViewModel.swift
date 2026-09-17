@@ -15,6 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var topics: [Topic] = []
     @Published var gainers: [Gainer] = []
     @Published var topList: [TokenList] = []
+    @Published var trandingCoins: [TrendingCoinItem] = []
     @Published var globalMetrics: GlobalMetrics?
     @Published var showProfile = false
     @Published var showSearch = false
@@ -33,7 +34,6 @@ final class HomeViewModel: ObservableObject {
     
     init(homeService: HomeService) {
         self.homeService = homeService
-        fetchData()
     }
     
     // MARK: - Factory Methods
@@ -43,6 +43,7 @@ final class HomeViewModel: ObservableObject {
         fetchTopGainers()
         fetchTopics()
         fetchGlobalMetrics()
+        fetchTrandingCoins()
     }
     
     func fetchGlobalMetrics() {
@@ -52,6 +53,20 @@ final class HomeViewModel: ObservableObject {
                 switch result {
                 case .success(let data):
                     self.globalMetrics = data
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func fetchTrandingCoins() {
+        homeService.fetchTrendingCoins { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    self.trandingCoins = data
                 case .failure(let error):
                     print(error)
                 }
@@ -115,8 +130,15 @@ final class HomeViewModel: ObservableObject {
         showMoreTopics = true
     }
     
-    func gairensRows() -> Int {
-        5
+    func trandingCoinsColumns() -> [GridItem] {
+        [
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ]
+    }
+    
+    func trandingCoinsRows() -> Int {
+        4
     }
     
     func topListRows() -> Int {

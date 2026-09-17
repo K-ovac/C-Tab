@@ -30,3 +30,11 @@ struct TopGainersRequest: NetworkRequest {
     
     var httpMethod: HttpMethod { .get }
 }
+
+struct TrendingCoinsRequest: NetworkRequest {
+    var endpoint: URL? {
+        URL(string: RequestConstants.baseURL + "search/trending")
+    }
+    
+    var httpMethod: HttpMethod { .get }
+}

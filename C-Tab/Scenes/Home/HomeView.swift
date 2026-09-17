@@ -27,16 +27,13 @@ struct HomeView: View {
             List {
                 marketInfoSection
                     .listRowSeparator(.hidden)
-                //                topicsSection
-                //                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                //                    .listRowSeparator(.hidden)
-                //                    .listRowBackground(Color.clear)
-//                topGainersSection
-//                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                trandingCoinsSection
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 topListSection
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-//
             }
             .listStyle(.inset)
             
@@ -58,6 +55,9 @@ struct HomeView: View {
                 CoinDetailsView(coinId: coinId)
             }
             
+            .task {
+                viewModel.fetchData()
+            }
             .refreshable() {
                 viewModel.fetchData()
             }
@@ -121,12 +121,22 @@ extension HomeView {
         }
     }
     
-    private var topGainersSection: some View {
+    private var trandingCoinsSection: some View {
         Section(
-            header: Text("Top Gainers")
+            header: Text("Tranding")
         ) {
-            ForEach(viewModel.gainers.prefix(viewModel.gairensRows())) { gainer in
-//                TrandingCoinsRow(gainer: gainer)
+            LazyVGrid(columns: viewModel.trandingCoinsColumns()) {
+                ForEach(
+                    viewModel.trandingCoins
+                        .prefix(viewModel.trandingCoinsRows()),
+                    id: \.item
+                ) { coin in
+                    TrandingCoinsRow(coin: coin.item)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedCoinId = coin.item.id
+                        }
+                }
             }
         }
     }

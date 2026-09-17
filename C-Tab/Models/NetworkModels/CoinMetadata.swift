@@ -69,8 +69,8 @@ struct CoinCurrentPrice: Codable {
 }
 
 struct CoinCurrentValue: Codable {
-    let btc: Int
-    let usd: Int
+    let btc: Double
+    let usd: Double
 }
 
 struct CoinLinks: Codable {

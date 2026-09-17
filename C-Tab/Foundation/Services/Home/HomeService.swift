@@ -12,6 +12,7 @@ import Foundation
 typealias TopListCompletion = (Result<[TokenList], Error>) -> Void
 typealias TopGainerCompletion = (Result<[Gainer], Error>) -> Void
 typealias GlobalMetricsCompletion = (Result<GlobalMetrics, Error>) -> Void
+typealias TrendingCoinsCompletion = (Result<[TrendingCoinItem], Error>) -> Void
 
 // MARK: - Protocol HomeServiceData
 
@@ -19,6 +20,7 @@ protocol HomeServiceData {
     func fetchTopList(completion: @escaping TopListCompletion)
     func fetchTopGainers(completion: @escaping TopGainerCompletion)
     func fetchGlobalMetrics(completion: @escaping GlobalMetricsCompletion)
+    func fetchTrendingCoins(completion: @escaping TrendingCoinsCompletion)
 }
 
 // MARK: - HomeService
@@ -89,6 +91,24 @@ final class HomeService: HomeServiceData {
             switch result {
             case .success(let response):
                 completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchTrendingCoins(completion: @escaping TrendingCoinsCompletion) {
+        let request = TrendingCoinsRequest()
+        
+        guard let url = request.endpoint else {
+            completion(.failure(NetworkError.urlSessionError))
+            return
+        }
+        
+        networkClient.parse(url: url, type: TrendingCoinsProvider.self) { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response.coins))
             case .failure(let error):
                 completion(.failure(error))
             }

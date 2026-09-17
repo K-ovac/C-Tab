@@ -17,13 +17,13 @@ final class HomeViewModel: ObservableObject {
     @Published var topList: [TokenList] = []
     @Published var trandingCoins: [TrendingCoinItem] = []
     @Published var globalMetrics: GlobalMetrics?
-    @Published var showProfile = false
-    @Published var showSearch = false
-    @Published var showMoreTopics = false
     @Published var sortDirection: SortDirection = .descending
     @Published var currentSortType: SortTypes? = nil
     @Published var rankCrypto: RankCrypto = .top100
     @Published var priceChange: PriceChange = .day
+    @Published var selectedCoinId: String?
+    @Published var topListPresented = false
+    @Published var profilePresented = false
     
     // MARK: - Properties
     
@@ -125,10 +125,6 @@ final class HomeViewModel: ObservableObject {
     }
     
     // MARK: - Factory Methods
-    
-    func openMoreTopics() {
-        showMoreTopics = true
-    }
     
     func trandingCoinsColumns() -> [GridItem] {
         [

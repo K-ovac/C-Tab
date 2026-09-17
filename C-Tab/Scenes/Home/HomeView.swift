@@ -45,14 +45,11 @@ struct HomeView: View {
                 trailingToolbar
             }
             
-            .navigationDestination(isPresented: $viewModel.showSearch) {
-                SearchView()
-            }
-            .navigationDestination(isPresented: $viewModel.showMoreTopics) {
-                MoreTopicsView()
-            }
             .navigationDestination(item: $selectedCoinId) { coinId in
                 CoinDetailsView(coinId: coinId)
+            }
+            .navigationDestination(isPresented: $viewModel.topListPresented) {
+                TopCoinsListView()
             }
             
             .task {
@@ -74,10 +71,10 @@ extension HomeView {
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
-                viewModel.showProfile.toggle()
+                viewModel.profilePresented.toggle()
             } label: {
                 Image(systemName: "person.fill")
-            } .sheet(isPresented: $viewModel.showProfile) {
+            } .sheet(isPresented: $viewModel.profilePresented) {
                 ProfileView()
                     .presentationDetents([.large])
             }
@@ -93,7 +90,7 @@ extension HomeView {
                     Image(systemName: "square.grid.2x2")
                 }
                 Button {
-                    viewModel.showSearch.toggle()
+//                    viewModel.profilePresented.toggle()
                 } label: {
                     Image(systemName: "magnifyingglass")
                 }
@@ -108,16 +105,6 @@ extension HomeView {
             if let metrics = viewModel.globalMetrics {
                 GlobalMetricsView(globalMetrics: metrics)
             }
-        }
-    }
-    
-    private var topicsSection: some View {
-        Section {
-            ForEach(viewModel.topics) { topic in
-                TopicsRow(topic: topic)
-            }
-        } header: {
-            TopicsHeader(action: viewModel.openMoreTopics)
         }
     }
     
@@ -142,22 +129,32 @@ extension HomeView {
     }
     
     private var topListSection: some View {
-        Section {
-            ForEach(viewModel.topList.prefix(viewModel.topListRows())) { item in
+        Section(
+            header: Text("Top")
+        ) {
+            ForEach(viewModel.topList.prefix(7)) { item in
                 TopListRow(token: item)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         selectedCoinId = item.id
                     }
             }
-        } header: {
-            TopListHeader(
-                actionSort: viewModel.toggleSort(by:),
-                currentSort: viewModel.currentSortType,
-                sortDirection: viewModel.sortDirection,
-                rankCtrypto: $viewModel.rankCrypto,
-                priceChange: $viewModel.priceChange
-            )
+            
+            Button {
+                viewModel.topListPresented.toggle()
+            } label: {
+                Text("Show more")
+                    .foregroundStyle(.primary)
+                    .font(.body.bold())
+                
+            }
+            .contentShape(Rectangle())
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(.gray.opacity(0.3))
+            .clipShape(.capsule)
+            .frame(maxWidth: .infinity, alignment: .center)
+            
         }
     }
 }
@@ -165,3 +162,4 @@ extension HomeView {
 #Preview {
     TabListView()
 }
+

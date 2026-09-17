@@ -62,7 +62,6 @@ struct TopListRow: View {
                 .frame(minWidth: 75, alignment: .trailing)
             }
         }
-//        .border(.blue)
     }
 }
 

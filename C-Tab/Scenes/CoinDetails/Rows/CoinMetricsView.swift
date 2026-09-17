@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct CoinMetricsView: View {
+    @State private var isPresented: Bool = false
     
     let coinMetadata: CoinMetadata
     
@@ -36,20 +37,25 @@ struct CoinMetricsView: View {
                         .foregroundStyle(.secondary)
                     
                     Spacer()
-                    
-                    HStack {
-                        Image("rankingStar")
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundStyle(.secondary)
-                        Text(                                               //coin m cap rank
-                            "No." +
-                            String(coinMetadata.marketData.marketCapRank)
-                        )
-                        .foregroundStyle(.green)
-                        .font(.callout.bold())
+                    Button {
+                        isPresented.toggle()
+                    } label: {
+                        HStack {
+                            Image("rankingStar")
+                                .renderingMode(.template)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundStyle(.secondary)
+                            Text(                                               //coin m cap rank
+                                "No." +
+                                String(coinMetadata.marketData.marketCapRank)
+                            )
+                            .foregroundStyle(.green)
+                            .font(.callout.bold())
+                            .underline()
+                        }
                     }
+                    .contentShape(Rectangle())
                 }
                 Spacer()
                 
@@ -91,6 +97,9 @@ struct CoinMetricsView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
+        }
+        .navigationDestination(isPresented: $isPresented) {
+            TopCoinsListView()
         }
     }
 }

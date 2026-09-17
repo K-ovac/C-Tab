@@ -13,37 +13,33 @@ struct TopListRow: View {
     let token: TokenList
     
     var body: some View {
-        HStack(spacing: 10) {
-            Text(String(token.marketCapRank))
-                .foregroundStyle(.secondary)
+        HStack {
+            if let url = URL(string: token.image) {
+                KFImage(url)
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .clipShape(.circle)
+            }
+            
+            VStack(alignment: .leading) {
+                Text(
+                    token.symbol.uppercased()
+                )  //token name
                 .font(.body.bold())
-            HStack {
-                if let url = URL(string: token.image) {
-                    KFImage(url)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .clipShape(.circle)
-                }
+                .foregroundStyle(.primary)
                 
-                VStack(alignment: .leading) {
-                    Text(token.symbol.uppercased())  //token name
-                        .font(.body.bold())
-                        .foregroundStyle(.primary)
-                    Text(
-                        String(
-                            token.marketCap.formatted(
-                                .number.notation(.compactName)
-                            )
-                        )
-                    ) //token market cap
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
+                Text(
+                    token.marketCap.formatted(
+                        .number.notation(.compactName)
+                    )
+                ) //token market cap
+                .font(.footnote)
+                .foregroundStyle(.secondary)
             }
             
             Spacer()
             
-            HStack(spacing: 10) {
+            HStack {
                 Text(
                     String(
                         token.currentPrice.formatted(
@@ -53,18 +49,20 @@ struct TopListRow: View {
                 )   //coin price
                 .font(.body.bold())
                 .foregroundStyle(.primary)
-                    
+                
                 Text(
                     String(
                         format: "%.2f%%", (token.priceChangePercentage24h ?? 0)
                     )
                 ) //coin price change percentage
-                    .font(.body.bold())
-                    .foregroundStyle(
-                        (token.priceChangePercentage24h ?? 0).percentChangeColor
-                    )
+                .font(.body.bold())
+                .foregroundStyle(
+                    (token.priceChangePercentage24h ?? 0).percentChangeColor
+                )
+                .frame(minWidth: 75, alignment: .trailing)
             }
         }
+//        .border(.blue)
     }
 }
 

@@ -24,45 +24,43 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            
             List {
                 marketInfoSection
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                     .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                topicsSection
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                topGainersSection
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
+                //                topicsSection
+                //                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                //                    .listRowSeparator(.hidden)
+                //                    .listRowBackground(Color.clear)
+//                topGainersSection
+//                    .listRowSeparator(.hidden)
                 topListSection
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                     .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-            } .listStyle(.grouped)
-                .scrollContentBackground(.hidden)
-                .refreshable() {
-                    viewModel.fetchData()
-                }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+//
+            }
+            .listStyle(.inset)
             
-                .navigationTitle("Markets")
-                .navigationBarTitleDisplayMode(.large)
-                .toolbar {
-                    leadingToolbar
-                    trailingToolbar
-                }
-                .navigationDestination(isPresented: $viewModel.showSearch) {
-                    SearchView()
-                }
-                .navigationDestination(isPresented: $viewModel.showMoreTopics) {
-                    MoreTopicsView()
-                }
-                .navigationDestination(item: $selectedCoinId) { coinId in
-                    CoinDetailsView(coinId: coinId)
-                }
+            .navigationTitle("Markets")
+            .navigationBarTitleDisplayMode(.large)
+            
+            .toolbar {
+                leadingToolbar
+                trailingToolbar
+            }
+            
+            .navigationDestination(isPresented: $viewModel.showSearch) {
+                SearchView()
+            }
+            .navigationDestination(isPresented: $viewModel.showMoreTopics) {
+                MoreTopicsView()
+            }
+            .navigationDestination(item: $selectedCoinId) { coinId in
+                CoinDetailsView(coinId: coinId)
+            }
+            
+            .refreshable() {
+                viewModel.fetchData()
+            }
         }
     }
 }
@@ -128,7 +126,7 @@ extension HomeView {
             header: Text("Top Gainers")
         ) {
             ForEach(viewModel.gainers.prefix(viewModel.gairensRows())) { gainer in
-                TopGainersRow(gainer: gainer)
+//                TrandingCoinsRow(gainer: gainer)
             }
         }
     }

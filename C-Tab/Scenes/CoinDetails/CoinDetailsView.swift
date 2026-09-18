@@ -64,6 +64,8 @@ struct CoinDetailsView: View {
             }
         }
         .navigationBarBackButtonHidden()
+        
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             leadingToolBar
         }

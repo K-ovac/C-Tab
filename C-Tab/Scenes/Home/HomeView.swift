@@ -83,17 +83,10 @@ extension HomeView {
     
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            HStack {
-                Button {
-                    print("category tapped")
-                } label: {
-                    Image(systemName: "square.grid.2x2")
-                }
-                Button {
-//                    viewModel.profilePresented.toggle()
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                }
+            Button {
+                viewModel.topListPresented.toggle()
+            } label: {
+                Image(systemName: "magnifyingglass")
             }
         }
     }

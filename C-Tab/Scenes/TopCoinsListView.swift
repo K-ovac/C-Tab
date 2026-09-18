@@ -17,6 +17,7 @@ struct TopCoinsListView: View {
     var body: some View {
         List {
             topListRow
+                .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .listRowInsets(
                     EdgeInsets(
@@ -27,10 +28,19 @@ struct TopCoinsListView: View {
                     )
                 )
         }
-        .listStyle(.inset)
+        .listStyle(.grouped)
+        .scrollContentBackground(.hidden)
+        
         .navigationDestination(item: $viewModel.selectedCoinId) { coinId in
             CoinDetailsView(coinId: coinId)
         }
+        
+        .toolbar(.hidden, for: .tabBar)
+        .searchable(
+            text: $viewModel.searchText,
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: "Solana, SOL"
+        )
         
         .task {
             viewModel.fetchTopList()
@@ -53,7 +63,7 @@ extension TopCoinsListView {
             )
         ) {
             ForEach(
-                viewModel.topList
+                viewModel.filteredCoins
                     .prefix(
                         viewModel.topListRows()
                     )
@@ -77,5 +87,5 @@ extension TopCoinsListView {
 }
 
 #Preview {
-//    TopCoinsListView()
+    TopCoinsListView()
 }

@@ -24,11 +24,19 @@ final class HomeViewModel: ObservableObject {
     @Published var selectedCoinId: String?
     @Published var topListPresented = false
     @Published var profilePresented = false
-    
+    @Published var searchText: String = ""
     // MARK: - Properties
     
     private var homeService: HomeService
     
+    var filteredCoins: [TokenList] {
+        if !searchText.isEmpty {
+            return topList.filter {
+                $0.symbol.localizedCaseInsensitiveContains(searchText) ||
+                $0.name.localizedCaseInsensitiveContains(searchText)
+            }
+        } else { return topList }
+    }
     
     // MARK: - Init
     

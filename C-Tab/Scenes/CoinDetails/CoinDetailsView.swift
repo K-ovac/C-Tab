@@ -86,11 +86,12 @@ extension CoinDetailsView {
                 
                 HStack(spacing: 4) {
                     Image(systemName: "chevron.left")
-                        .padding(.trailing, 10)
-                    Image(systemName: "line.horizontal.3")
+                        .padding(.trailing, 8)
+                    Image("hamburger")
+                        .resizable()
+                        .frame(width: 25, height: 25)
                     Text("\(viewModel.coinDetails?.symbol ?? "Coin")/USD".uppercased())
                 }
-                
             }
         }
     }

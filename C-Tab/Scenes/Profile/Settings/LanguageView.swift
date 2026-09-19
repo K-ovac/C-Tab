@@ -20,7 +20,7 @@ struct LanguageView: View {
                     Image(lang.icon)
                         .resizable()
                         .frame(width: 25, height: 25)
-                    Text(lang.id)
+                    Text(lang.title)
                         .foregroundStyle(.primary)
                         .font(.body)
                     
@@ -33,17 +33,15 @@ struct LanguageView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    
                     selectedLanguage = lang
                     
+                    print("LANG:", selectedLanguage)
+
+                    print("DEFAULTS:", UserDefaults.standard.string(forKey: Keys.language.value) as Any)
                 }
             }
         }
-        .navigationTitle(title)
+        .navigationTitle(LocalizedStringKey(title))
         .scrollDisabled(true)
     }
-}
-
-#Preview {
-    LanguageView(title: "Language")
 }

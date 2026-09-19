@@ -23,7 +23,7 @@ struct TopListHeader: View {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundStyle(.gray)
                         .opacity(0.3)
-                    Picker("By Rank", selection: $rankCtrypto) {
+                    Picker("topList.header.byRank.title", selection: $rankCtrypto) {
                         ForEach(RankCrypto.allCases) { rank in
                             Text(rank.id).tag(rank)
                         }
@@ -35,7 +35,7 @@ struct TopListHeader: View {
                         .foregroundStyle(.gray)
                         .opacity(0.3)
                     
-                    Picker("Price change", selection: $priceChange) {
+                    Picker("topList.header.priceChange.title", selection: $priceChange) {
                         ForEach(PriceChange.allCases) { change in
                             Text(change.id).tag(change)
                         }
@@ -48,7 +48,7 @@ struct TopListHeader: View {
                 Button {
                     actionSort(.marketCap)
                 } label: {
-                    Text("Asset/M.Cap")
+                    Text("topList.header.mCap.title")
                         .font(.system(size: 11, weight: .regular))
                     sortImage(for: .marketCap)
                 }
@@ -58,7 +58,7 @@ struct TopListHeader: View {
                     Button {
                         actionSort(.price)
                     } label: {
-                        Text("Price")
+                        Text("topList.header.price.title")
                             .font(.system(size: 11, weight: .regular))
                         sortImage(for: .price)
                     }
@@ -66,7 +66,7 @@ struct TopListHeader: View {
                     Button {
                         actionSort(.percentChange)
                     } label: {
-                        Text("24h %")
+                        Text("topList.header.percentageChange24h.title")
                             .font(.system(size: 11, weight: .regular))
                         sortImage(for: .percentChange)
                     } .padding(.leading, 20)
@@ -87,8 +87,4 @@ extension TopListHeader {
         .frame(width: 8, height: 6)
         .foregroundStyle(currentSort == type ? .blue : .secondary)
     }
-}
-
-#Preview {
-    //    TopListHeader()
 }

@@ -6,11 +6,17 @@
 //
 
 enum Language: String, Identifiable, CaseIterable {
-    case en = "English"
-    case ru = "Русский"
-    case fr = "Français"
+    case en, ru, fr
     
     var id: String { rawValue }
+    
+    var title: String {
+        switch self {
+        case .en: "English"
+        case .ru: "Русский"
+        case .fr: "Français"
+        }
+    }
     
     var icon: String {
         switch self {

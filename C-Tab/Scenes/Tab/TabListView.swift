@@ -15,17 +15,17 @@ struct TabListView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }
-            Text("Portfolio")
+            Text("tabList.portfolio.title")
                 .tag(1)
                 .tabItem {
                     Image(systemName: "folder.fill")
                 }
-            Text("Wishlist")
+            Text("tabList.watchlist.title")
                 .tag(2)
                 .tabItem {
                     Image(systemName: "star")
                 }
-            Text("Settings")
+            Text("tabList.settings.title")
                 .tag(3)
                 .tabItem {
                     Image(systemName: "gear")

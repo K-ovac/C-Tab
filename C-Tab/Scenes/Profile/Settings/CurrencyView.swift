@@ -11,7 +11,7 @@ struct CurrencyView: View {
     @AppStorage(Keys.currency.value)
     private var selectedCurrency: CurrencyPrice = .usd
     
-    let title: String
+    let title: LocalizedStringKey
     
     var body: some View {
         List {
@@ -33,7 +33,7 @@ struct CurrencyView: View {
                 }
             }
         }
-        .navigationTitle(LocalizedStringKey(title))
+        .navigationTitle(title)
         .scrollDisabled(true)
     }
 }

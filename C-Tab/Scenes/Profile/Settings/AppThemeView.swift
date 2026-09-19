@@ -11,7 +11,7 @@ struct AppThemeView: View {
     @AppStorage(Keys.appTheme.value)
     private var selectedTheme: AppTheme = .dark
     
-    let title: String
+    let title: LocalizedStringKey
     
     var body: some View {
         VStack {
@@ -39,7 +39,7 @@ struct AppThemeView: View {
                     .foregroundStyle(.primary)
                 }
             }
-            .navigationTitle(LocalizedStringKey(title))
+            .navigationTitle(title)
             .scrollDisabled(true)
         }
         .preferredColorScheme(selectedTheme.colorScheme)

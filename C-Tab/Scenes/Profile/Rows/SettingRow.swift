@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingRow: View {
     let iconName: String
-    let title: String
+    let title: LocalizedStringKey
     let value: String?
     
     var body: some View {
@@ -17,7 +17,7 @@ struct SettingRow: View {
             Image(systemName: iconName)
                 .font(.title3)
                 .frame(width: 30, alignment: .center)
-            Text(LocalizedStringKey(title))
+            Text(title)
                 .font(.body)
             
             Spacer()

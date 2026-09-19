@@ -44,8 +44,8 @@ final class ProfileViewModel: ObservableObject {
         ]
         
         profileLinks = [
-            ProfileLink(title: "Privacy Policy", iconName: "document", link: LinksConstants.privacyPolicy),
-            ProfileLink(title: "Rate Our App", iconName: "hand.thumbsup", link: LinksConstants.rateOurApp)
+            ProfileLink(title: "profile.privacyPolicy.title", iconName: "document", link: LinksConstants.privacyPolicy),
+            ProfileLink(title: "profile.rateOurApp.title", iconName: "hand.thumbsup", link: LinksConstants.rateOurApp)
         ]
     }
 }

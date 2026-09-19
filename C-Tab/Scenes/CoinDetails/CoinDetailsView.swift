@@ -53,7 +53,7 @@ struct CoinDetailsView: View {
                     }
 
                 DescriptionView(
-                    title: stat.rawValue,
+                    title: stat.title,
                     text: stat.description,
                     onClose: { selectedStat = nil }
                 )
@@ -132,7 +132,7 @@ extension CoinDetailsView {
             }
         } header: {
             if let coinMetadata = viewModel.coinDetails {
-                Text("What is \(coinMetadata.name)?")
+                Text("coinDetails.description.header.title \(coinMetadata.name)?")
             }
         }
     }

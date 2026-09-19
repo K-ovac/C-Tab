@@ -41,7 +41,7 @@ struct ProfileView: View {
 
 extension ProfileView {
     @ViewBuilder
-    private func destinationView(for destination: SettingsDestination, title: String) -> some View {
+    private func destinationView(for destination: SettingsDestination, title: LocalizedStringKey) -> some View {
         switch destination {
         case .currency:
             CurrencyView(title: title)
@@ -76,7 +76,7 @@ extension ProfileView {
             ForEach(viewModel.profileLinks) { link in
                 SettingRow(
                     iconName: link.iconName,
-                    title: link.title,
+                    title: LocalizedStringKey(link.title),
                     value: nil
                 )
                     .clipShape(Rectangle())

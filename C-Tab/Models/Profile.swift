@@ -15,7 +15,7 @@ struct Profile {
 
 struct ProfileSetting: Identifiable {
     let id = UUID()
-    let title: String
+    let title: LocalizedStringKey
     let iconName: String
     let value: String?
     let destination: SettingsDestination

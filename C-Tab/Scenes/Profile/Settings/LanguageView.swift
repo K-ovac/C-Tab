@@ -11,7 +11,7 @@ struct LanguageView: View {
     @AppStorage(Keys.language.value)
     private var selectedLanguage: Language = .en
     
-    let title: String
+    let title: LocalizedStringKey
     
     var body: some View {
         List {
@@ -41,7 +41,7 @@ struct LanguageView: View {
                 }
             }
         }
-        .navigationTitle(LocalizedStringKey(title))
+        .navigationTitle(title)
         .scrollDisabled(true)
     }
 }

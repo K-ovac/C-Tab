@@ -21,11 +21,10 @@ struct CoinStatisticsView: View {
             ForEach(CoinStatistics.allCases) { stat in
                 VStack(alignment: .leading) {
                     Button {
-                        print("BUTTON PRESSED:", stat.rawValue)
                         onSelect(stat)
                     } label: {
                         HStack {
-                            Text(stat.rawValue)
+                            Text(stat.title)
                             Image(systemName: "info.circle")
                         }
                         .font(.footnote)

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct DescriptionView: View {
-    let title: String
-    let text: String
+    let title: LocalizedStringKey
+    let text: LocalizedStringKey
     let onClose: () -> Void
     
     var body: some View {

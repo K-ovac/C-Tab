@@ -20,10 +20,9 @@ struct ProfileView: View {
                         ProfileRow()
                     }
                     settingsSection
-                        .listRowSeparator(.hidden)
                     linksSection
                 }
-                Text("profile.appVersion.title" + Constants.appVersion)
+                Text("profile.appVersion.title \(Constants.appVersion)")
             }
             .foregroundStyle(.primary)
             .navigationTitle("profile.title")

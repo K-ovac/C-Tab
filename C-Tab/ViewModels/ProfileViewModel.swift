@@ -38,9 +38,9 @@ final class ProfileViewModel: ObservableObject {
         )
         
         profileSettings = [
-            ProfileSetting(title: String(localized: "profile.currency.title"), iconName: "dollarsign.circle", value: selectedCurrency, destination: .currency),
-            ProfileSetting(title: String(localized: "profile.appTheme.title"), iconName: "lightbulb.min", value: selectedTheme, destination: .appTheme),
-            ProfileSetting(title: String(localized: "profile.language.title"), iconName: "translate", value: selectedLanguage.title, destination: .language),
+            ProfileSetting(title: "profile.currency.title", iconName: "dollarsign.circle", value: selectedCurrency, destination: .currency),
+            ProfileSetting(title: "profile.appTheme.title", iconName: "lightbulb.min", value: selectedTheme, destination: .appTheme),
+            ProfileSetting(title: "profile.language.title", iconName: "translate", value: selectedLanguage.title, destination: .language),
         ]
         
         profileLinks = [

@@ -33,7 +33,7 @@ struct CurrencyView: View {
                 }
             }
         }
-        .navigationTitle(title)
+        .navigationTitle(LocalizedStringKey(title))
         .scrollDisabled(true)
     }
 }

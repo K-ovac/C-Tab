@@ -39,7 +39,7 @@ struct AppThemeView: View {
                     .foregroundStyle(.primary)
                 }
             }
-            .navigationTitle(title)
+            .navigationTitle(LocalizedStringKey(title))
             .scrollDisabled(true)
         }
         .preferredColorScheme(selectedTheme.colorScheme)

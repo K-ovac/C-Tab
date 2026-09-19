@@ -17,7 +17,7 @@ struct SettingRow: View {
             Image(systemName: iconName)
                 .font(.title3)
                 .frame(width: 30, alignment: .center)
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.body)
             
             Spacer()
@@ -28,6 +28,7 @@ struct SettingRow: View {
                     .foregroundStyle(.secondary)
             } else {
                 Image(systemName: "arrow.up.forward.app")
+                    .foregroundStyle(.secondary)
             }
         }
     }

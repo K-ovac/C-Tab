@@ -90,6 +90,7 @@ extension CoinDetailsView {
                     Image(systemName: "chevron.left")
                         .padding(.trailing, 8)
                     Image("hamburger")
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 25, height: 25)
                     Text("\(viewModel.coinDetails?.symbol ?? "Coin")/USD".uppercased())

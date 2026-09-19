@@ -23,10 +23,10 @@ struct ProfileView: View {
                         .listRowSeparator(.hidden)
                     linksSection
                 }
-                Text("App Version " + Constants.appVersion)
+                Text("profile.appVersion.title" + Constants.appVersion)
             }
             .foregroundStyle(.primary)
-            .navigationTitle("Profile")
+            .navigationTitle("profile.title")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

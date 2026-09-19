@@ -37,7 +37,3 @@ struct CurrencyView: View {
         .scrollDisabled(true)
     }
 }
-
-#Preview {
-    CurrencyView(title: "Currency")
-}

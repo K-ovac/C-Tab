@@ -64,18 +64,3 @@ struct TopListRow: View {
         }
     }
 }
-
-#Preview {
-    TopListRow(
-        token: TokenList(
-            id: "bitcoin",
-            symbol: "btc",
-            name: "Bitcoin",
-            image: "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
-            currentPrice: 77171,
-            marketCap: 1549652231921,
-            marketCapRank: 100,
-            priceChangePercentage24h: 0.6099
-        )
-    )
-}

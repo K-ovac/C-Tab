@@ -32,7 +32,3 @@ struct SettingRow: View {
         }
     }
 }
-
-#Preview {
-    SettingRow(iconName: "globe", title: "Currency", value: "Rub")
-}

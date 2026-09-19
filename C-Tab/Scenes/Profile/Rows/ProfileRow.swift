@@ -15,9 +15,9 @@ struct ProfileRow: View {
                 .frame(width: 50, height: 50)
                 .foregroundStyle(.gray)
             VStack(alignment: .leading, spacing: 3) {
-                Text("@username")
+                Text("profile.username.title")
                     .font(.headline)
-                Text("email@mail.com")
+                Text("profile.email.title")
                     .font(.subheadline)
             }
             Spacer()
@@ -26,7 +26,7 @@ struct ProfileRow: View {
                     
                 } label: {
                     HStack {
-                        Text("Sign Out")
+                        Text("profile.signButton.title")
                         Image(systemName: "rectangle.portrait.and.arrow.forward")
                     }
                     .foregroundStyle(.red)
@@ -34,8 +34,4 @@ struct ProfileRow: View {
             }
         }
     }
-}
-
-#Preview {
-    ProfileRow()
 }

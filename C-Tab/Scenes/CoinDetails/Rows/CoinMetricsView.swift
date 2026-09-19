@@ -61,7 +61,7 @@ struct CoinMetricsView: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Last price")
+                        Text("coinMetrics.lastPrice.title")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                         Text(
@@ -76,7 +76,7 @@ struct CoinMetricsView: View {
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Text("24h %")
+                        Text("coinMetrics.percentageChange24h.title")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                         Text(
@@ -102,33 +102,4 @@ struct CoinMetricsView: View {
             TopCoinsListView()
         }
     }
-}
-
-#Preview {
-//    CoinMetricsView(
-//        coinMetadata: CoinMetadata(
-//            id: "ethereum",
-//            name: "Ethereum",
-//            symbol: "eth",
-//            description: CoinDescription(
-//                en: "bla bla bla",
-//                ru: "",
-//                zh: ""
-//            ),
-//            image: CoinImage(
-//                small: "https://coin-images.coingecko.com/coins/images/279/small/ethereum.png?1696501628"
-//            ),
-//            marketData: CoinMarketData(
-//                currentPrice: CoinCurrentPrice(
-//                    usd: 2562.45
-//                ),
-//                marketCapRank: 2,
-//                priceChangePercentage24h: -1.87623
-//            ),
-//            links: CoinLinks(
-//                homepage: ["https://www.ethereum.org/"]
-//            ),
-//            
-//        )
-//    )
 }

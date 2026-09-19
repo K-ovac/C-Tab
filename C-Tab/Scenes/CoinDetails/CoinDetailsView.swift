@@ -99,11 +99,7 @@ extension CoinDetailsView {
     }
     
     private var warningTitle: some View {
-        Text(
-            """
-            *The token information and pricing data on this page are sourced from third parties (e.g, CoinGecko) and are for reference only. This app makes no warranties and does not constitute investment advice.
-            """
-        )
+        Text("coinDetails.warningTitle.title")
         .foregroundStyle(.secondary)
         .font(.footnote)
     }
@@ -125,7 +121,7 @@ extension CoinDetailsView {
                         .lineLimit(isExpanded ? nil : 3)
                     
                     Button(
-                        isExpanded ? "Hide" : "Show More"
+                        isExpanded ? "coinDetails.aboutToken.button.title.less" : "coinDetails.aboutToken.button.title.more"
                     ) {
                         isExpanded.toggle()
                     }
@@ -162,7 +158,7 @@ extension CoinDetailsView {
                     HStack() {
                         Image(systemName: "globe")
                             .foregroundStyle(.white)
-                        Text("Website")
+                        Text("coinDetails.links.website.title")
                             .foregroundStyle(.white)
                             .font(.body)
                     }

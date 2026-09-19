@@ -59,7 +59,3 @@ struct CoinStatisticsView: View {
         }
     }
 }
-
-#Preview {
-    //CoinStatisticsView()
-}

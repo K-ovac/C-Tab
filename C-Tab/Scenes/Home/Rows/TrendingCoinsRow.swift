@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct TrandingCoinsRow: View {
+struct TrendingCoinsRow: View {
     let coin: TrendingCoin
         
     var body: some View {
@@ -48,22 +48,4 @@ struct TrandingCoinsRow: View {
         .font(.body)
         .bold()
     }
-}
-
-#Preview {
-    TrandingCoinsRow(
-        coin: TrendingCoin(
-            id: "zcash",
-            symbol: "ZEC",
-            small: "https://coin-images.coingecko.com/coins/images/486/small/Brandmark-Yellow_%281%29.png?1785810558",
-            data: TrendingCoinData(
-                price: 1471.460312657549,
-                priceChangePercentage24h: TrendingCoinPriceChangePercentage24h(
-                    btc: 14.998297132365183,
-                    usd: 16.324883650304777,
-                    eur: 16.933752851653466
-                )
-            )
-        )
-    )
 }

@@ -22,8 +22,8 @@ final class ProfileViewModel: ObservableObject {
         get { storage.currentTheme }
     }
     
-    var selectedLanguage: String {
-        get { storage.currentLanguage }
+    var selectedLanguage: Language {
+        Language(rawValue: storage.currentLanguage) ?? .en
     }
     
     init() {
@@ -38,9 +38,9 @@ final class ProfileViewModel: ObservableObject {
         )
         
         profileSettings = [
-            ProfileSetting(title: "Currency", iconName: "dollarsign.circle", value: selectedCurrency, destination: .currency),
-            ProfileSetting(title: "App Theme", iconName: "lightbulb.min", value: selectedTheme, destination: .appTheme),
-            ProfileSetting(title: "Language", iconName: "translate", value: selectedLanguage, destination: .language),
+            ProfileSetting(title: String(localized: "profile.currency.title"), iconName: "dollarsign.circle", value: selectedCurrency, destination: .currency),
+            ProfileSetting(title: String(localized: "profile.appTheme.title"), iconName: "lightbulb.min", value: selectedTheme, destination: .appTheme),
+            ProfileSetting(title: String(localized: "profile.language.title"), iconName: "translate", value: selectedLanguage.title, destination: .language),
         ]
         
         profileLinks = [

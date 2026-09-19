@@ -45,7 +45,3 @@ struct AppThemeView: View {
         .preferredColorScheme(selectedTheme.colorScheme)
     }
 }
-
-#Preview {
-    AppThemeView(title: "App Theme")
-}

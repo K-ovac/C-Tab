@@ -15,7 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var topics: [Topic] = []
     @Published var gainers: [Gainer] = []
     @Published var topList: [TokenList] = []
-    @Published var trandingCoins: [TrendingCoinItem] = []
+    @Published var trendingCoins: [TrendingCoinItem] = []
     @Published var globalMetrics: GlobalMetrics?
     @Published var sortDirection: SortDirection = .descending
     @Published var currentSortType: SortTypes? = nil
@@ -49,9 +49,8 @@ final class HomeViewModel: ObservableObject {
     func fetchData() {
         fetchTopList()
         fetchTopGainers()
-        fetchTopics()
         fetchGlobalMetrics()
-        fetchTrandingCoins()
+        fetchTrendingCoins()
     }
     
     func fetchGlobalMetrics() {
@@ -68,13 +67,13 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func fetchTrandingCoins() {
+    func fetchTrendingCoins() {
         homeService.fetchTrendingCoins { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self.trandingCoins = data
+                    self.trendingCoins = data
                 case .failure(let error):
                     print(error)
                 }
@@ -89,7 +88,6 @@ final class HomeViewModel: ObservableObject {
                 switch result {
                 case .success(let data):
                     self.topList = data
-                    print("fetched")
                 case .failure(let error):
                     print(error)
                 }
@@ -111,37 +109,16 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func fetchTopics() {
-        topics = [
-            Topic(
-                socialImage: "x",
-                topicTitle: "Justin Sun has filed a lawsuit...",
-                topicHours: "13h"
-            ),
-            
-            Topic(
-                socialImage: "x",
-                topicTitle: "The Vovo protocol was hacked...",
-                topicHours: "17h"
-            ),
-            Topic(
-                socialImage: "bybit",
-                topicTitle: "rtbtynyumyunb",
-                topicHours: "21h"
-            )
-        ]
-    }
-    
     // MARK: - Factory Methods
     
-    func trandingCoinsColumns() -> [GridItem] {
+    func trendingCoinsColumns() -> [GridItem] {
         [
             GridItem(.flexible()),
             GridItem(.flexible())
         ]
     }
     
-    func trandingCoinsRows() -> Int {
+    func trendingCoinsRows() -> Int {
         4
     }
     

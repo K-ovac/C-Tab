@@ -27,7 +27,7 @@ struct DescriptionView: View {
             Button {
                 onClose()
             } label: {
-                Text("Got it")
+                Text("description.closeButton.title")
                     .font(.body.bold())
                     .padding(.horizontal)
                     .padding(.vertical, 8)
@@ -42,8 +42,4 @@ struct DescriptionView: View {
         
         .padding()
     }
-}
-
-#Preview {
-//    DescriptionView()
 }

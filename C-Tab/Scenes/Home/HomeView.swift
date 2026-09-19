@@ -37,7 +37,7 @@ struct HomeView: View {
             }
             .listStyle(.inset)
             
-            .navigationTitle("Markets")
+            .navigationTitle("markets.title")
             .navigationBarTitleDisplayMode(.large)
             
             .toolbar {
@@ -103,15 +103,15 @@ extension HomeView {
     
     private var trandingCoinsSection: some View {
         Section(
-            header: Text("Tranding")
+            header: Text("markets.trendingCoins.title")
         ) {
-            LazyVGrid(columns: viewModel.trandingCoinsColumns()) {
+            LazyVGrid(columns: viewModel.trendingCoinsColumns()) {
                 ForEach(
-                    viewModel.trandingCoins
-                        .prefix(viewModel.trandingCoinsRows()),
+                    viewModel.trendingCoins
+                        .prefix(viewModel.trendingCoinsRows()),
                     id: \.item
                 ) { coin in
-                    TrandingCoinsRow(coin: coin.item)
+                    TrendingCoinsRow(coin: coin.item)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             selectedCoinId = coin.item.id
@@ -123,7 +123,7 @@ extension HomeView {
     
     private var topListSection: some View {
         Section(
-            header: Text("Top")
+            header: Text("markets.topCoins.title")
         ) {
             ForEach(viewModel.topList.prefix(7)) { item in
                 TopListRow(token: item)
@@ -136,7 +136,7 @@ extension HomeView {
             Button {
                 viewModel.topListPresented.toggle()
             } label: {
-                Text("Show more")
+                Text("markets.topCoins.showMoreButton.title")
                     .foregroundStyle(.primary)
                     .font(.body.bold())
                 

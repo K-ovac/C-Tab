@@ -6,10 +6,11 @@
 //
 
 enum CurrencyPrice: String, CaseIterable, Identifiable {
+    case btc = "BTC"
     case usd = "USD"
     case rub = "RUB"
     case eur = "EUR"
-    case cyn = "CYN"
+    case cny = "CNY"
     
     var id: String { self.rawValue }
     
@@ -18,7 +19,8 @@ enum CurrencyPrice: String, CaseIterable, Identifiable {
         case .usd: return "US Dollar"
         case .rub: return "Russian Ruble"
         case .eur: return "Euro"
-        case .cyn: return "Chinese Yuan Renminbi"
+        case .cny: return "Chinese Yuan Renminbi"
+        case .btc: return "BTC"
         }
     }
     
@@ -27,7 +29,8 @@ enum CurrencyPrice: String, CaseIterable, Identifiable {
         case .usd: return "dollarsign"
         case .rub: return "rublesign"
         case .eur: return "eurosign"
-        case .cyn: return "chineseyuanrenminbisign"
+        case .cny: return "chineseyuanrenminbisign"
+        case .btc: return "bitcoinsign"
         }
     }
 }

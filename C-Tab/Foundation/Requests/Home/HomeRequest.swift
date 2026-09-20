@@ -8,8 +8,10 @@
 import Foundation
 
 struct HomeRequest: NetworkRequest {
+    var currency: String
+    
     var endpoint: URL? {
-        URL(string: RequestConstants.baseURL + "coins/markets?vs_currency=usd")
+        URL(string: RequestConstants.baseURL + "coins/markets?vs_currency=\(currency)")
     }
     
     var httpMethod: HttpMethod { .get }
@@ -32,8 +34,10 @@ struct TopGainersRequest: NetworkRequest {
 }
 
 struct TrendingCoinsRequest: NetworkRequest {
+    var currency: String
+    
     var endpoint: URL? {
-        URL(string: RequestConstants.baseURL + "search/trending")
+        URL(string: RequestConstants.baseURL + "search/trending?vs_currency=\(currency)")
     }
     
     var httpMethod: HttpMethod { .get }

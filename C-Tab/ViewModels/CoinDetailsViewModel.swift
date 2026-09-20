@@ -14,6 +14,11 @@ final class CoinDetailsViewModel: ObservableObject {
     
     private var coinDetailsServise: CoinDetailsService
     private let coinId: String
+    private var storage = UserDefaultsService.shared
+    
+    var selectedCurrency: String {
+        get { storage.currentCurrency }
+    }
     
     init(coinDetailsServise: CoinDetailsService, coinId: String) {
         self.coinDetailsServise = coinDetailsServise

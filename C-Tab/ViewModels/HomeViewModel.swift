@@ -28,6 +28,7 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Properties
     
     private var homeService: HomeService
+    private var storage = UserDefaultsService.shared
     
     var filteredCoins: [TokenList] {
         if !searchText.isEmpty {
@@ -36,6 +37,10 @@ final class HomeViewModel: ObservableObject {
                 $0.name.localizedCaseInsensitiveContains(searchText)
             }
         } else { return topList }
+    }
+    
+    var selectedCurrency: String {
+        get { storage.currentCurrency }
     }
     
     // MARK: - Init
@@ -68,7 +73,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     func fetchTrendingCoins() {
-        homeService.fetchTrendingCoins { [weak self] result in
+        homeService.fetchTrendingCoins(currency: selectedCurrency) { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -82,7 +87,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     func fetchTopList() {
-        homeService.fetchTopList { [weak self] result in
+        homeService.fetchTopList(currency: selectedCurrency) { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {

@@ -26,6 +26,8 @@ struct TrendingCoinPriceChangePercentage24h: Codable, Hashable {
     let btc: Double?
     let usd: Double?
     let eur: Double?
+    let rub: Double?
+    let cny: Double?
 }
 
 struct TrendingCoinItem: Codable, Hashable {
@@ -34,4 +36,24 @@ struct TrendingCoinItem: Codable, Hashable {
 
 struct TrendingCoinsProvider: Codable, Hashable {
     let coins: [TrendingCoinItem]
+}
+
+extension TrendingCoinPriceChangePercentage24h {
+    func currency(for currency: String) -> Double? {
+        let currencyPrice = CurrencyPrice(rawValue: currency)
+        switch currencyPrice {
+        case .usd:
+            return usd
+        case .rub:
+            return rub
+        case .eur:
+            return eur
+        case .cny:
+            return cny
+        case .btc:
+            return btc
+        case nil:
+            return usd
+        }
+    }
 }

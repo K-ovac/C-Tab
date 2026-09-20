@@ -10,6 +10,7 @@ import Kingfisher
 
 struct TrendingCoinsRow: View {
     let coin: TrendingCoin
+    let currency: String
         
     var body: some View {
         HStack {
@@ -22,7 +23,7 @@ struct TrendingCoinsRow: View {
             
             Text(
                 coin.data.price.formatted(
-                    .currency(code: "USD")
+                    .currency(code: currency)
                 )
             )
             
@@ -31,13 +32,13 @@ struct TrendingCoinsRow: View {
             Text(
                 String(
                     format: "%.2f%%",
-                    coin.data.priceChangePercentage24h.usd ?? 0
+                    coin.data.priceChangePercentage24h.currency(for: currency) ?? 0
                 )
             )
             .padding(4)
             .frame(alignment: .center)
             .foregroundStyle(.white.opacity(0.8))
-            .background((coin.data.priceChangePercentage24h.usd ?? 0).percentChangeColor)
+            .background((coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentChangeColor)
             .cornerRadius(8)
             
         }

@@ -74,7 +74,7 @@ extension TopCoinsListView {
                         .foregroundColor(.secondary)
                         .frame(minWidth: 20, alignment: .center)
                     
-                    TopListRow(token: coin)
+                    TopListRow(token: coin, currency: viewModel.selectedCurrency)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             viewModel.selectedCoinId = coin.id

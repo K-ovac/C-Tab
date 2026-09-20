@@ -17,10 +17,10 @@ typealias TrendingCoinsCompletion = (Result<[TrendingCoinItem], Error>) -> Void
 // MARK: - Protocol HomeServiceData
 
 protocol HomeServiceData {
-    func fetchTopList(completion: @escaping TopListCompletion)
+    func fetchTopList(currency: String, completion: @escaping TopListCompletion)
     func fetchTopGainers(completion: @escaping TopGainerCompletion)
     func fetchGlobalMetrics(completion: @escaping GlobalMetricsCompletion)
-    func fetchTrendingCoins(completion: @escaping TrendingCoinsCompletion)
+    func fetchTrendingCoins(currency: String, completion: @escaping TrendingCoinsCompletion)
 }
 
 // MARK: - HomeService
@@ -39,8 +39,8 @@ final class HomeService: HomeServiceData {
     
     // MARK: - Fetch Top List
     
-    func fetchTopList(completion: @escaping TopListCompletion) {
-        let request = HomeRequest()
+    func fetchTopList(currency: String, completion: @escaping TopListCompletion) {
+        let request = HomeRequest(currency: currency)
         
         guard let url = request.endpoint else {
             completion(.failure(NetworkError.urlSessionError))
@@ -97,8 +97,8 @@ final class HomeService: HomeServiceData {
         }
     }
     
-    func fetchTrendingCoins(completion: @escaping TrendingCoinsCompletion) {
-        let request = TrendingCoinsRequest()
+    func fetchTrendingCoins(currency: String, completion: @escaping TrendingCoinsCompletion) {
+        let request = TrendingCoinsRequest(currency: currency)
         
         guard let url = request.endpoint else {
             completion(.failure(NetworkError.urlSessionError))

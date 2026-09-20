@@ -12,6 +12,7 @@ struct CoinMetricsView: View {
     @State private var isPresented: Bool = false
     
     let coinMetadata: CoinMetadata
+    let currency: String
     
     var body: some View {
         ZStack {
@@ -65,11 +66,10 @@ struct CoinMetricsView: View {
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                         Text(
-                            String(
-                                coinMetadata.marketData.currentPrice.usd.formatted(
-                                    .currency(code: "USD")
+                            coinMetadata.marketData.currentPrice.currency(for: currency)
+                                .formatted(
+                                    .currency(code: currency)
                                 )
-                            )
                         )
                         .font(.title.bold())
                     }

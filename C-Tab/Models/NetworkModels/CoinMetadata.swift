@@ -39,9 +39,9 @@ struct CoinMarketData: Codable {
     let currentPrice: CoinCurrentPrice
     let marketCapRank: Int
     let priceChangePercentage24h: Double?
-    let fullyDilutedValuation: CoinCurrentValue
-    let marketCap: CoinCurrentValue
-    let totalVolume: CoinCurrentValue
+    let fullyDilutedValuation: CoinCurrentPrice
+    let marketCap: CoinCurrentPrice
+    let totalVolume: CoinCurrentPrice
     let circulatingSupply: Double
     let totalSupply: Double
     let maxSupply: Int?
@@ -66,11 +66,9 @@ struct CoinMarketData: Codable {
 struct CoinCurrentPrice: Codable {
     let btc: Double
     let usd: Double
-}
-
-struct CoinCurrentValue: Codable {
-    let btc: Double
-    let usd: Double
+    let eur: Double
+    let rub: Double
+    let cny: Double
 }
 
 struct CoinLinks: Codable {
@@ -91,3 +89,22 @@ struct CoinReposUrl: Codable {
     let github: [String]
 }
 
+extension CoinCurrentPrice {
+    func currency(for currency: String) -> Double {
+        let currencyPrice = CurrencyPrice(rawValue: currency)
+        switch currencyPrice {
+        case .usd:
+            return usd
+        case .rub:
+            return rub
+        case .eur:
+            return eur
+        case .cny:
+            return cny
+        case .btc:
+            return btc
+        case nil:
+            return usd
+        }
+    }
+}

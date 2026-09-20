@@ -11,6 +11,7 @@ import Kingfisher
 struct TopListRow: View {
     
     let token: TokenList
+    let currency: String
     
     var body: some View {
         HStack {
@@ -43,7 +44,7 @@ struct TopListRow: View {
                 Text(
                     String(
                         token.currentPrice.formatted(
-                            .currency(code: "USD")
+                            .currency(code: currency)
                         )
                     )
                 )   //coin price

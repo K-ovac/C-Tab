@@ -111,7 +111,7 @@ extension HomeView {
                         .prefix(viewModel.trendingCoinsRows()),
                     id: \.item
                 ) { coin in
-                    TrendingCoinsRow(coin: coin.item)
+                    TrendingCoinsRow(coin: coin.item, currency: viewModel.selectedCurrency)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             selectedCoinId = coin.item.id
@@ -126,7 +126,7 @@ extension HomeView {
             header: Text("markets.topCoins.title")
         ) {
             ForEach(viewModel.topList.prefix(7)) { item in
-                TopListRow(token: item)
+                TopListRow(token: item, currency: viewModel.selectedCurrency)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         selectedCoinId = item.id

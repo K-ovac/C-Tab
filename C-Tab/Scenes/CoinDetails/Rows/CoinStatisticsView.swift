@@ -13,6 +13,7 @@ struct CoinStatisticsView: View {
         GridItem(.flexible())
     ]
     
+    let currency: String
     let coinMetadata: CoinMetadata
     let onSelect: (CoinStatistics) -> Void
     
@@ -33,17 +34,41 @@ struct CoinStatisticsView: View {
                     
                     switch stat {
                     case .high24h:
-                        Text(coinMetadata.marketData.high24h.usd.formatted(.currency(code: "USD")))
+                        Text(coinMetadata.marketData.high24h.currency(for: currency)
+                            .formatted(
+                                .currency(code: currency)
+                            )
+                        )
                     case .low24h:
-                        Text(coinMetadata.marketData.low24h.usd.formatted(.currency(code: "USD")))
+                        Text(coinMetadata.marketData.low24h.currency(for: currency)
+                            .formatted(
+                                .currency(code: currency)
+                            )
+                        )
                     case .marketCap:
-                        Text(coinMetadata.marketData.marketCap.usd.formatted(.currency(code: "USD")))
+                        Text(coinMetadata.marketData.marketCap.currency(for: currency)
+                            .formatted(
+                                .currency(code: currency)
+                            )
+                        )
                     case .circulatingSupply:
-                        Text(coinMetadata.marketData.circulatingSupply.formatted(.currency(code: "USD")))
+                        Text(coinMetadata.marketData.circulatingSupply
+                            .formatted(
+                                .currency(code: currency)
+                            )
+                        )
                     case .fullyDilutedValuation:
-                        Text(coinMetadata.marketData.circulatingSupply.formatted(.currency(code: "USD")))
+                        Text(coinMetadata.marketData.circulatingSupply
+                            .formatted(
+                                .currency(code: currency)
+                            )
+                        )
                     case .totalSupply:
-                        Text(coinMetadata.marketData.fullyDilutedValuation.usd.formatted(.currency(code: "USD")))
+                        Text(coinMetadata.marketData.fullyDilutedValuation.currency(for: currency)
+                            .formatted(
+                                .currency(code: currency)
+                            )
+                        )
                     case .maxSupply:
                         coinMetadata.marketData.maxSupply != nil
                         ? Text(
@@ -51,7 +76,11 @@ struct CoinStatisticsView: View {
                         )
                         : Text("∞")
                     case .totalVolume:
-                        Text(coinMetadata.marketData.totalVolume.usd.formatted(.currency(code: "USD")))
+                        Text(coinMetadata.marketData.totalVolume.currency(for: currency)
+                            .formatted(
+                                .currency(code: currency)
+                            )
+                        )
                     }
                 }
             }

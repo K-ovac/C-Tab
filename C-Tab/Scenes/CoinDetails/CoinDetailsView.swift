@@ -93,7 +93,7 @@ extension CoinDetailsView {
                         .renderingMode(.template)
                         .resizable()
                         .frame(width: 25, height: 25)
-                    Text("\(viewModel.coinDetails?.symbol ?? "Coin")/USD".uppercased())
+                    Text("\(viewModel.coinDetails?.symbol ?? "Coin")/\(viewModel.selectedCurrency)".uppercased())
                 }
             }
         }
@@ -108,7 +108,7 @@ extension CoinDetailsView {
     private var tokenMetricsView: some View {
         Section() {
             if let metrics = viewModel.coinDetails {
-                CoinMetricsView(coinMetadata: metrics)
+                CoinMetricsView(coinMetadata: metrics, currency: viewModel.selectedCurrency)
             }
             
         }
@@ -141,6 +141,7 @@ extension CoinDetailsView {
         Section {
             if let coinMetadata = viewModel.coinDetails {
                 CoinStatisticsView(
+                    currency: viewModel.selectedCurrency,
                     coinMetadata: coinMetadata,
                     onSelect: { stat in
                         selectedStat = stat

@@ -26,10 +26,6 @@ final class ProfileViewModel: ObservableObject {
         Language(rawValue: storage.currentLanguage) ?? .en
     }
     
-    init() {
-        getProfile()
-    }
-    
     func getProfile() {
         profile = Profile(
             avatar: "person.circle.fill",

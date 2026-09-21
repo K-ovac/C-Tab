@@ -35,6 +35,10 @@ struct ProfileView: View {
                     }
                 }
             }
+            
+            .task {
+                viewModel.getProfile()
+            }
         }
     }
 }

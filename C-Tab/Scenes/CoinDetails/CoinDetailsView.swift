@@ -35,8 +35,7 @@ struct CoinDetailsView: View {
                 coinDetails
                     .listRowSeparator(.hidden)
             }
-            .listStyle(.grouped)
-            .scrollContentBackground(.hidden)
+            .listStyle(.inset)
             
             if let stat = selectedStat {
                 Color.black.opacity(0.4)
@@ -102,22 +101,24 @@ extension CoinDetailsView {
     
     @ViewBuilder
     private var coinDetailsContent: some View {
+        warningTitle
         tokenMetricsView
         coinStatistics
         aboutToken
         coinLinks
     }
     
+    private var warningTitle: some View {
+        Text("coinDetails.warningTitle.title")
+            .foregroundStyle(.secondary)
+            .font(.footnote)
+    }
+    
     private var tokenMetricsView: some View {
-        Section(
-            header: Text("coinDetails.warningTitle.title")
-                .foregroundStyle(.secondary)
-                .font(.footnote)
-        ) {
+        Section {
             if let metrics = viewModel.coinDetails {
                 CoinMetricsView(coinMetadata: metrics, currency: viewModel.selectedCurrency)
             }
-            
         }
     }
     

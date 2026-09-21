@@ -16,7 +16,7 @@ struct DescriptionView: View {
         VStack(alignment: .leading) {
             Text(title)
                 .foregroundStyle(.primary)
-                .font(.title)
+                .font(.title2)
                 .padding(.bottom)
             
             Text(text)

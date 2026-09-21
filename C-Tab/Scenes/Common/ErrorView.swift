@@ -16,12 +16,9 @@ struct ErrorView: View {
             Button {
                 onRetry()
             } label: {
-                HStack {
-                    Text("error.button.retry.title")
-                        .font(.body)
-                    Image(systemName: "square.and.arrow.down")
-                }
-                .foregroundStyle(.primary)
+                Text("error.button.retry.title")
+                    .font(.body)
+                    .foregroundStyle(.primary)
             }
             .padding(.horizontal)
             .padding(.vertical, 8)

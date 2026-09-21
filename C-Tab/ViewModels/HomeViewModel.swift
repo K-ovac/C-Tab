@@ -70,7 +70,8 @@ final class HomeViewModel: ObservableObject {
                     self.globalMetrics = data
                     self.globalMetricsState = .loaded
                 case .failure(let error):
-                    print(error)
+                    self.globalMetricsState = .failure(error)
+                    break
                 }
             }
         }
@@ -87,7 +88,8 @@ final class HomeViewModel: ObservableObject {
                     self.trendingCoins = data
                     self.trendingCoinsState = .loaded
                 case .failure(let error):
-                    print(error)
+                    self.topListState = .failure(error)
+                    break
                 }
             }
         }
@@ -105,6 +107,7 @@ final class HomeViewModel: ObservableObject {
                     self.topListState = .loaded
                 case .failure(let error):
                     self.topListState = .failure(error)
+                    break
                 }
             }
         }

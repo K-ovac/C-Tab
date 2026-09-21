@@ -32,18 +32,11 @@ struct CoinDetailsView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             List {
-                warningTitle
-                    .listRowSeparator(.hidden)
-                tokenMetricsView
-                    .listRowSeparator(.hidden)
-                statistics
-                    .listRowSeparator(.hidden)
-                aboutToken
-                    .listRowSeparator(.hidden)
-                links
+                coinDetails
                     .listRowSeparator(.hidden)
             }
-            .listStyle(.inset)
+            .listStyle(.grouped)
+            .scrollContentBackground(.hidden)
             
             if let stat = selectedStat {
                 Color.black.opacity(0.4)
@@ -99,14 +92,28 @@ extension CoinDetailsView {
         }
     }
     
-    private var warningTitle: some View {
-        Text("coinDetails.warningTitle.title")
-        .foregroundStyle(.secondary)
-        .font(.footnote)
+    private var coinDetails: some View {
+        StateView(
+            content: coinDetailsContent,
+            state: viewModel.coinDetailsState,
+            retryAction: viewModel.fetchCoinDetails
+        )
+    }
+    
+    @ViewBuilder
+    private var coinDetailsContent: some View {
+        tokenMetricsView
+        coinStatistics
+        aboutToken
+        coinLinks
     }
     
     private var tokenMetricsView: some View {
-        Section() {
+        Section(
+            header: Text("coinDetails.warningTitle.title")
+                .foregroundStyle(.secondary)
+                .font(.footnote)
+        ) {
             if let metrics = viewModel.coinDetails {
                 CoinMetricsView(coinMetadata: metrics, currency: viewModel.selectedCurrency)
             }
@@ -137,8 +144,10 @@ extension CoinDetailsView {
         }
     }
     
-    private var statistics: some View {
-        Section {
+    private var coinStatistics: some View {
+        Section(
+            header: Text("coinDetails.statistics.header.title")
+        ) {
             if let coinMetadata = viewModel.coinDetails {
                 CoinStatisticsView(
                     currency: viewModel.selectedCurrency,
@@ -151,7 +160,7 @@ extension CoinDetailsView {
         }
     }
     
-    private var links: some View {
+    private var coinLinks: some View {
         Section {
             if let coinMetadata = viewModel.coinDetails {
                 Button {

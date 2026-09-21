@@ -57,6 +57,7 @@ struct CoinMetricsView: View {
                         }
                     }
                     .contentShape(Rectangle())
+                    .foregroundStyle(.secondary)
                 }
                 Spacer()
                 

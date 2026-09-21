@@ -16,7 +16,7 @@ struct TopCoinsListView: View {
         
     var body: some View {
         List {
-            topListRow
+            topListSection
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .listRowInsets(
@@ -52,7 +52,7 @@ struct TopCoinsListView: View {
 }
 
 extension TopCoinsListView {
-    private var topListRow: some View {
+    private var topListSection: some View {
         Section(
             header: TopListHeader(
                 actionSort: viewModel.toggleSort(by:),
@@ -62,26 +62,34 @@ extension TopCoinsListView {
                 priceChange: $viewModel.priceChange
             )
         ) {
-            ForEach(
-                viewModel.filteredCoins
-                    .prefix(
-                        viewModel.topListRows()
-                    )
-            ) { coin in
-                HStack {
-                    Text(String(coin.marketCapRank))
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .frame(minWidth: 20, alignment: .center)
-                    
-                    TopListRow(token: coin, currency: viewModel.selectedCurrency)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.selectedCoinId = coin.id
-                        }
-                }
+            StateView(
+                content: topListContent,
+                state: viewModel.topListState,
+                retryAction: viewModel.fetchTopList
+            )
+        }
+    }
+    
+    private var topListContent: some View {
+        ForEach(
+            viewModel.filteredCoins
+                .prefix(
+                    viewModel.topListRows()
+                )
+        ) { coin in
+            HStack {
+                Text(String(coin.marketCapRank))
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .frame(minWidth: 20, alignment: .center)
                 
+                TopListRow(token: coin, currency: viewModel.selectedCurrency)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        viewModel.selectedCoinId = coin.id
+                    }
             }
+            
         }
     }
 }

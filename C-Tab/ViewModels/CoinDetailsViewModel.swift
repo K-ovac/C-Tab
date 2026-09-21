@@ -11,6 +11,7 @@ import Combine
 final class CoinDetailsViewModel: ObservableObject {
     
     @Published var coinDetails: CoinMetadata?
+    @Published var coinDetailsState: ViewState = .initial
     
     private var coinDetailsServise: CoinDetailsService
     private let coinId: String
@@ -32,9 +33,9 @@ final class CoinDetailsViewModel: ObservableObject {
                 switch result {
                 case .success(let data):
                     self.coinDetails = data
-                    print(data)
+                    self.coinDetailsState = .loaded
                 case .failure(let error):
-                    print(error)
+                    self.coinDetailsState = .failure(error)
                     break
                 }
             }

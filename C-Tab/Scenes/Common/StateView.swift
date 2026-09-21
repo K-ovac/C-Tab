@@ -35,6 +35,7 @@ struct StateView<Content: View>: View {
             content
         case .failure:
             ErrorView(onRetry: retryAction)
+                .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 }

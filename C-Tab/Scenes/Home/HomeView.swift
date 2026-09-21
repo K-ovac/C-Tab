@@ -25,12 +25,12 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             List {
-                marketInfoSection
+                globalMetricsSection
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 trandingCoinsSection
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
                 topListSection
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
@@ -93,11 +93,20 @@ extension HomeView {
     
     // MARK: - Tokens List
     
-    private var marketInfoSection: some View {
+    private var globalMetricsSection: some View {
         Section {
-            if let metrics = viewModel.globalMetrics {
-                GlobalMetricsView(globalMetrics: metrics)
-            }
+            StateView(
+                content: globalMetricsContent,
+                state: viewModel.globalMetricsState,
+                retryAction: viewModel.fetchGlobalMetrics
+            )
+        }
+    }
+    
+    @ViewBuilder
+    private var globalMetricsContent: some View {
+        if let metrics = viewModel.globalMetrics {
+            GlobalMetricsView(globalMetrics: metrics)
         }
     }
     
@@ -105,18 +114,26 @@ extension HomeView {
         Section(
             header: Text("markets.trendingCoins.title")
         ) {
-            LazyVGrid(columns: viewModel.trendingCoinsColumns()) {
-                ForEach(
-                    viewModel.trendingCoins
-                        .prefix(viewModel.trendingCoinsRows()),
-                    id: \.item
-                ) { coin in
-                    TrendingCoinsRow(coin: coin.item, currency: viewModel.selectedCurrency)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            selectedCoinId = coin.item.id
-                        }
-                }
+            StateView(
+                content: trendingCoinsContent,
+                state: viewModel.trendingCoinsState,
+                retryAction: viewModel.fetchTrendingCoins
+            )
+        }
+    }
+    
+    private var trendingCoinsContent: some View {
+        LazyVGrid(columns: viewModel.trendingCoinsColumns()) {
+            ForEach(
+                viewModel.trendingCoins
+                    .prefix(viewModel.trendingCoinsRows()),
+                id: \.item
+            ) { coin in
+                TrendingCoinsRow(coin: coin.item, currency: viewModel.selectedCurrency)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedCoinId = coin.item.id
+                    }
             }
         }
     }
@@ -125,34 +142,43 @@ extension HomeView {
         Section(
             header: Text("markets.topCoins.title")
         ) {
-            ForEach(viewModel.topList.prefix(7)) { item in
-                TopListRow(token: item, currency: viewModel.selectedCurrency)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        selectedCoinId = item.id
-                    }
-            }
+            StateView(
+                content: topListContent,
+                state: viewModel.topListState,
+                retryAction: viewModel.fetchTopList
+            )
             
-            Button {
-                viewModel.topListPresented.toggle()
-            } label: {
-                Text("markets.topCoins.showMoreButton.title")
-                    .foregroundStyle(.primary)
-                    .font(.body.bold())
-                
+            if viewModel.topListState.isLoaded {
+                Button {
+                    viewModel.topListPresented.toggle()
+                } label: {
+                    Text("markets.topCoins.showMoreButton.title")
+                        .foregroundStyle(.primary)
+                        .font(.body.bold())
+                    
+                }
+                .contentShape(Rectangle())
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(.gray.opacity(0.3))
+                .clipShape(.capsule)
+                .frame(maxWidth: .infinity, alignment: .center)
             }
-            .contentShape(Rectangle())
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(.gray.opacity(0.3))
-            .clipShape(.capsule)
-            .frame(maxWidth: .infinity, alignment: .center)
-            
+        }
+    }
+    
+    private var topListContent: some View {
+        ForEach(viewModel.topList.prefix(7)) { item in
+            TopListRow(token: item, currency: viewModel.selectedCurrency)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedCoinId = item.id
+                }
         }
     }
 }
 
 #Preview {
-    TabListView()
+        TabListView()
 }
 

@@ -12,8 +12,6 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Published Properties
     
-    @Published var topics: [Topic] = []
-    @Published var gainers: [Gainer] = []
     @Published var topList: [TokenList] = []
     @Published var trendingCoins: [TrendingCoinItem] = []
     @Published var globalMetrics: GlobalMetrics?
@@ -25,6 +23,10 @@ final class HomeViewModel: ObservableObject {
     @Published var topListPresented = false
     @Published var profilePresented = false
     @Published var searchText: String = ""
+    @Published var globalMetricsState: ViewState = .initial
+    @Published var trendingCoinsState: ViewState = .initial
+    @Published var topListState: ViewState = .initial
+    
     // MARK: - Properties
     
     private var homeService: HomeService
@@ -52,19 +54,21 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Factory Methods
     
     func fetchData() {
-        fetchTopList()
-        fetchTopGainers()
         fetchGlobalMetrics()
         fetchTrendingCoins()
+        fetchTopList()
     }
     
     func fetchGlobalMetrics() {
+        globalMetricsState = .loading
+        
         homeService.fetchGlobalMetrics { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
                     self.globalMetrics = data
+                    self.globalMetricsState = .loaded
                 case .failure(let error):
                     print(error)
                 }
@@ -73,12 +77,15 @@ final class HomeViewModel: ObservableObject {
     }
     
     func fetchTrendingCoins() {
+        trendingCoinsState = .loading
+        
         homeService.fetchTrendingCoins(currency: selectedCurrency) { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
                     self.trendingCoins = data
+                    self.trendingCoinsState = .loaded
                 case .failure(let error):
                     print(error)
                 }
@@ -87,28 +94,17 @@ final class HomeViewModel: ObservableObject {
     }
     
     func fetchTopList() {
+        topListState = .loading
+        
         homeService.fetchTopList(currency: selectedCurrency) { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
                     self.topList = data
+                    self.topListState = .loaded
                 case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    func fetchTopGainers() {
-        homeService.fetchTopGainers { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self.gainers = data
-                case .failure(let error):
-                    print(error)
+                    self.topListState = .failure(error)
                 }
             }
         }

@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 final class ProfileViewModel: ObservableObject {
     @Published var profile: Profile?
     @Published var profileSettings: [ProfileSetting] = []
@@ -26,7 +27,7 @@ final class ProfileViewModel: ObservableObject {
         Language(rawValue: storage.currentLanguage) ?? .en
     }
     
-    func getProfile() {
+    func getProfile() async {
         profile = Profile(
             avatar: "person.circle.fill",
             username: "@username",

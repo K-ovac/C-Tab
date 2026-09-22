@@ -37,7 +37,7 @@ struct ProfileView: View {
             }
             
             .task {
-                viewModel.getProfile()
+                await viewModel.getProfile()
             }
         }
     }

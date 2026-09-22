@@ -53,10 +53,10 @@ struct HomeView: View {
             }
             
             .task {
-                viewModel.fetchData()
+                await viewModel.fetchData()
             }
             .refreshable() {
-                viewModel.fetchData()
+                await viewModel.fetchData()
             }
         }
     }

@@ -24,7 +24,7 @@ enum ViewState {
 struct StateView<Content: View>: View {
     let content: Content
     let state: ViewState
-    let retryAction: (() -> Void)
+    let retryAction: () async -> Void
     
     var body: some View {
         switch state {

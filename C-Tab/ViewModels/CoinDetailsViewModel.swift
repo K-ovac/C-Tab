@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 
+
+@MainActor
 final class CoinDetailsViewModel: ObservableObject {
     
     @Published var coinDetails: CoinMetadata?
@@ -26,19 +28,14 @@ final class CoinDetailsViewModel: ObservableObject {
         self.coinId = coinId
     }
     
-    func fetchCoinDetails() {
-        coinDetailsServise.fetchCoinDetails(for: coinId) { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self.coinDetails = data
-                    self.coinDetailsState = .loaded
-                case .failure(let error):
-                    self.coinDetailsState = .failure(error)
-                    break
-                }
-            }
+    func fetchCoinDetails() async {
+        coinDetailsState = .loading
+        
+        do {
+            coinDetails = try await coinDetailsServise.fetchCoinDetails(for: coinId)
+            coinDetailsState = .loaded
+        } catch {
+            coinDetailsState = .failure(error)
         }
     }
 }

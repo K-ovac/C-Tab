@@ -7,10 +7,8 @@
 
 import Foundation
 
-typealias CoinDetailsCopmletion = (Result<CoinMetadata, Error>) -> Void
-
 protocol CoinDetailsServiceData {
-    func fetchCoinDetails(for id: String, completion: @escaping CoinDetailsCopmletion)
+    func fetchCoinDetails(for id: String) async throws -> CoinMetadata
 }
 
 final class CoinDetailsService: CoinDetailsServiceData {
@@ -20,22 +18,18 @@ final class CoinDetailsService: CoinDetailsServiceData {
         self.networkClient = networkClient
     }
     
-    func fetchCoinDetails(for id: String, completion: @escaping CoinDetailsCopmletion) {
+    func fetchCoinDetails(for id: String) async throws -> CoinMetadata {
         let request = CoinDetailsRequest(id: id)
         
         guard let url = request.endpoint else {
-            completion(.failure(NetworkError.urlSessionError))
-            
-            return
+            throw NetworkError.urlSessionError
         }
         
-        networkClient.parse(url: url, type: CoinMetadata.self) { result in
-            switch result {
-            case .success(let response):
-                completion(.success(response))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        let response = try await networkClient.parse(
+            url: url,
+            type: CoinMetadata.self
+        )
+        
+        return response
     }
 }

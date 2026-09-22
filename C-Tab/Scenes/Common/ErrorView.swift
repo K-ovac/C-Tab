@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ErrorView: View {
-    let onRetry: () -> Void
+    let onRetry: () async -> Void
     
     var body: some View {
         LazyVStack {
             Text("error.load.title")
             Button {
-                onRetry()
+                Task {
+                    await onRetry()
+                }
             } label: {
                 Text("error.button.retry.title")
                     .font(.body)

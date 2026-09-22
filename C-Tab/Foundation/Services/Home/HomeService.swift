@@ -9,18 +9,17 @@ import Foundation
 
 // MARK: - Aliases
 
-typealias TopListCompletion = (Result<[TokenList], Error>) -> Void
-typealias TopGainerCompletion = (Result<[Gainer], Error>) -> Void
-typealias GlobalMetricsCompletion = (Result<GlobalMetrics, Error>) -> Void
-typealias TrendingCoinsCompletion = (Result<[TrendingCoinItem], Error>) -> Void
+//typealias TopListCompletion = (Result<[TokenList], Error>) -> Void
+//typealias TopGainerCompletion = (Result<[Gainer], Error>) -> Void
+//typealias GlobalMetricsCompletion = (Result<GlobalMetrics, Error>) -> Void
+//typealias TrendingCoinsCompletion = (Result<[TrendingCoinItem], Error>) -> Void
 
 // MARK: - Protocol HomeServiceData
 
 protocol HomeServiceData {
-    func fetchTopList(currency: String, completion: @escaping TopListCompletion)
-    func fetchTopGainers(completion: @escaping TopGainerCompletion)
-    func fetchGlobalMetrics(completion: @escaping GlobalMetricsCompletion)
-    func fetchTrendingCoins(currency: String, completion: @escaping TrendingCoinsCompletion)
+    func fetchTopList(currency: String) async throws -> [TokenList]
+    func fetchGlobalMetrics() async throws -> GlobalMetrics
+    func fetchTrendingCoins(currency: String) async throws -> [TrendingCoinItem]
 }
 
 // MARK: - HomeService
@@ -39,79 +38,52 @@ final class HomeService: HomeServiceData {
     
     // MARK: - Fetch Top List
     
-    func fetchTopList(currency: String, completion: @escaping TopListCompletion) {
-        let request = HomeRequest(currency: currency)
+    func fetchTopList(currency: String) async throws -> [TokenList] {
+        let request = HomeRequest(
+            currency: currency
+        )
         
         guard let url = request.endpoint else {
-            completion(.failure(NetworkError.urlSessionError))
-            return
+            throw NetworkError.urlSessionError
         }
         
-        networkClient.parse(url: url, type: [TokenList].self) { result in
-            switch result {
-            case .success(let response):
-                completion(.success(response))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    // MARK: - Fetch Top Gainers
-    
-    func fetchTopGainers(completion: @escaping TopGainerCompletion) {
-        let request = TopGainersRequest()
+        let response = try await networkClient.parse(
+            url: url,
+            type: [TokenList].self
+        )
         
-        guard let url = request.endpoint else {
-            completion(.failure(NetworkError.urlSessionError))
-            return
-        }
-        
-        networkClient.parse(url: url, type: TopGainerList.self) { result in
-            switch result {
-            case .success(let response):
-                completion(.success(response.data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        return response
     }
     
     // MARK: - Fetch Token Metadata
     
-    func fetchGlobalMetrics(completion: @escaping GlobalMetricsCompletion) {
+    func fetchGlobalMetrics() async throws -> GlobalMetrics {
         let request = GlobalMetricsRequest()
         
         guard let url = request.endpoint else {
-            completion(.failure(NetworkError.urlSessionError))
-            return
+            throw NetworkError.urlSessionError
         }
         
-        networkClient.parse(url: url, type: GlobalMetricsData.self) { result in
-            switch result {
-            case .success(let response):
-                completion(.success(response.data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        let response = try await networkClient.parse(
+            url: url,
+            type: GlobalMetricsData.self
+        )
+        
+        return response.data
     }
     
-    func fetchTrendingCoins(currency: String, completion: @escaping TrendingCoinsCompletion) {
+    func fetchTrendingCoins(currency: String) async throws -> [TrendingCoinItem] {
         let request = TrendingCoinsRequest(currency: currency)
         
         guard let url = request.endpoint else {
-            completion(.failure(NetworkError.urlSessionError))
-            return
+            throw NetworkError.urlSessionError
         }
         
-        networkClient.parse(url: url, type: TrendingCoinsProvider.self) { result in
-            switch result {
-            case .success(let response):
-                completion(.success(response.coins))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        let response = try await networkClient.parse(
+            url: url,
+            type: TrendingCoinsProvider.self
+        )
+        
+        return response.coins
     }
 }

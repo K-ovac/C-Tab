@@ -43,10 +43,10 @@ struct TopCoinsListView: View {
         )
         
         .task {
-            viewModel.fetchTopList()
+            await viewModel.fetchTopList()
         }
         .refreshable {
-            viewModel.fetchTopList()
+            await viewModel.fetchTopList()
         }
     }
 }

@@ -63,10 +63,10 @@ struct CoinDetailsView: View {
         }
         
         .task {
-            viewModel.fetchCoinDetails()
+            await viewModel.fetchCoinDetails()
         }
         .refreshable {
-            viewModel.fetchCoinDetails()
+            await viewModel.fetchCoinDetails()
         }
     }
 }
@@ -186,9 +186,5 @@ extension CoinDetailsView {
             }
         }
     }
-}
-
-#Preview {
-    TabListView()
 }
 

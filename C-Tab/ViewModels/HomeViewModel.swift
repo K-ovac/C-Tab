@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 final class HomeViewModel: ObservableObject {
     
     // MARK: - Published Properties
@@ -53,63 +54,49 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Factory Methods
     
-    func fetchData() {
-        fetchGlobalMetrics()
-        fetchTrendingCoins()
-        fetchTopList()
+    func fetchData() async {
+        await fetchGlobalMetrics()
+        await fetchTrendingCoins()
+        await fetchTopList()
     }
     
-    func fetchGlobalMetrics() {
+    func fetchGlobalMetrics() async {
         globalMetricsState = .loading
         
-        homeService.fetchGlobalMetrics { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self.globalMetrics = data
-                    self.globalMetricsState = .loaded
-                case .failure(let error):
-                    self.globalMetricsState = .failure(error)
-                    break
-                }
-            }
+        do {
+            globalMetrics = try await homeService.fetchGlobalMetrics()
+            globalMetricsState = .loaded
+        } catch {
+            globalMetricsState = .failure(error)
+            print(error)
         }
     }
     
-    func fetchTrendingCoins() {
+    func fetchTrendingCoins() async {
         trendingCoinsState = .loading
         
-        homeService.fetchTrendingCoins(currency: selectedCurrency) { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self.trendingCoins = data
-                    self.trendingCoinsState = .loaded
-                case .failure(let error):
-                    self.topListState = .failure(error)
-                    break
-                }
-            }
+        do {
+            trendingCoins = try await homeService.fetchTrendingCoins(
+                currency: selectedCurrency
+            )
+            trendingCoinsState = .loaded
+        } catch {
+            trendingCoinsState = .failure(error)
+            print(error)
         }
     }
     
-    func fetchTopList() {
+    func fetchTopList() async {
         topListState = .loading
         
-        homeService.fetchTopList(currency: selectedCurrency) { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self.topList = data
-                    self.topListState = .loaded
-                case .failure(let error):
-                    self.topListState = .failure(error)
-                    break
-                }
-            }
+        do {
+            topList = try await homeService.fetchTopList(
+                currency: selectedCurrency
+            )
+            topListState = .loaded
+        } catch {
+            topListState = .failure(error)
+            print(error)
         }
     }
     

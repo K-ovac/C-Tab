@@ -23,7 +23,7 @@ enum NetworkError: Error {
 // MARK: - NetworkRouting
 
 protocol NetworkRouting {
-    func fetchData(url: URL, headers: [String: String], completion: @escaping NetworkCompletion)
+    func fetchData(url: URL, headers: [String: String]) async throws -> Data
 }
 
 // MARK: - NetworkClient
@@ -82,59 +82,28 @@ struct NetworkClient: NetworkRouting {
     
     // MARK: - Factory Methods
     
-    func fetchData(url: URL,
-                   headers: [String: String] = [:],
-                   completion: @escaping NetworkCompletion
-    ) {
+    func fetchData(url: URL, headers: [String: String] = [:]) async throws -> Data {
         let request = request(url: url, headers: headers)
+        let (data, response) = try await session.data(for: request)
         
-        let task = session.dataTask(with: request) { data, response, error in
-//            print("ERROR:", error as Any)
-//            print("RESPONSE:", response as Any)
-//            print("DATA:", data as Any)
-//            print(url.absoluteString)
-            if let data = data,
-               let json = String(data: data, encoding: .utf8) {
-                print(json)
-            }
-            
-            guard let response = response as? HTTPURLResponse else {
-                completion(.failure(NetworkError.urlSessionError))
-                return
-            }
-            
-            guard NetworkClient.codeRange ~= response.statusCode else {
-                completion(.failure(NetworkError.httpStatusCode(response.statusCode)))
-                return
-            }
-            
-            if let error = error {
-                completion(.failure(NetworkError.urlRequestError(error)))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(NetworkError.urlSessionError))
-                return
-            }
-            completion(.success(data))
+        guard let response = response as? HTTPURLResponse else {
+            throw NetworkError.urlSessionError
         }
         
-        task.resume()
+        guard NetworkClient.codeRange ~= response.statusCode else {
+            throw NetworkError.httpStatusCode(response.statusCode)
+        }
+        
+        return data
     }
     
-    func parse<T: Decodable>(url: URL,
-                             type: T.Type,
-                             completion: @escaping (Result<T, Error>) -> Void
-    ) {
-        fetchData(url: url) { result in
-            switch result {
-            case .success(let data):
-                let parsed = parse(data, type: T.self)
-                completion(parsed)
-            case .failure(let error):
-                completion(.failure(error))
-            }
+    func parse<T: Decodable>(url: URL, type: T.Type) async throws -> T {
+        let data = try await fetchData(url: url)
+        
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            throw NetworkError.decodeError(error)
         }
     }
 }

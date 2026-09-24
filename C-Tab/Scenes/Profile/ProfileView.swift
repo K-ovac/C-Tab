@@ -7,10 +7,17 @@
 
 import SwiftUI
 
+//MARK: - Profile View
+
 struct ProfileView: View {
-    @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel = ProfileViewModel()
+    
+    //MARK: - Properties
+    
+    @Environment(\.dismiss)private var dismiss
+    @StateObject private var viewModel = ProfileViewModel()
     @State private var selectedLink: ProfileLink?
+    
+    //MARK: - Body
     
     var body: some View {
         NavigationStack {
@@ -43,7 +50,12 @@ struct ProfileView: View {
     }
 }
 
+//MARK: - Extension ProfileView
+
 extension ProfileView {
+    
+    //MARK: - Private Destination method
+    
     @ViewBuilder
     private func destinationView(for destination: SettingsDestination, title: LocalizedStringKey) -> some View {
         switch destination {
@@ -55,6 +67,8 @@ extension ProfileView {
             LanguageView(title: title)
         }
     }
+    
+    //MARK: - Settings Section
     
     private var settingsSection: some View {
         Section {
@@ -74,6 +88,8 @@ extension ProfileView {
             }
         }
     }
+    
+    //MARK: - Links Section
     
     private var linksSection: some View {
         Section {

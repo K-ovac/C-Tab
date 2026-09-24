@@ -6,8 +6,16 @@
 //
 import SwiftUI
 
+//MARK: - TabList
+
 struct TabListView: View {
-    @State var selected: Int = 0
+    
+    //MARK: - Properties
+    
+    @State private var selected: Int = 0
+    
+    //MARK: - Body
+    
     var body: some View {
         TabView(selection: $selected) {
             HomeView()

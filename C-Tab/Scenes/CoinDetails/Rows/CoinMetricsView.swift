@@ -8,20 +8,42 @@
 import SwiftUI
 import Kingfisher
 
+// MARK: - CoinMetricsView
+
 struct CoinMetricsView: View {
+    
+    // MARK: - Properties
+    
     @State private var isPresented: Bool = false
     
-    let coinMetadata: CoinMetadata
-    let currency: String
+    private let coinMetadata: CoinMetadata
+    private let currency: String
+    
+    init(
+        coinMetadata: CoinMetadata,
+        currency: String
+    ) {
+        self.coinMetadata = coinMetadata
+        self.currency = currency
+    }
+    
+    // MARK: - Body
     
     var body: some View {
+        
+        // MARK: - ZStack
+        
         ZStack {
             Rectangle()
                 .frame(maxHeight: .infinity)
                 .cornerRadius(12)
                 .foregroundStyle(Color.gray)
                 .opacity(0.1)
+            
             VStack(alignment: .leading) {
+                
+                // MARK: - Coin Image, Symbol, Name, Rank
+                
                 HStack {
                     if let url = URL(string: coinMetadata.image.small) {
                         KFImage(url)
@@ -38,6 +60,9 @@ struct CoinMetricsView: View {
                         .foregroundStyle(.secondary)
                     
                     Spacer()
+                    
+                    // MARK: - Coin M.Cap Rank to TopList
+                    
                     Button {
                         isPresented.toggle()
                     } label: {
@@ -59,9 +84,14 @@ struct CoinMetricsView: View {
                     .contentShape(Rectangle())
                     .foregroundStyle(.secondary)
                 }
+                
                 Spacer()
                 
+                // MARK: - Coin Price Data
+                
                 HStack {
+                    
+                    // Price
                     VStack(alignment: .leading) {
                         Text("coinMetrics.lastPrice.title")
                             .font(.footnote)
@@ -74,8 +104,10 @@ struct CoinMetricsView: View {
                         )
                         .font(.title.bold())
                     }
+                    
                     Spacer()
                     
+                    //Price change percentage 24h
                     VStack(alignment: .trailing) {
                         Text("coinMetrics.percentageChange24h.title")
                             .font(.footnote)

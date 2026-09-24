@@ -5,10 +5,14 @@
 //  Created by Максим Лозебной on 15.09.2026.
 //
 
+// MARK: - Language
+
 enum Language: String, Identifiable, CaseIterable {
     case en, ru, fr
     
     var id: String { rawValue }
+    
+    // MARK: - Language Title
     
     var title: String {
         switch self {
@@ -17,6 +21,8 @@ enum Language: String, Identifiable, CaseIterable {
         case .fr: "Français"
         }
     }
+    
+    // MARK: - Language Icon
     
     var icon: String {
         switch self {

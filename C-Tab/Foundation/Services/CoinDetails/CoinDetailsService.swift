@@ -7,16 +7,27 @@
 
 import Foundation
 
+// MARK: - CoinDetailsServiceData
+
 protocol CoinDetailsServiceData {
     func fetchCoinDetails(for id: String) async throws -> CoinMetadata
 }
 
+// MARK: - CoinDetailsService
+
 final class CoinDetailsService: CoinDetailsServiceData {
+    
+    // MARK: - Properties
+    
     private let networkClient: NetworkClient
+    
+    // MARK: - Init
     
     init(networkClient: NetworkClient) {
         self.networkClient = networkClient
     }
+    
+    // MARK: - Fetch Coin Details
     
     func fetchCoinDetails(for id: String) async throws -> CoinMetadata {
         let request = CoinDetailsRequest(id: id)

@@ -25,12 +25,21 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             List {
+                
+                // MARK: - Global Metrics
+                
                 globalMetricsSection
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                
+                // MARK: - Trending Coins
+                
                 trandingCoinsSection
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
+                
+                // MARK: - Top list
+                
                 topListSection
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
@@ -40,10 +49,14 @@ struct HomeView: View {
             .navigationTitle("markets.title")
             .navigationBarTitleDisplayMode(.large)
             
+            // MARK: - ToolBar
+            
             .toolbar {
                 leadingToolbar
                 trailingToolbar
             }
+            
+            // MARK: - NavigationDestination
             
             .navigationDestination(item: $selectedCoinId) { coinId in
                 CoinDetailsView(coinId: coinId)
@@ -51,6 +64,8 @@ struct HomeView: View {
             .navigationDestination(isPresented: $viewModel.topListPresented) {
                 TopCoinsListView()
             }
+            
+            // MARK: - FetchData
             
             .task {
                 await viewModel.fetchData()
@@ -91,7 +106,7 @@ extension HomeView {
         }
     }
     
-    // MARK: - Tokens List
+    // MARK: - Global Metrics Section
     
     private var globalMetricsSection: some View {
         Section {
@@ -103,12 +118,16 @@ extension HomeView {
         }
     }
     
+    // MARK: - Global Metrics Content
+    
     @ViewBuilder
     private var globalMetricsContent: some View {
         if let metrics = viewModel.globalMetrics {
             GlobalMetricsView(globalMetrics: metrics)
         }
     }
+    
+    // MARK: - Trending Coins Section
     
     private var trandingCoinsSection: some View {
         Section(
@@ -121,6 +140,8 @@ extension HomeView {
             )
         }
     }
+    
+    // MARK: - Trending Coins Content
     
     private var trendingCoinsContent: some View {
         LazyVGrid(columns: viewModel.trendingCoinsColumns()) {
@@ -137,6 +158,8 @@ extension HomeView {
             }
         }
     }
+    
+    // MARK: - TopList Section
     
     private var topListSection: some View {
         Section(
@@ -166,6 +189,8 @@ extension HomeView {
             }
         }
     }
+    
+    // MARK: - TopList Content
     
     private var topListContent: some View {
         ForEach(viewModel.topList.prefix(7)) { item in

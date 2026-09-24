@@ -7,13 +7,20 @@
 
 import SwiftUI
 
+// MARK: - TopCoinsListView
+
 struct TopCoinsListView: View {
+    
+    // MARK: - Properties
+    
     @StateObject private var viewModel = HomeViewModel(
         homeService: HomeService(
             networkClient: NetworkClient()
         )
     )
         
+    // MARK: - Body
+    
     var body: some View {
         List {
             topListSection
@@ -42,6 +49,8 @@ struct TopCoinsListView: View {
             prompt: "Solana, SOL"
         )
         
+        // MARK: - task fetchTopList
+        
         .task {
             await viewModel.fetchTopList()
         }
@@ -51,15 +60,20 @@ struct TopCoinsListView: View {
     }
 }
 
+// MARK: - Extension TopCoinsListView
+
 extension TopCoinsListView {
+    
+    // MARK: - Top List Section
+    
     private var topListSection: some View {
         Section(
             header: TopListHeader(
+                rankCtrypto: $viewModel.rankCrypto,
+                priceChange: $viewModel.priceChange,
                 actionSort: viewModel.toggleSort(by:),
                 currentSort: viewModel.currentSortType,
-                sortDirection: viewModel.sortDirection,
-                rankCtrypto: $viewModel.rankCrypto,
-                priceChange: $viewModel.priceChange
+                sortDirection: viewModel.sortDirection
             )
         ) {
             StateView(
@@ -69,6 +83,8 @@ extension TopCoinsListView {
             )
         }
     }
+    
+    // MARK: - Top List Content
     
     private var topListContent: some View {
         ForEach(

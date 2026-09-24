@@ -8,25 +8,32 @@
 import Foundation
 import Combine
 
+// MARK: - CoinDetailsViewModel
 
 @MainActor
 final class CoinDetailsViewModel: ObservableObject {
     
-    @Published var coinDetails: CoinMetadata?
-    @Published var coinDetailsState: ViewState = .initial
+    // MARK: - Properties
+    
+    @Published private(set) var coinDetails: CoinMetadata?
+    @Published private(set) var coinDetailsState: ViewState = .initial
     
     private var coinDetailsServise: CoinDetailsService
-    private let coinId: String
     private var storage = UserDefaultsService.shared
+    private let coinId: String
     
     var selectedCurrency: String {
         get { storage.currentCurrency }
     }
     
+    // MARK: - Init
+    
     init(coinDetailsServise: CoinDetailsService, coinId: String) {
         self.coinDetailsServise = coinDetailsServise
         self.coinId = coinId
     }
+    
+    // MARK: - Factory Methods
     
     func fetchCoinDetails() async {
         coinDetailsState = .loading

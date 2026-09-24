@@ -7,12 +7,28 @@
 
 import SwiftUI
 
+// MARK: - ErrorView
+
 struct ErrorView: View {
-    let onRetry: () async -> Void
+    
+    // MARK: - Properties
+    
+    private let onRetry: () async -> Void
+    
+    // MARK: - Init
+    
+    init(onRetry: @escaping () async -> Void) {
+        self.onRetry = onRetry
+    }
+    
+    // MARK: - Body
     
     var body: some View {
         LazyVStack {
+            //Error title
             Text("error.load.title")
+            
+            //Retry Button
             Button {
                 Task {
                     await onRetry()

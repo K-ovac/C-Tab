@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+// MARK: - Profile
+
 struct Profile {
     let avatar: String
     let username: String
     let email: String
 }
+
+// MARK: - Profile Setting
 
 struct ProfileSetting: Identifiable {
     let id = UUID()
@@ -21,10 +25,14 @@ struct ProfileSetting: Identifiable {
     let destination: SettingsDestination
 }
 
+// MARK: - Setting Destination
+
 enum SettingsDestination {
     case appTheme, currency, language
     
 }
+
+// MARK: - Profile Link
 
 struct ProfileLink: Identifiable {
     let id = UUID()

@@ -5,12 +5,16 @@
 //  Created by Максим Лозебной on 17.09.2026.
 //
 
+// MARK: - Trending Coins
+
 struct TrendingCoin: Codable, Hashable {
     let id: String
     let symbol: String
     let small: String
     let data: TrendingCoinData
 }
+
+// MARK: - Trending Coins Data
 
 struct TrendingCoinData: Codable, Hashable {
     let price: Double
@@ -22,6 +26,8 @@ struct TrendingCoinData: Codable, Hashable {
     }
 }
 
+// MARK: - Trending Coin Price Change Percentage 24h
+
 struct TrendingCoinPriceChangePercentage24h: Codable, Hashable {
     let btc: Double?
     let usd: Double?
@@ -30,13 +36,19 @@ struct TrendingCoinPriceChangePercentage24h: Codable, Hashable {
     let cny: Double?
 }
 
+// MARK: - Trending Coin Item
+
 struct TrendingCoinItem: Codable, Hashable {
     let item: TrendingCoin
 }
 
+// MARK: - Trending Coin Provider
+
 struct TrendingCoinsProvider: Codable, Hashable {
     let coins: [TrendingCoinItem]
 }
+
+// MARK: - Extension Trending Coin Price Change Percentage 24h
 
 extension TrendingCoinPriceChangePercentage24h {
     func currency(for currency: String) -> Double? {

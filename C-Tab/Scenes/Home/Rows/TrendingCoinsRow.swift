@@ -9,17 +9,34 @@ import SwiftUI
 import Kingfisher
 
 struct TrendingCoinsRow: View {
-    let coin: TrendingCoin
-    let currency: String
+    
+    // MARK: - Properties
+    
+    private let coin: TrendingCoin
+    private let currency: String
+    
+    // MARK: - Init
+    
+    init(coin: TrendingCoin, currency: String) {
+        self.coin = coin
+        self.currency = currency
+    }
+    
+    // MARK: - Body
         
     var body: some View {
         HStack {
+            
+            // MARK: - Coin Image
+            
             if let url = URL(string: coin.small) {
                 KFImage(url)
                     .resizable()
                     .frame(width: 20, height: 20)
                     .clipShape(Circle())
             }
+            
+            // MARK: - Coin Price
             
             Text(
                 coin.data.price.formatted(
@@ -28,6 +45,8 @@ struct TrendingCoinsRow: View {
             )
             
             Spacer()
+            
+            // MARK: - Coin price change percentage
             
             Text(
                 String(

@@ -8,19 +8,39 @@
 import SwiftUI
 
 struct CoinStatisticsView: View {
+    
+    // MARK: - Properties
+    
     private let colums: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
-    let currency: String
-    let coinMetadata: CoinMetadata
-    let onSelect: (CoinStatistics) -> Void
+    private let currency: String
+    private let coinMetadata: CoinMetadata
+    private let onSelect: (CoinStatistics) -> Void
+    
+    // MARK: - Init 
+    
+    init(
+        currency: String,
+        coinMetadata: CoinMetadata,
+        onSelect: @escaping (CoinStatistics) -> Void
+    ) {
+        self.currency = currency
+        self.coinMetadata = coinMetadata
+        self.onSelect = onSelect
+    }
+    
+    // MARK: - Body
     
     var body: some View {
         LazyVGrid(columns: colums, alignment: .leading, spacing: 16) {
             ForEach(CoinStatistics.allCases) { stat in
                 VStack(alignment: .leading) {
+                    
+                    // MARK: - Stat Name
+                    
                     Button {
                         onSelect(stat)
                     } label: {
@@ -31,6 +51,8 @@ struct CoinStatisticsView: View {
                         .font(.footnote)
                         .foregroundStyle(.gray)
                     }
+                    
+                    // MARK: - Stat Value
                     
                     switch stat {
                     case .high24h:

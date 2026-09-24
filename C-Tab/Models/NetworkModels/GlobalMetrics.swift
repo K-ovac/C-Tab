@@ -5,6 +5,8 @@
 //  Created by Максим Лозебной on 25.04.2026.
 //
 
+// MARK: - Global Metrics
+
 struct GlobalMetrics: Codable {
     let activeCryptocurrencies: Int
     let marketCapPercentage: MarketCapPercentage
@@ -17,11 +19,15 @@ struct GlobalMetrics: Codable {
     }
 }
 
+// MARK: - Market Cap Percentage
+
 struct MarketCapPercentage: Codable {
     let btc: Double?
     let eth: Double?
     let usdt: Double?
 }
+
+// MARK: - Global Metrics Data
 
 struct GlobalMetricsData: Codable {
     let data: GlobalMetrics

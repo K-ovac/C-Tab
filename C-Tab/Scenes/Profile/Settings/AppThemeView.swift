@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//TODO: - переработать
+
 struct AppThemeView: View {
     @AppStorage(Keys.appTheme.value)
     private var selectedTheme: AppTheme = .dark

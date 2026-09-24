@@ -8,11 +8,16 @@
 import SwiftUI
 import Combine
 
+// MARK: - ProfileViewModel
+
 @MainActor
 final class ProfileViewModel: ObservableObject {
-    @Published var profile: Profile?
-    @Published var profileSettings: [ProfileSetting] = []
-    @Published var profileLinks: [ProfileLink] = []
+    
+    // MARK: - Properties
+    
+    @Published private(set) var profile: Profile?
+    @Published private(set) var profileSettings: [ProfileSetting] = []
+    @Published private(set) var profileLinks: [ProfileLink] = []
     
     private var storage = UserDefaultsService.shared
     
@@ -27,6 +32,8 @@ final class ProfileViewModel: ObservableObject {
         Language(rawValue: storage.currentLanguage) ?? .en
     }
     
+    // MARK: - GetProfile
+    
     func getProfile() async {
         profile = Profile(
             avatar: "person.circle.fill",
@@ -35,14 +42,36 @@ final class ProfileViewModel: ObservableObject {
         )
         
         profileSettings = [
-            ProfileSetting(title: "profile.currency.title", iconName: "dollarsign.circle", value: selectedCurrency, destination: .currency),
-            ProfileSetting(title: "profile.appTheme.title", iconName: "lightbulb.min", value: selectedTheme, destination: .appTheme),
-            ProfileSetting(title: "profile.language.title", iconName: "translate", value: selectedLanguage.title, destination: .language),
+            ProfileSetting(
+                title: "profile.currency.title",
+                iconName: "dollarsign.circle",
+                value: selectedCurrency,
+                destination: .currency
+            ),
+            ProfileSetting(
+                title: "profile.appTheme.title",
+                iconName: "lightbulb.min",
+                value: selectedTheme,
+                destination: .appTheme
+            ),
+            ProfileSetting(
+                title: "profile.language.title",
+                iconName: "translate",
+                value: selectedLanguage.title,
+                destination: .language),
         ]
         
         profileLinks = [
-            ProfileLink(title: "profile.privacyPolicy.title", iconName: "document", link: LinksConstants.privacyPolicy),
-            ProfileLink(title: "profile.rateOurApp.title", iconName: "hand.thumbsup", link: LinksConstants.rateOurApp)
+            ProfileLink(
+                title: "profile.privacyPolicy.title",
+                iconName: "document",
+                link: LinksConstants.privacyPolicy
+            ),
+            ProfileLink(
+                title: "profile.rateOurApp.title",
+                iconName: "hand.thumbsup",
+                link: LinksConstants.rateOurApp
+            )
         ]
     }
 }

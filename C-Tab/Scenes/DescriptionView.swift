@@ -7,10 +7,29 @@
 
 import SwiftUI
 
+//MARK: - DescriptionView
+
 struct DescriptionView: View {
-    let title: LocalizedStringKey
-    let text: LocalizedStringKey
-    let onClose: () -> Void
+    
+    //MARK: - Properties
+    
+    private let title: LocalizedStringKey
+    private let text: LocalizedStringKey
+    private let onClose: () -> Void
+    
+    //MARK: - Init
+    
+    init(
+        title: LocalizedStringKey,
+        text: LocalizedStringKey,
+        onClose: @escaping () -> Void
+    ) {
+        self.title = title
+        self.text = text
+        self.onClose = onClose
+    }
+    
+    //MARK: - Body
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,6 +42,8 @@ struct DescriptionView: View {
                 .foregroundStyle(.primary)
                 .font(.body)
                 .padding(.bottom)
+            
+            //MARK: - Close View Button
             
             Button {
                 onClose()

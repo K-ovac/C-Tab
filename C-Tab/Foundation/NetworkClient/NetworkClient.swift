@@ -7,10 +7,6 @@
 
 import Foundation
 
-// MARK: - Aliases
-
-typealias NetworkCompletion = (Result<Data, Error>) -> Void
-
 // MARK: - NetworkError
 
 enum NetworkError: Error {
@@ -53,25 +49,17 @@ struct NetworkClient: NetworkRouting {
     
     // MARK: - Private Methods
     
-    private func parse<T: Decodable>(_ data: Data,
-                                     type _: T.Type
-    ) -> Result<T, Error> {
-        do {
-            let decoded = try decoder.decode(T.self, from: data)
-            return .success(decoded)
-        } catch {
-            return .failure(NetworkError.decodeError(error))
-        }
-    }
-    
-    private func request(url: URL,
-                         method: String = HttpMethod.get.value,
-                         headers: [String: String] = [:]
+    private func request(
+        url: URL,
+        method: String = HttpMethod.get.value,
+        headers: [String: String] = [:]
     ) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method
         
-        let allHeaders = headers.merging([RequestConstants.apiHeader: RequestConstants.apiKey]) { _, new in new }
+        let allHeaders = headers.merging(
+            [RequestConstants.apiHeader: RequestConstants.apiKey]
+        ) { _, new in new }
         
         allHeaders.forEach { key, value in
             request.addValue(value, forHTTPHeaderField: key)
@@ -82,7 +70,10 @@ struct NetworkClient: NetworkRouting {
     
     // MARK: - Factory Methods
     
-    func fetchData(url: URL, headers: [String: String] = [:]) async throws -> Data {
+    func fetchData(
+        url: URL,
+        headers: [String: String] = [:]
+    ) async throws -> Data {
         let request = request(url: url, headers: headers)
         let (data, response) = try await session.data(for: request)
         
@@ -97,7 +88,10 @@ struct NetworkClient: NetworkRouting {
         return data
     }
     
-    func parse<T: Decodable>(url: URL, type: T.Type) async throws -> T {
+    func parse<T: Decodable>(
+        url: URL,
+        type: T.Type
+    ) async throws -> T {
         let data = try await fetchData(url: url)
         
         do {

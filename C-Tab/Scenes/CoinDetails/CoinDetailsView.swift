@@ -7,7 +7,12 @@
 
 import SwiftUI
 
+// MARK: - CoinDetailsView
+
 struct CoinDetailsView: View {
+    
+    // MARK: - Properties
+    
     @Environment(\.dismiss) private var dismiss
     
     @State private var showWebsite: Bool = false
@@ -15,7 +20,9 @@ struct CoinDetailsView: View {
     @State private var selectedStat: CoinStatistics?
     @StateObject private var viewModel: CoinDetailsViewModel
     
-    let coinId: String
+    private let coinId: String
+    
+    // MARK: - Init
     
     init(coinId: String) {
         self.coinId = coinId
@@ -29,13 +36,20 @@ struct CoinDetailsView: View {
         )
     }
     
+    // MARK: - Body
+    
     var body: some View {
         ZStack(alignment: .bottom) {
+            
+            // MARK: - Coin Details
+            
             List {
                 coinDetails
                     .listRowSeparator(.hidden)
             }
             .listStyle(.inset)
+            
+            // MARK: - Show Stat DescriptionView
             
             if let stat = selectedStat {
                 Color.black.opacity(0.4)
@@ -62,6 +76,8 @@ struct CoinDetailsView: View {
             leadingToolBar
         }
         
+        // MARK: - Task fetchCoinDetails
+        
         .task {
             await viewModel.fetchCoinDetails()
         }
@@ -71,7 +87,12 @@ struct CoinDetailsView: View {
     }
 }
 
+// MARK: - Extension CoinDetailsView
+
 extension CoinDetailsView {
+    
+    // MARK: - Leading ToolBar
+    
     private var leadingToolBar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Button {
@@ -91,6 +112,8 @@ extension CoinDetailsView {
         }
     }
     
+    // MARK: - Coin Details
+    
     private var coinDetails: some View {
         StateView(
             content: coinDetailsContent,
@@ -98,6 +121,8 @@ extension CoinDetailsView {
             retryAction: viewModel.fetchCoinDetails
         )
     }
+    
+    // MARK: - CoinDetailsContent
     
     @ViewBuilder
     private var coinDetailsContent: some View {
@@ -108,11 +133,15 @@ extension CoinDetailsView {
         coinLinks
     }
     
+    // MARK: - Warning Title
+    
     private var warningTitle: some View {
         Text("coinDetails.warningTitle.title")
             .foregroundStyle(.secondary)
             .font(.footnote)
     }
+    
+    // MARK: - Coin Metrics
     
     private var tokenMetricsView: some View {
         Section {
@@ -121,6 +150,8 @@ extension CoinDetailsView {
             }
         }
     }
+    
+    // MARK: - Coin Description
     
     private var aboutToken: some View {
         Section {
@@ -145,6 +176,8 @@ extension CoinDetailsView {
         }
     }
     
+    // MARK: - Coin Stats
+    
     private var coinStatistics: some View {
         Section(
             header: Text("coinDetails.statistics.header.title")
@@ -160,6 +193,8 @@ extension CoinDetailsView {
             }
         }
     }
+    
+    // MARK: - Coin Links
     
     private var coinLinks: some View {
         Section {
@@ -187,4 +222,3 @@ extension CoinDetailsView {
         }
     }
 }
-

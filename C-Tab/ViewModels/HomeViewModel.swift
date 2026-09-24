@@ -8,14 +8,17 @@
 import SwiftUI
 import Combine
 
+// MARK: - HomeViewModel
+
 @MainActor
 final class HomeViewModel: ObservableObject {
     
     // MARK: - Published Properties
     
-    @Published var topList: [TokenList] = []
-    @Published var trendingCoins: [TrendingCoinItem] = []
-    @Published var globalMetrics: GlobalMetrics?
+    @Published private(set) var topList: [TokenList] = []
+    @Published private(set) var trendingCoins: [TrendingCoinItem] = []
+    @Published private(set) var globalMetrics: GlobalMetrics?
+    
     @Published var sortDirection: SortDirection = .descending
     @Published var currentSortType: SortTypes? = nil
     @Published var rankCrypto: RankCrypto = .top100

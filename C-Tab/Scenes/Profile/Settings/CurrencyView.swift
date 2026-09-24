@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//TODO: - переработать
+
 struct CurrencyView: View {
     @AppStorage(Keys.currency.value)
     private var selectedCurrency: CurrencyPrice = .usd

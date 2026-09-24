@@ -7,13 +7,6 @@
 
 import Foundation
 
-// MARK: - Aliases
-
-//typealias TopListCompletion = (Result<[TokenList], Error>) -> Void
-//typealias TopGainerCompletion = (Result<[Gainer], Error>) -> Void
-//typealias GlobalMetricsCompletion = (Result<GlobalMetrics, Error>) -> Void
-//typealias TrendingCoinsCompletion = (Result<[TrendingCoinItem], Error>) -> Void
-
 // MARK: - Protocol HomeServiceData
 
 protocol HomeServiceData {
@@ -55,7 +48,7 @@ final class HomeService: HomeServiceData {
         return response
     }
     
-    // MARK: - Fetch Token Metadata
+    // MARK: - Fetch Global Metrics
     
     func fetchGlobalMetrics() async throws -> GlobalMetrics {
         let request = GlobalMetricsRequest()
@@ -71,6 +64,8 @@ final class HomeService: HomeServiceData {
         
         return response.data
     }
+    
+    // MARK: - Fetch Trending Coins
     
     func fetchTrendingCoins(currency: String) async throws -> [TrendingCoinItem] {
         let request = TrendingCoinsRequest(currency: currency)

@@ -7,8 +7,21 @@
 
 import SwiftUI
 
+// MARK: - GlobalMetricsView
+
 struct GlobalMetricsView: View {
-    let globalMetrics: GlobalMetrics
+    
+    // MARK: - Properties
+    
+    private let globalMetrics: GlobalMetrics
+    
+    // MARK: - Init
+    
+    init(globalMetrics: GlobalMetrics) {
+        self.globalMetrics = globalMetrics
+    }
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {

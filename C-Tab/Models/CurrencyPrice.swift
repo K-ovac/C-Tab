@@ -5,6 +5,8 @@
 //  Created by Максим Лозебной on 15.09.2026.
 //
 
+// MARK: - Current Price
+
 enum CurrencyPrice: String, CaseIterable, Identifiable {
     case btc = "BTC"
     case usd = "USD"
@@ -13,6 +15,8 @@ enum CurrencyPrice: String, CaseIterable, Identifiable {
     case cny = "CNY"
     
     var id: String { self.rawValue }
+    
+    // MARK: - Currency Title
     
     var title: String {
         switch self {
@@ -23,6 +27,8 @@ enum CurrencyPrice: String, CaseIterable, Identifiable {
         case .btc: return "BTC"
         }
     }
+    
+    // MARK: - Currency Icon
     
     var icon: String {
         switch self {

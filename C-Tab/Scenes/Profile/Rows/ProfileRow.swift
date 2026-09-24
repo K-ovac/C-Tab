@@ -7,7 +7,12 @@
 
 import SwiftUI
 
+// MARK: - ProfileRow
+
 struct ProfileRow: View {
+    
+    // MARK: - Body
+    
     var body: some View {
         HStack {
             Image(systemName: "person.circle.fill")

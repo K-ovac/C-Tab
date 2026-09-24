@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Keys
+
 enum Keys: String {
     case currency
     case appTheme
@@ -15,12 +17,20 @@ enum Keys: String {
     var value: String { self.rawValue }
 }
 
-final class UserDefaultsService {
-    static let shared = UserDefaultsService()
+// MARK: - UserDefaultsService
+
+struct UserDefaultsService {
     
+    // MARK: - Properties
+    
+    static let shared = UserDefaultsService()
     private let storage: UserDefaults = .standard
     
+    // MARK: - Private Init
+    
     private init() {}
+    
+    // MARK: - Currency
     
     var currentCurrency: String {
         get { storage.string(
@@ -33,6 +43,8 @@ final class UserDefaultsService {
         ) }
     }
     
+    // MARK: - App Theme
+    
     var currentTheme: String {
         get { storage.string(
             forKey: Keys.appTheme.value)
@@ -43,6 +55,8 @@ final class UserDefaultsService {
             forKey: Keys.appTheme.value
         ) }
     }
+    
+    // MARK: - App Language
     
     var currentLanguage: String {
         get { storage.string(

@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+// MARK: - App Theme
+
 enum AppTheme: String, CaseIterable, Identifiable {
     case light = "Light"
     case dark = "Dark"
     
 }
 
+// MARK: - Extension App Theme
+
 extension AppTheme {
     var id: String { self.rawValue }
+    
+    // MARK: - ColorScheme
     
     var colorScheme: ColorScheme {
         switch self {

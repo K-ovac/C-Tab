@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - ViewState
 enum ViewState {
     case initial
     case loading
@@ -21,10 +22,29 @@ enum ViewState {
     }
 }
 
+// MARK: - Generic StateView
+
 struct StateView<Content: View>: View {
-    let content: Content
-    let state: ViewState
-    let retryAction: () async -> Void
+    
+    // MARK: - Properties
+    
+    private let content: Content
+    private let state: ViewState
+    private let retryAction: () async -> Void
+    
+    // MARK: - Init
+    
+    init(
+        content: Content,
+        state: ViewState,
+        retryAction: @escaping () async -> Void
+    ) {
+        self.content = content
+        self.state = state
+        self.retryAction = retryAction
+    }
+    
+    // MARK: - Body
     
     var body: some View {
         switch state {

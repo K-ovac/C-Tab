@@ -5,6 +5,8 @@
 //  Created by Максим Лозебной on 25.04.2026.
 //
 
+// MARK: - CoinMetadata
+
 struct CoinMetadata: Codable, Identifiable {
     let id: String
     let name: String
@@ -25,15 +27,21 @@ struct CoinMetadata: Codable, Identifiable {
     }
 }
 
+// MARK: - Coin Description Language
+
 struct CoinDescription: Codable {
     let en: String
     let ru: String
     let zh: String
 }
 
+// MARK: - Coin Images
+
 struct CoinImage: Codable {
     let small: String
 }
+
+// MARK: - CoinMarketData
 
 struct CoinMarketData: Codable {
     let currentPrice: CoinCurrentPrice
@@ -63,6 +71,8 @@ struct CoinMarketData: Codable {
     }
 }
 
+// MARK: - Coin Current Price
+
 struct CoinCurrentPrice: Codable {
     let btc: Double
     let usd: Double
@@ -70,6 +80,8 @@ struct CoinCurrentPrice: Codable {
     let rub: Double
     let cny: Double
 }
+
+// MARK: - Coin Links
 
 struct CoinLinks: Codable {
     let homepage: [String]
@@ -85,11 +97,18 @@ struct CoinLinks: Codable {
     }
 }
 
+// MARK: - Coin Repos Url
+
 struct CoinReposUrl: Codable {
     let github: [String]
 }
 
+// MARK: - Extension Coin Current Price
+
 extension CoinCurrentPrice {
+    
+    // MARK: - Get Currency Method
+    
     func currency(for currency: String) -> Double {
         let currencyPrice = CurrencyPrice(rawValue: currency)
         switch currencyPrice {

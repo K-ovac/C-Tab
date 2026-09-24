@@ -7,10 +7,14 @@
 
 import SwiftUI
 
+// MARK: - Coin Statistics
+
 enum CoinStatistics: String, CaseIterable, Identifiable {
     case high24h, low24h, marketCap, circulatingSupply, fullyDilutedValuation, totalSupply, totalVolume, maxSupply
     
     var id: String { rawValue }
+    
+    // MARK: - Stat Title
     
     var title: LocalizedStringKey {
         switch self {
@@ -32,6 +36,8 @@ enum CoinStatistics: String, CaseIterable, Identifiable {
             "coinDetails.stat.maxSupply"
         }
     }
+    
+    // MARK: - Stat Description
     
     var description: LocalizedStringKey {
         switch self {

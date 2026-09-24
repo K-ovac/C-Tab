@@ -7,17 +7,26 @@
 
 import SwiftUI
 
+// MARK: - TopListHeader
+
 struct TopListHeader: View {
+    
+    // MARK: - Properties
+    
+    @Binding var rankCtrypto: RankCrypto
+    @Binding var priceChange: PriceChange
     
     let actionSort: (SortTypes) -> Void
     let currentSort: SortTypes?
     let sortDirection: SortDirection
-    @Binding var rankCtrypto: RankCrypto
-    @Binding var priceChange: PriceChange
+
+    // MARK: - Body
     
     var body: some View {
         VStack(spacing: 10) {
             HStack {
+                
+                // MARK: - Rank Crypto
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
@@ -29,6 +38,8 @@ struct TopListHeader: View {
                         }
                     }
                 }
+                
+                // MARK: - Price Change
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
@@ -45,6 +56,9 @@ struct TopListHeader: View {
                 .foregroundStyle(.primary)
             
             HStack {
+                
+                // MARK: - Sort by M. Cap Rank
+                
                 Button {
                     actionSort(.marketCap)
                 } label: {
@@ -52,9 +66,13 @@ struct TopListHeader: View {
                         .font(.system(size: 11, weight: .regular))
                     sortImage(for: .marketCap)
                 }
+                
                 Spacer()
                 
                 HStack(spacing: 10) {
+                    
+                    // MARK: - Sort by Price
+                    
                     Button {
                         actionSort(.price)
                     } label: {
@@ -62,6 +80,8 @@ struct TopListHeader: View {
                             .font(.system(size: 11, weight: .regular))
                         sortImage(for: .price)
                     }
+                    
+                    // MARK: - Sort by Percent Change
                     
                     Button {
                         actionSort(.percentChange)
@@ -76,7 +96,12 @@ struct TopListHeader: View {
     }
 }
 
+// MARK: - Extension TopListHeader
+
 extension TopListHeader {
+    
+    // MARK: - Private Method Sirt Image
+    
     private func sortImage(for type: SortTypes) -> some View {
         Image(
             systemName: currentSort == type

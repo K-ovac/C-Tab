@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//TODO: - переработать
+
 struct LanguageView: View {
     @AppStorage(Keys.language.value)
     private var selectedLanguage: Language = .en

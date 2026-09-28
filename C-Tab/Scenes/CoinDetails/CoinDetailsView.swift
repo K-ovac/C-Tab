@@ -15,8 +15,8 @@ struct CoinDetailsView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State private var showWebsite: Bool = false
     @State private var isExpanded: Bool = false
+    @State private var showWebsite: Bool = false
     @State private var selectedStat: CoinStatistics?
     @StateObject private var viewModel: CoinDetailsViewModel
     
@@ -106,7 +106,10 @@ extension CoinDetailsView {
                         .renderingMode(.template)
                         .resizable()
                         .frame(width: 25, height: 25)
-                    Text("\(viewModel.coinDetails?.symbol ?? "Coin")/\(viewModel.selectedCurrency)".uppercased())
+                    Text(
+                        "\(viewModel.coinDetails?.symbol ?? "Coin")/\(viewModel.selectedCurrency)"
+                            .uppercased()
+                    )
                 }
             }
         }
@@ -146,7 +149,10 @@ extension CoinDetailsView {
     private var tokenMetricsView: some View {
         Section {
             if let metrics = viewModel.coinDetails {
-                CoinMetricsView(coinMetadata: metrics, currency: viewModel.selectedCurrency)
+                CoinMetricsView(
+                    coinMetadata: metrics,
+                    currency: viewModel.selectedCurrency
+                )
             }
         }
     }
@@ -158,10 +164,12 @@ extension CoinDetailsView {
             if let coinMetadata = viewModel.coinDetails {
                 VStack(alignment: .leading) {
                     Text(coinMetadata.description.en)
-                        .lineLimit(isExpanded ? nil : 3)
+                        .lineLimit(viewModel.descriptionLineLimit(isExpanded: isExpanded))
                     
                     Button(
-                        isExpanded ? "coinDetails.aboutToken.button.title.less" : "coinDetails.aboutToken.button.title.more"
+                        isExpanded ?
+                        "coinDetails.aboutToken.button.title.less"
+                        : "coinDetails.aboutToken.button.title.more"
                     ) {
                         isExpanded.toggle()
                     }

@@ -30,19 +30,31 @@ struct HomeView: View {
                 
                 globalMetricsSection
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowInsets(
+                        EdgeInsets(
+                            top: 0, leading: 16, bottom: 0, trailing: 16
+                        )
+                    )
                 
                 // MARK: - Trending Coins
                 
                 trandingCoinsSection
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
+                    .listRowInsets(
+                        EdgeInsets(
+                            top: 16, leading: 16, bottom: 0, trailing: 16
+                        )
+                    )
                 
                 // MARK: - Top list
                 
                 topListSection
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowInsets(
+                        EdgeInsets(
+                            top: 0, leading: 16, bottom: 0, trailing: 16
+                        )
+                    )
             }
             .listStyle(.inset)
             
@@ -59,7 +71,9 @@ struct HomeView: View {
             // MARK: - NavigationDestination
             
             .navigationDestination(item: $selectedCoinId) { coinId in
-                CoinDetailsView(coinId: coinId)
+                CoinDetailsView(
+                    coinId: coinId
+                )
             }
             .navigationDestination(isPresented: $viewModel.topListPresented) {
                 TopCoinsListView()
@@ -84,7 +98,7 @@ extension HomeView {
     // MARK: - Toolbar
     
     private var leadingToolbar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
+        ToolbarItem(placement: .topBarLeading) {
             Button {
                 viewModel.profilePresented.toggle()
             } label: {
@@ -97,7 +111,7 @@ extension HomeView {
     }
     
     private var trailingToolbar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.topListPresented.toggle()
             } label: {
@@ -123,7 +137,9 @@ extension HomeView {
     @ViewBuilder
     private var globalMetricsContent: some View {
         if let metrics = viewModel.globalMetrics {
-            GlobalMetricsView(globalMetrics: metrics)
+            GlobalMetricsView(
+                globalMetrics: metrics
+            )
         }
     }
     
@@ -150,7 +166,10 @@ extension HomeView {
                     .prefix(viewModel.trendingCoinsRows()),
                 id: \.item
             ) { coin in
-                TrendingCoinsRow(coin: coin.item, currency: viewModel.selectedCurrency)
+                TrendingCoinsRow(
+                    coin: coin.item,
+                    currency: viewModel.selectedCurrency
+                )
                     .contentShape(Rectangle())
                     .onTapGesture {
                         selectedCoinId = coin.item.id
@@ -193,8 +212,14 @@ extension HomeView {
     // MARK: - TopList Content
     
     private var topListContent: some View {
-        ForEach(viewModel.topList.prefix(7)) { item in
-            TopListRow(token: item, currency: viewModel.selectedCurrency)
+        ForEach(
+            viewModel.topList
+                .prefix(viewModel.topCoinsRows())
+        ) { item in
+            TopListRow(
+                token: item,
+                currency: viewModel.selectedCurrency
+            )
                 .contentShape(Rectangle())
                 .onTapGesture {
                     selectedCoinId = item.id

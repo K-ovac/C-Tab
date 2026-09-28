@@ -19,6 +19,8 @@ struct CoinMetricsView: View {
     private let coinMetadata: CoinMetadata
     private let currency: String
     
+    // MARK: - Init
+    
     init(
         coinMetadata: CoinMetadata,
         currency: String
@@ -56,6 +58,7 @@ struct CoinMetricsView: View {
                         .font(.title.bold())
                         .foregroundStyle(.primary)
                     Text(coinMetadata.name)                                         //coin name
+                        .lineLimit(1)
                         .font(.title2.bold())
                         .foregroundStyle(.secondary)
                     
@@ -120,7 +123,8 @@ struct CoinMetricsView: View {
                         )
                         .foregroundStyle(
                             (coinMetadata.marketData.priceChangePercentage24h ?? 0)
-                                .percentChangeColor)
+                                .percentChangeColor
+                        )
                         .font(.title.bold())
                     }
                 }

@@ -16,8 +16,8 @@ struct TopCoinsListView: View {
     @StateObject private var viewModel = HomeViewModel(
         homeService: HomeService(
             networkClient: NetworkClient()
-        )
-    )
+        ))
+    @State private var searchText: String = ""
         
     // MARK: - Body
     
@@ -44,7 +44,7 @@ struct TopCoinsListView: View {
         
         .toolbar(.hidden, for: .tabBar)
         .searchable(
-            text: $viewModel.searchText,
+            text: $searchText,
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: "Solana, SOL"
         )
@@ -63,6 +63,19 @@ struct TopCoinsListView: View {
 // MARK: - Extension TopCoinsListView
 
 extension TopCoinsListView {
+    
+    // MARK: - Search Promt
+    
+    private var filteredCoins: [TokenList] {
+        if !searchText.isEmpty {
+            return viewModel.topList.filter {
+                $0.symbol.localizedCaseInsensitiveContains(searchText) ||
+                $0.name.localizedCaseInsensitiveContains(searchText)
+            }
+        } else {
+            return viewModel.topList
+        }
+    }
     
     // MARK: - Top List Section
     
@@ -88,7 +101,7 @@ extension TopCoinsListView {
     
     private var topListContent: some View {
         ForEach(
-            viewModel.filteredCoins
+            filteredCoins
                 .prefix(
                     viewModel.topListRows()
                 )

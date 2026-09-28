@@ -26,7 +26,6 @@ final class HomeViewModel: ObservableObject {
     @Published var selectedCoinId: String?
     @Published var topListPresented = false
     @Published var profilePresented = false
-    @Published var searchText: String = ""
     @Published var globalMetricsState: ViewState = .initial
     @Published var trendingCoinsState: ViewState = .initial
     @Published var topListState: ViewState = .initial
@@ -35,15 +34,6 @@ final class HomeViewModel: ObservableObject {
     
     private var homeService: HomeService
     private var storage = UserDefaultsService.shared
-    
-    var filteredCoins: [TokenList] {
-        if !searchText.isEmpty {
-            return topList.filter {
-                $0.symbol.localizedCaseInsensitiveContains(searchText) ||
-                $0.name.localizedCaseInsensitiveContains(searchText)
-            }
-        } else { return topList }
-    }
     
     var selectedCurrency: String {
         get { storage.currentCurrency }
@@ -114,6 +104,10 @@ final class HomeViewModel: ObservableObject {
     
     func trendingCoinsRows() -> Int {
         4
+    }
+    
+    func topCoinsRows() -> Int {
+        10
     }
     
     func topListRows() -> Int {

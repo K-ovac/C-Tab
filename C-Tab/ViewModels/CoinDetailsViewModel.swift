@@ -45,4 +45,8 @@ final class CoinDetailsViewModel: ObservableObject {
             coinDetailsState = .failure(error)
         }
     }
+    
+    func descriptionLineLimit(isExpanded: Bool) -> Int? {
+        isExpanded ? nil : 3
+    }
 }

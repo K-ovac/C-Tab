@@ -8,7 +8,7 @@
 
 |      Главный экран (Markets)       |          Поиск и Фильтры          |           Детали Коина            |              Настройки              |
 | :--------------------------------: | :-------------------------------: | :-------------------------------: | :---------------------------------: |
-| `![Markets Screen]([link_to_image](https://drive.google.com/file/d/17wkSiTtGvR4iDlw39Q2pRR5IYTF0L9xD/view?usp=drive_link)` | `![Search Screen]([link_to_image](https://drive.google.com/file/d/1Br6ziYAAhqfQ-Kns9D7HZjEPPcGafcqf/view?usp=drive_link)` | `![Detail Screen]([link_to_image](https://drive.google.com/file/d/100iLyMymZhGswVRM9xRVA_OCTN1RezbN/view?usp=drive_link)` | `![Settings Screen](https://drive.google.com/file/d/13xpBH96CdAzjiik3tEKDID5eRSwEqG2J/view?usp=drive_link)` |
+| `[Markets Screen](https://drive.google.com/file/d/17wkSiTtGvR4iDlw39Q2pRR5IYTF0L9xD/view?usp=drive_link) | [Search Screen](https://drive.google.com/file/d/1Br6ziYAAhqfQ-Kns9D7HZjEPPcGafcqf/view?usp=drive_link) | [Detail Screen](https://drive.google.com/file/d/100iLyMymZhGswVRM9xRVA_OCTN1RezbN/view?usp=drive_link) | [Settings Screen](https://drive.google.com/file/d/13xpBH96CdAzjiik3tEKDID5eRSwEqG2J/view?usp=drive_link)` |
 
 ---
 
